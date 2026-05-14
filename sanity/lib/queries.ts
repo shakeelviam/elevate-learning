@@ -1,0 +1,272 @@
+import { groq } from 'next-sanity'
+import { sanityClient } from './client'
+import type {
+  SanityCourseSummary,
+  SanityCourseDetail,
+  SanityBlogPost,
+  SanityBlogPostSummary,
+  SanityTestimonial,
+  SanitySiteSettings,
+  SanityRegistration,
+  SanitySchedule,
+} from '@/types/sanity'
+
+// ── Site Settings ────────────────────────────────────────────────────────────
+
+export async function getSiteSettings(): Promise<SanitySiteSettings | null> {
+  return sanityClient.fetch(
+    groq`*[_type == "siteSettings"][0]{
+      siteName,
+      logo,
+      heroHeadline,
+      heroSubheadline,
+      heroImage,
+      aboutText,
+      contactInfo,
+      socialLinks,
+      navigation
+    }`,
+    {},
+    { next: { revalidate: 3600 } }
+  )
+}
+
+// ── Courses ──────────────────────────────────────────────────────────────────
+
+export async function getAllCourses(params?: {
+  category?: string
+  level?: string
+  search?: string
+}): Promise<SanityCourseSummary[]> {
+  const filters: string[] = ['_type == "course"']
+
+  if (params?.category) {
+    filters.push(`category == "${params.category}"`)
+  }
+  if (params?.level && params.level !== 'all') {
+    filters.push(`level == "${params.level}"`)
+  }
+
+  const filterStr = filters.join(' && ')
+
+  const courses = await sanityClient.fetch<SanityCourseSummary[]>(
+    groq`*[${filterStr}]{
+      _id,
+      title,
+      slug,
+      category,
+      level,
+      duration,
+      price,
+      featured,
+      image,
+      "excerpt": description.en[0...1],
+      "instructor": instructor->{ name, photo }
+    } | order(featured desc, _createdAt desc)`,
+    {},
+    { next: { revalidate: 300 } }
+  )
+
+  if (params?.search) {
+    const q = params.search.toLowerCase()
+    return courses.filter(
+      (c) =>
+        c.title?.en?.toLowerCase().includes(q) ||
+        c.title?.ar?.includes(params.search!)
+    )
+  }
+
+  return courses
+}
+
+export async function getFeaturedCourses(limit = 6): Promise<SanityCourseSummary[]> {
+  return sanityClient.fetch(
+    groq`*[_type == "course"] | order(featured desc, _createdAt desc)[0...$limit]{
+      _id,
+      title,
+      slug,
+      category,
+      level,
+      duration,
+      price,
+      featured,
+      image,
+      "instructor": instructor->{ name, photo },
+      "upcomingSchedule": *[_type == "schedule" && references(^._id) && startDate > now()][0]{
+        startDate,
+        location
+      }
+    }`,
+    { limit: limit - 1 },
+    { next: { revalidate: 300 } }
+  )
+}
+
+export async function getCourseBySlug(
+  slug: string,
+  locale: 'en' | 'ar' = 'en'
+): Promise<SanityCourseDetail | null> {
+  // Try both locale slugs
+  return sanityClient.fetch(
+    groq`*[_type == "course" && (slug.en.current == $slug || slug.ar.current == $slug)][0]{
+      _id,
+      title,
+      slug,
+      category,
+      level,
+      duration,
+      price,
+      description,
+      syllabus,
+      image,
+      "instructor": instructor->{
+        _id,
+        name,
+        photo,
+        bio,
+        specialties
+      },
+      "schedules": *[_type == "schedule" && references(^._id) && startDate > now()] | order(startDate asc){
+        _id,
+        startDate,
+        endDate,
+        days,
+        time,
+        location,
+        locationDetails,
+        capacity,
+        enrolledCount
+      }
+    }`,
+    { slug },
+    { next: { revalidate: 60 } }
+  )
+}
+
+export async function getCourseSlugs(): Promise<Array<{ slug: { en: { current: string }; ar: { current: string } } }>> {
+  return sanityClient.fetch(
+    groq`*[_type == "course" && defined(slug.en.current)]{
+      slug
+    }`,
+    {},
+    { next: { revalidate: 3600 } }
+  )
+}
+
+// ── Schedules ────────────────────────────────────────────────────────────────
+
+export async function getSchedulesByCourse(courseId: string): Promise<SanitySchedule[]> {
+  return sanityClient.fetch(
+    groq`*[_type == "schedule" && references($courseId) && startDate > now()] | order(startDate asc){
+      _id,
+      startDate,
+      endDate,
+      days,
+      time,
+      location,
+      capacity,
+      enrolledCount
+    }`,
+    { courseId },
+    { next: { revalidate: 60 } }
+  )
+}
+
+// ── Blog ─────────────────────────────────────────────────────────────────────
+
+export async function getBlogPosts(params?: {
+  page?: number
+  limit?: number
+}): Promise<{ posts: SanityBlogPostSummary[]; total: number }> {
+  const limit = params?.limit ?? 6
+  const page = params?.page ?? 1
+  const from = (page - 1) * limit
+  const to = from + limit - 1
+
+  const [posts, total] = await Promise.all([
+    sanityClient.fetch<SanityBlogPostSummary[]>(
+      groq`*[_type == "blog"] | order(publishedAt desc)[$from...$to]{
+        _id,
+        title,
+        slug,
+        publishedAt,
+        author,
+        excerpt,
+        image
+      }`,
+      { from, to },
+      { next: { revalidate: 300 } }
+    ),
+    sanityClient.fetch<number>(
+      groq`count(*[_type == "blog"])`,
+      {},
+      { next: { revalidate: 300 } }
+    ),
+  ])
+
+  return { posts, total }
+}
+
+export async function getBlogPostBySlug(slug: string): Promise<SanityBlogPost | null> {
+  return sanityClient.fetch(
+    groq`*[_type == "blog" && (slug.en.current == $slug || slug.ar.current == $slug)][0]{
+      _id,
+      title,
+      slug,
+      publishedAt,
+      author,
+      excerpt,
+      image,
+      body
+    }`,
+    { slug },
+    { next: { revalidate: 300 } }
+  )
+}
+
+export async function getBlogSlugs(): Promise<Array<{ slug: { en: { current: string }; ar?: { current: string } } }>> {
+  return sanityClient.fetch(
+    groq`*[_type == "blog" && defined(slug.en.current)]{
+      slug
+    }`,
+    {},
+    { next: { revalidate: 3600 } }
+  )
+}
+
+// ── Testimonials ─────────────────────────────────────────────────────────────
+
+export async function getTestimonials(): Promise<SanityTestimonial[]> {
+  return sanityClient.fetch(
+    groq`*[_type == "testimonial"] | order(_createdAt desc)[0...10]{
+      _id,
+      name,
+      quote,
+      course,
+      avatar,
+      rating
+    }`,
+    {},
+    { next: { revalidate: 3600 } }
+  )
+}
+
+// ── Registrations ─────────────────────────────────────────────────────────────
+
+export async function getRegistrationsByEmail(email: string): Promise<SanityRegistration[]> {
+  return sanityClient.fetch(
+    groq`*[_type == "registration" && email == $email] | order(submittedAt desc){
+      _id,
+      fullName,
+      email,
+      phone,
+      status,
+      submittedAt,
+      message,
+      "course": course->{ title, slug, image },
+      "schedule": schedule->{ startDate, location, time }
+    }`,
+    { email },
+    { next: { revalidate: 0 } } // Always fresh for dashboard
+  )
+}
