@@ -1,3 +1,5 @@
+import { Trophy, BookOpen, GraduationCap, Globe, type LucideIcon } from 'lucide-react'
+
 interface StatsBannerProps {
   locale: 'en' | 'ar'
   yearsValue: string
@@ -21,11 +23,11 @@ export function StatsBanner({
   studentsLabel,
   countriesLabel,
 }: StatsBannerProps) {
-  const stats = [
-    { value: yearsValue, label: yearsLabel, emoji: '🏆' },
-    { value: coursesValue, label: coursesLabel, emoji: '📚' },
-    { value: studentsValue, label: studentsLabel, emoji: '🎓' },
-    { value: countriesValue, label: countriesLabel, emoji: '🌍' },
+  const stats: { value: string; label: string; Icon: LucideIcon }[] = [
+    { value: yearsValue, label: yearsLabel, Icon: Trophy },
+    { value: coursesValue, label: coursesLabel, Icon: BookOpen },
+    { value: studentsValue, label: studentsLabel, Icon: GraduationCap },
+    { value: countriesValue, label: countriesLabel, Icon: Globe },
   ]
 
   return (
@@ -34,7 +36,9 @@ export function StatsBanner({
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat) => (
             <div key={stat.label} className="text-center">
-              <div className="text-3xl mb-1">{stat.emoji}</div>
+              <div className="flex justify-center mb-2">
+                <stat.Icon className="h-7 w-7 text-white/70" />
+              </div>
               <div className="text-3xl sm:text-4xl font-black text-white mb-1">
                 {stat.value}
               </div>

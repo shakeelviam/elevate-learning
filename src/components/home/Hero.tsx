@@ -1,11 +1,11 @@
 import Image from 'next/image'
 import { Link } from '@/i18n/navigation'
-import { ArrowRight, Play, CheckCircle2 } from 'lucide-react'
+import { ArrowRight, CheckCircle2, GraduationCap, MapPin, Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { SanitySiteSettings } from '@/types/sanity'
 import { getLocaleText } from '@/lib/utils'
 import { urlFor } from '@/sanity/lib/imageUrl'
-import { FlipBook } from './FlipBook'
+import { HeroTypewriter } from './HeroTypewriter'
 
 interface HeroProps {
   locale: 'en' | 'ar'
@@ -49,7 +49,8 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
             {/* Pre-headline pill */}
             <div className="inline-flex items-center gap-2 rounded-full bg-brand-100 px-4 py-1.5 text-sm font-semibold text-brand-700 mb-6 animate-fade-in">
               <span className="h-2 w-2 rounded-full bg-brand-500 animate-pulse" />
-              {isRtl ? '🇰🇼 الكويت — التميز في تعليم اللغات' : '🇰🇼 Kuwait — Excellence in Language Education'}
+              <MapPin className="h-3.5 w-3.5" />
+              {isRtl ? 'الكويت — التميز في تعليم اللغات' : 'Kuwait — Excellence in Language Education'}
             </div>
 
             <h1 className={`text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-[1.1] animate-fade-up ${isRtl ? 'text-right' : ''}`}>
@@ -114,14 +115,14 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
                   />
                 </div>
               ) : (
-                <FlipBook locale={locale} />
+                <HeroTypewriter locale={locale} />
               )}
 
               {/* Floating stats card */}
               <div className="absolute -bottom-6 -start-6 bg-white rounded-2xl shadow-xl p-4 border border-gray-100">
                 <div className="flex items-center gap-3">
                   <div className="h-12 w-12 rounded-xl bg-brand-50 flex items-center justify-center">
-                    <span className="text-2xl">🎓</span>
+                    <GraduationCap className="h-6 w-6 text-brand-500" />
                   </div>
                   <div>
                     <p className="text-xl font-black text-gray-900">8,000+</p>
@@ -137,7 +138,7 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
                 <div className="flex items-center gap-2">
                   <div className="flex">
                     {[1, 2, 3, 4, 5].map((s) => (
-                      <span key={s} className="text-gold-400 text-lg">★</span>
+                      <Star key={s} className="h-4 w-4 text-gold-400 fill-gold-400" />
                     ))}
                   </div>
                   <div>
