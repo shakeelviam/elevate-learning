@@ -100,7 +100,8 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
           {/* Image column */}
           <div className={`relative ${isRtl ? 'lg:order-1' : ''}`}>
             <div className="relative">
-              {/* Main image card */}
+              {/* Main image card — book-flip from top-right corner */}
+              <div className="animate-book-flip">
               <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] bg-gradient-to-br from-brand-100 to-brand-200">
                 {heroImageUrl ? (
                   <Image
@@ -122,6 +123,7 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
                   </div>
                 )}
               </div>
+              </div>{/* /animate-book-flip */}
 
               {/* Floating stats card */}
               <div className="absolute -bottom-6 -start-6 bg-white rounded-2xl shadow-xl p-4 border border-gray-100">

@@ -151,6 +151,17 @@ html[lang="ar"] h3 {
   to { background-position: 200% 0; }
 }
 
+@keyframes book-flip {
+  0%, 100% { transform: perspective(900px) rotate3d(1, -1, 0, 0deg); }
+  50%       { transform: perspective(900px) rotate3d(1, -1, 0, 15deg); }
+}
+
+.animate-book-flip {
+  animation: book-flip 4s ease-in-out infinite;
+  transform-origin: top right;
+  will-change: transform;
+}
+
 .animate-fade-up {
   animation: fadeUp 0.6s ease-out forwards;
 }
