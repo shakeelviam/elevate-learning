@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import type { SanitySiteSettings } from '@/types/sanity'
 import { getLocaleText } from '@/lib/utils'
 import { urlFor } from '@/sanity/lib/imageUrl'
+import { FlipBook } from './FlipBook'
 
 interface HeroProps {
   locale: 'en' | 'ar'
@@ -100,10 +101,9 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
           {/* Image column */}
           <div className={`relative ${isRtl ? 'lg:order-1' : ''}`}>
             <div className="relative">
-              {/* Main image card — book-flip from top-right corner */}
-              <div className="animate-book-flip">
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] bg-gradient-to-br from-brand-100 to-brand-200">
-                {heroImageUrl ? (
+              {/* Main image card / FlipBook */}
+              {heroImageUrl ? (
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3]">
                   <Image
                     src={heroImageUrl}
                     alt="Elevate Learning"
@@ -112,18 +112,10 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
                     className="object-cover"
                     priority
                   />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-brand-400 to-brand-700">
-                    <div className="text-center text-white p-8">
-                      <div className="text-8xl font-black mb-4 opacity-20">EL</div>
-                      <p className="text-xl font-bold opacity-60">
-                        {isRtl ? 'إليفيت ليرنينج' : 'Elevate Learning'}
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </div>
-              </div>{/* /animate-book-flip */}
+                </div>
+              ) : (
+                <FlipBook locale={locale} />
+              )}
 
               {/* Floating stats card */}
               <div className="absolute -bottom-6 -start-6 bg-white rounded-2xl shadow-xl p-4 border border-gray-100">

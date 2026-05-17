@@ -151,13 +151,31 @@ html[lang="ar"] h3 {
   to { background-position: 200% 0; }
 }
 
-@keyframes book-flip {
-  0%, 100% { transform: perspective(900px) rotate3d(1, -1, 0, 0deg); }
-  50%       { transform: perspective(900px) rotate3d(1, -1, 0, 15deg); }
+/* ── Flip-book page animations ───────────────────────────────────────────────
+   Pages flip from the top-right corner toward the bottom-left (diagonal axis).
+   rotate3d(1,-1,0) = axis running from top-left to bottom-right of the element.
+   transform-origin: top right = pivot locked to the top-right corner.
+   flip-out: current page rotates away (0 → 90deg, then invisible).
+   flip-in:  next page arrives from behind (-90deg → 0deg).
+*/
+@keyframes flip-out {
+  0%   { transform: perspective(900px) rotate3d(1, -1, 0,   0deg); opacity: 1; }
+  100% { transform: perspective(900px) rotate3d(1, -1, 0,  90deg); opacity: 0; }
 }
 
-.animate-book-flip {
-  animation: book-flip 4s ease-in-out infinite;
+@keyframes flip-in {
+  0%   { transform: perspective(900px) rotate3d(1, -1, 0, -90deg); opacity: 0; }
+  100% { transform: perspective(900px) rotate3d(1, -1, 0,   0deg); opacity: 1; }
+}
+
+.page-flip-out {
+  animation: flip-out 380ms ease-in forwards;
+  transform-origin: top right;
+  will-change: transform;
+}
+
+.page-flip-in {
+  animation: flip-in 380ms ease-out forwards;
   transform-origin: top right;
   will-change: transform;
 }
