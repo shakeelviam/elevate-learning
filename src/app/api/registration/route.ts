@@ -6,6 +6,24 @@ import { sendRegistrationEmails } from '@/lib/email'
 import { getSiteSettings } from '@/sanity/lib/queries'
 import { groq } from 'next-sanity'
 
+// ── In-memory rate limiter (per-IP, resets on process restart) ───────────────
+// For multi-instance deployments, replace with Redis-backed solution.
+const rateMap = new Map<string, { count: number; resetAt: number }>()
+const RATE_LIMIT = 5       // max submissions
+const RATE_WINDOW = 60_000 // per 60 seconds
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now()
+  const entry = rateMap.get(ip)
+  if (!entry || now > entry.resetAt) {
+    rateMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW })
+    return true
+  }
+  if (entry.count >= RATE_LIMIT) return false
+  entry.count++
+  return true
+}
+
 /**
  * POST /api/registration
  *
@@ -26,6 +44,18 @@ import { groq } from 'next-sanity'
  * See sanity/schemas/registration.ts for the commented field definitions.
  */
 export async function POST(request: NextRequest) {
+  // Rate limiting
+  const ip =
+    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
+    request.headers.get('x-real-ip') ??
+    'anonymous'
+  if (!checkRateLimit(ip)) {
+    return NextResponse.json(
+      { success: false, error: 'Too many requests. Please try again later.' },
+      { status: 429 }
+    )
+  }
+
   try {
     const body = await request.json()
 

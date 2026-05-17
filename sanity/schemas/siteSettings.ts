@@ -4,8 +4,7 @@ export const siteSettingsSchema = defineType({
   name: 'siteSettings',
   title: 'Site Settings',
   type: 'document',
-  // Singleton — only one document of this type
-  __experimental_actions: ['update', 'publish'],
+  // Singleton — only one document of this type (create/delete hidden via desk structure)
   groups: [
     { name: 'branding', title: 'Branding', default: true },
     { name: 'hero', title: 'Hero Section' },

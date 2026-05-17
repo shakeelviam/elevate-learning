@@ -9,6 +9,21 @@ export interface ContactActionState {
   error?: string
 }
 
+// Simple in-memory rate limiter: 3 submissions per email per 10 minutes
+const contactRateMap = new Map<string, { count: number; resetAt: number }>()
+
+function isRateLimited(key: string, limit = 3, windowMs = 600_000): boolean {
+  const now = Date.now()
+  const entry = contactRateMap.get(key)
+  if (!entry || now > entry.resetAt) {
+    contactRateMap.set(key, { count: 1, resetAt: now + windowMs })
+    return false
+  }
+  if (entry.count >= limit) return true
+  entry.count++
+  return false
+}
+
 export async function sendContactAction(
   _prev: ContactActionState,
   formData: FormData
@@ -26,6 +41,17 @@ export async function sendContactAction(
     return {
       success: false,
       error: parsed.error.flatten().fieldErrors.message?.[0] ?? 'Invalid form data',
+    }
+  }
+
+  // Rate limit by email address
+  if (isRateLimited(parsed.data.email)) {
+    return {
+      success: false,
+      error:
+        parsed.data.locale === 'ar'
+          ? 'لقد أرسلت عدة رسائل مؤخراً. يرجى الانتظار قبل المحاولة مرة أخرى.'
+          : 'You have sent several messages recently. Please wait before trying again.',
     }
   }
 

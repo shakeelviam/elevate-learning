@@ -104,12 +104,12 @@ export default async function FAQPage({
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white border-b border-gray-100 py-14">
+      <div className="hero-gradient border-b border-brand-100 py-14">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
           <h1 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4">
             {t('faq.title')}
           </h1>
-          <p className="text-lg text-gray-500">{t('faq.subtitle')}</p>
+          <p className="text-lg text-gray-600">{t('faq.subtitle')}</p>
         </div>
       </div>
 

@@ -89,7 +89,12 @@ export default async function LocaleLayout({
         />
       </head>
       <body className="min-h-screen bg-white text-gray-900 antialiased">
-        <ClerkProvider>
+        <ClerkProvider
+          signInUrl={`/${locale}/sign-in`}
+          signUpUrl={`/${locale}/sign-up`}
+          signInFallbackRedirectUrl={`/${locale}/dashboard`}
+          signUpFallbackRedirectUrl={`/${locale}/dashboard`}
+        >
           <NextIntlClientProvider messages={messages}>
             <div className="flex min-h-screen flex-col">
               <Header locale={locale as 'en' | 'ar'} settings={settings} />

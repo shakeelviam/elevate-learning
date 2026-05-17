@@ -1,5 +1,9 @@
-import { SignUp } from '@clerk/nextjs'
 import type { Metadata } from 'next'
+import { auth } from '@clerk/nextjs/server'
+import { redirect } from 'next/navigation'
+import SignUpCard from './SignUpCard'
+
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({
   params,
@@ -15,9 +19,12 @@ export async function generateMetadata({
 export default async function SignUpPage({
   params,
 }: {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: string; rest?: string[] }>
 }) {
   const { locale } = await params
+
+  const { userId } = await auth()
+  if (userId) redirect(`/${locale}/dashboard`)
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-16">
@@ -35,25 +42,7 @@ export default async function SignUpPage({
               : 'Join thousands of students at Elevate'}
           </p>
         </div>
-        <SignUp
-          appearance={{
-            elements: {
-              rootBox: 'w-full',
-              card: 'shadow-none border border-gray-200 rounded-2xl',
-              headerTitle: 'hidden',
-              headerSubtitle: 'hidden',
-              socialButtonsBlockButton:
-                'border border-gray-200 rounded-xl text-sm font-medium hover:bg-gray-50',
-              formButtonPrimary:
-                'bg-gradient-to-r from-brand-500 to-brand-700 hover:opacity-90 rounded-xl text-sm font-semibold',
-              formFieldInput:
-                'rounded-xl border-gray-200 text-sm focus:ring-2 focus:ring-brand-500',
-              footerActionLink: 'text-brand-600 hover:text-brand-800',
-            },
-          }}
-          redirectUrl={`/${locale}/dashboard`}
-          signInUrl={`/${locale}/sign-in`}
-        />
+        <SignUpCard locale={locale} />
       </div>
     </div>
   )

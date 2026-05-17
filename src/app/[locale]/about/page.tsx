@@ -1,11 +1,13 @@
 import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
-import { Award, Users, BookOpen, Globe } from 'lucide-react'
+import { Award, Users, BookOpen, Globe, Linkedin } from 'lucide-react'
+import Image from 'next/image'
 import { PortableText } from '@/components/shared/PortableText'
 import { Button } from '@/components/ui/button'
-import { getSiteSettings } from '@/sanity/lib/queries'
+import { getSiteSettings, getTeamMembers } from '@/sanity/lib/queries'
 import { getLocaleText } from '@/lib/utils'
+import { urlFor } from '@/sanity/lib/imageUrl'
 
 export async function generateMetadata({
   params,
@@ -26,7 +28,10 @@ export default async function AboutPage({
   const { locale } = await params
   const loc = locale as 'en' | 'ar'
   const t = await getTranslations({ locale: loc })
-  const settings = await getSiteSettings()
+  const [settings, team] = await Promise.all([
+    getSiteSettings(),
+    getTeamMembers(),
+  ])
 
   const aboutBody = settings?.aboutText?.[loc] ?? settings?.aboutText?.en
 
@@ -47,12 +52,12 @@ export default async function AboutPage({
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <div className="bg-gradient-to-br from-brand-700 to-brand-900 py-20 text-center">
+      <div className="hero-gradient border-b border-brand-100 py-20 text-center">
         <div className="mx-auto max-w-3xl px-4">
-          <h1 className="text-4xl sm:text-5xl font-black text-white mb-4">
+          <h1 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4">
             {t('about.title')}
           </h1>
-          <p className="text-xl text-brand-200">{t('about.subtitle')}</p>
+          <p className="text-xl text-gray-600">{t('about.subtitle')}</p>
         </div>
       </div>
 
@@ -100,8 +105,83 @@ export default async function AboutPage({
         </div>
       </div>
 
+      {/* Team */}
+      {team.length > 0 && (
+        <div className="py-16 bg-white">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-black text-gray-900 mb-3">
+                {loc === 'ar' ? 'فريقنا' : 'Meet Our Team'}
+              </h2>
+              <p className="text-gray-500 max-w-xl mx-auto">
+                {loc === 'ar'
+                  ? 'الأشخاص الذين يجعلون إليفيت ليرنينج استثنائياً'
+                  : 'The people who make Elevate Learning exceptional'}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {team.map((member) => {
+                const role = loc === 'ar' ? member.role?.ar : member.role?.en
+                const bio = loc === 'ar' ? member.bio?.ar : member.bio?.en
+                const photoUrl = member.photo
+                  ? urlFor(member.photo).width(400).height(400).url()
+                  : null
+
+                return (
+                  <div
+                    key={member._id}
+                    className="group text-center"
+                  >
+                    {/* Photo */}
+                    <div className="relative mx-auto mb-5 h-40 w-40 overflow-hidden rounded-full ring-4 ring-brand-100 group-hover:ring-brand-300 transition-all">
+                      {photoUrl ? (
+                        <Image
+                          src={photoUrl}
+                          alt={member.name}
+                          fill
+                          className="object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-brand-100 to-brand-200">
+                          <span className="text-4xl font-black text-brand-500">
+                            {member.name.charAt(0)}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Info */}
+                    <h3 className="text-lg font-bold text-gray-900">{member.name}</h3>
+                    {role && (
+                      <p className="text-sm font-medium text-brand-600 mt-0.5">{role}</p>
+                    )}
+                    {bio && (
+                      <p className="mt-3 text-sm text-gray-500 leading-relaxed max-w-xs mx-auto">
+                        {bio}
+                      </p>
+                    )}
+                    {member.linkedin && (
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-4 inline-flex items-center gap-1.5 text-xs text-brand-500 hover:text-brand-700 transition-colors"
+                      >
+                        <Linkedin className="h-3.5 w-3.5" />
+                        LinkedIn
+                      </a>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* CTA */}
-      <div className="py-16 text-center bg-white">
+      <div className="py-16 text-center bg-gray-50 border-t border-gray-100">
         <div className="mx-auto max-w-xl px-4">
           <h2 className="text-3xl font-black text-gray-900 mb-4">
             {loc === 'ar' ? 'انضم إلى عائلة إليفيت' : 'Join the Elevate Family'}

@@ -34,18 +34,20 @@ export function Footer({ locale, settings }: FooterProps) {
     ? [
         { label: 'الرئيسية', href: '/' },
         { label: 'الدورات', href: '/courses' },
-        { label: 'المدونة', href: '/blog' },
         { label: 'من نحن', href: '/about' },
         { label: 'الأسئلة الشائعة', href: '/faq' },
         { label: 'تواصل معنا', href: '/contact' },
+        { label: 'الخصوصية', href: '/privacy' },
+        { label: 'الشروط والأحكام', href: '/terms' },
       ]
     : [
         { label: 'Home', href: '/' },
         { label: 'Courses', href: '/courses' },
-        { label: 'Blog', href: '/blog' },
         { label: 'About', href: '/about' },
         { label: 'FAQ', href: '/faq' },
         { label: 'Contact', href: '/contact' },
+        { label: 'Privacy Policy', href: '/privacy' },
+        { label: 'Terms of Service', href: '/terms' },
       ]
 
   return (
@@ -183,10 +185,10 @@ export function Footer({ locale, settings }: FooterProps) {
             {t('common.copyright', { year })}
           </p>
           <div className="flex items-center gap-4">
-            <Link href="/about" locale={locale} className="hover:text-gray-300 transition-colors">
+            <Link href="/privacy" locale={locale} className="hover:text-gray-300 transition-colors">
               {t('common.privacyPolicy')}
             </Link>
-            <Link href="/about" locale={locale} className="hover:text-gray-300 transition-colors">
+            <Link href="/terms" locale={locale} className="hover:text-gray-300 transition-colors">
               {t('common.terms')}
             </Link>
             <span>{t('common.madeIn')}</span>

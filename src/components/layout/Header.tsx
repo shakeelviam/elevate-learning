@@ -30,16 +30,16 @@ interface HeaderProps {
 const DEFAULT_NAV_EN: NavItem[] = [
   { label: 'Home', href: '/' },
   { label: 'Courses', href: '/courses' },
-  { label: 'Blog', href: '/blog' },
   { label: 'About', href: '/about' },
+  { label: 'FAQ', href: '/faq' },
   { label: 'Contact', href: '/contact' },
 ]
 
 const DEFAULT_NAV_AR: NavItem[] = [
   { label: 'الرئيسية', href: '/' },
   { label: 'الدورات', href: '/courses' },
-  { label: 'المدونة', href: '/blog' },
   { label: 'من نحن', href: '/about' },
+  { label: 'الأسئلة الشائعة', href: '/faq' },
   { label: 'تواصل معنا', href: '/contact' },
 ]
 

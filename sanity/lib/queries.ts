@@ -270,3 +270,29 @@ export async function getRegistrationsByEmail(email: string): Promise<SanityRegi
     { next: { revalidate: 0 } } // Always fresh for dashboard
   )
 }
+
+// ── Team Members ──────────────────────────────────────────────────────────────
+
+export interface SanityTeamMember {
+  _id: string
+  name: string
+  role: { en?: string; ar?: string }
+  photo?: import('../../src/types/sanity').SanityImage
+  bio?: { en?: string; ar?: string }
+  linkedin?: string
+}
+
+export async function getTeamMembers(): Promise<SanityTeamMember[]> {
+  return sanityClient.fetch(
+    groq`*[_type == "teamMember"] | order(order asc){
+      _id,
+      name,
+      role,
+      photo,
+      bio,
+      linkedin
+    }`,
+    {},
+    { next: { revalidate: 3600 } }
+  )
+}

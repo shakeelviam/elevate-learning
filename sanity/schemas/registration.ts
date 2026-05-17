@@ -20,8 +20,7 @@ export const registrationSchema = defineType({
   name: 'registration',
   title: 'Registration',
   type: 'document',
-  // Disable create/delete from studio — created only via API
-  __experimental_actions: ['update', 'publish', 'unpublish'],
+  // Create/delete disabled via desk structure — this document is API-only
   fields: [
     defineField({
       name: 'fullName',

@@ -12,7 +12,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = []
 
   // Static pages
-  const staticPaths = ['', '/courses', '/blog', '/about', '/contact', '/faq']
+  const staticPaths = ['', '/courses', '/blog', '/about', '/contact', '/faq', '/privacy', '/terms']
   for (const locale of locales) {
     for (const path of staticPaths) {
       entries.push({

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
-import { ArrowRight, ChevronRight } from 'lucide-react'
+import { ArrowRight, ChevronRight, BookOpen, GraduationCap } from 'lucide-react'
 import { Hero } from '@/components/home/Hero'
 import { StatsBanner } from '@/components/home/StatsBanner'
 import { TestimonialsSlider } from '@/components/home/TestimonialsSlider'
@@ -63,6 +63,61 @@ export default async function HomePage({
         studentsLabel={t('home.statsStudents')}
         countriesLabel={t('home.statsCountries')}
       />
+
+      {/* ── Segmentation ─────────────────────────────────────────────────── */}
+      <section className="py-16 bg-white">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <p className="text-center text-sm font-semibold text-brand-600 uppercase tracking-widest mb-3">
+            {loc === 'ar' ? 'ما الذي تبحث عنه؟' : "What are you looking for?"}
+          </p>
+          <h2 className="text-center text-3xl sm:text-4xl font-black text-gray-900 mb-10">
+            {loc === 'ar' ? 'اختر مسارك' : 'Choose your path'}
+          </h2>
+          <div className="grid sm:grid-cols-2 gap-6">
+            {/* Track 1 — Exam Prep */}
+            <Link href="/courses?category=exam" locale={loc} className="flex">
+              <div className="group flex flex-col w-full rounded-2xl border-2 border-brand-100 bg-gradient-to-br from-brand-50 to-white p-8 hover:border-brand-400 hover:shadow-lg transition-all duration-200 cursor-pointer">
+                <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-600 shadow-md">
+                  <GraduationCap className="h-7 w-7 text-white" />
+                </div>
+                <h3 className="text-xl font-black text-gray-900 mb-2">
+                  {loc === 'ar' ? 'التحضير للامتحانات' : 'Exam Preparation'}
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed mb-5 flex-1">
+                  {loc === 'ar'
+                    ? 'IELTS · TOEFL · OET · GMAT · SAT — احصل على الدرجة التي تحتاجها.'
+                    : 'IELTS · TOEFL · OET · GMAT · SAT — get the score you need.'}
+                </p>
+                <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 group-hover:gap-2.5 transition-all">
+                  {loc === 'ar' ? 'استعرض الدورات' : 'Browse courses'}
+                  <ArrowRight className={`h-4 w-4 ${loc === 'ar' ? 'rotate-180' : ''}`} />
+                </span>
+              </div>
+            </Link>
+
+            {/* Track 2 — Language Learning */}
+            <Link href="/courses?category=language" locale={loc} className="flex">
+              <div className="group flex flex-col w-full rounded-2xl border-2 border-brand-100 bg-gradient-to-br from-brand-50 to-white p-8 hover:border-brand-400 hover:shadow-lg transition-all duration-200 cursor-pointer">
+                <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gold-500 shadow-md">
+                  <BookOpen className="h-7 w-7 text-white" />
+                </div>
+                <h3 className="text-xl font-black text-gray-900 mb-2">
+                  {loc === 'ar' ? 'تعلّم لغة جديدة' : 'Language Learning'}
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed mb-5 flex-1">
+                  {loc === 'ar'
+                    ? 'الإنجليزية · العربية · الفرنسية · الألمانية — تحدّث بثقة من اليوم الأول.'
+                    : 'English · Arabic · French · German — speak confidently from day one.'}
+                </p>
+                <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 group-hover:gap-2.5 transition-all">
+                  {loc === 'ar' ? 'استعرض الدورات' : 'Browse courses'}
+                  <ArrowRight className={`h-4 w-4 ${loc === 'ar' ? 'rotate-180' : ''}`} />
+                </span>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* ── Featured Courses ─────────────────────────────────────────────── */}
       <section className="py-20 bg-gray-50">

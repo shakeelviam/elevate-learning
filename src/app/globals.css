@@ -1,5 +1,35 @@
 @import "tailwindcss";
 
+/* ── Tailwind v4 Theme: Custom Colors ────────────────────────────────────────── */
+@theme {
+  --color-brand-50: #f0f7ff;
+  --color-brand-100: #e0effe;
+  --color-brand-200: #b9dffd;
+  --color-brand-300: #7cc5fb;
+  --color-brand-400: #37a6f6;
+  --color-brand-500: #0d8be8;
+  --color-brand-600: #026dc6;
+  --color-brand-700: #0357a0;
+  --color-brand-800: #074a84;
+  --color-brand-900: #0c3f6e;
+  --color-brand-950: #082849;
+
+  --color-gold-50: #fffbeb;
+  --color-gold-100: #fef3c7;
+  --color-gold-200: #fde68a;
+  --color-gold-300: #fcd34d;
+  --color-gold-400: #fbbf24;
+  --color-gold-500: #f59e0b;
+  --color-gold-600: #d97706;
+  --color-gold-700: #b45309;
+  --color-gold-800: #92400e;
+  --color-gold-900: #78350f;
+
+  --font-family-sans: var(--font-body);
+  --font-family-display: var(--font-display);
+  --font-family-arabic: var(--font-arabic);
+}
+
 /* ── Font Variables ─────────────────────────────────────────────────────────── */
 :root {
   --font-display: 'Sora', sans-serif;

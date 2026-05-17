@@ -53,6 +53,10 @@ export const structure: StructureResolver = (S: StructureBuilder) =>
                 .title('Testimonials')
                 .schemaType('testimonial')
                 .child(S.documentTypeList('testimonial').title('Testimonials')),
+              S.listItem()
+                .title('Team Members')
+                .schemaType('teamMember')
+                .child(S.documentTypeList('teamMember').title('Team Members')),
             ])
         ),
 
@@ -71,6 +75,7 @@ export const structure: StructureResolver = (S: StructureBuilder) =>
                   S.documentTypeList('registration')
                     .title('Pending Registrations')
                     .filter('_type == "registration" && status == "pending"')
+                    .canHandleIntent((intent) => intent !== 'create')
                 ),
               S.listItem()
                 .title('✅ Confirmed')
@@ -78,6 +83,7 @@ export const structure: StructureResolver = (S: StructureBuilder) =>
                   S.documentTypeList('registration')
                     .title('Confirmed Registrations')
                     .filter('_type == "registration" && status == "confirmed"')
+                    .canHandleIntent((intent) => intent !== 'create')
                 ),
               S.listItem()
                 .title('💰 Paid')
@@ -85,11 +91,14 @@ export const structure: StructureResolver = (S: StructureBuilder) =>
                   S.documentTypeList('registration')
                     .title('Paid Registrations')
                     .filter('_type == "registration" && status == "paid"')
+                    .canHandleIntent((intent) => intent !== 'create')
                 ),
               S.listItem()
                 .title('All Registrations')
                 .child(
-                  S.documentTypeList('registration').title('All Registrations')
+                  S.documentTypeList('registration')
+                    .title('All Registrations')
+                    .canHandleIntent((intent) => intent !== 'create')
                 ),
             ])
         ),

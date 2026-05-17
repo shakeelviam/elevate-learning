@@ -5,6 +5,7 @@ import { blogSchema } from './blog'
 import { testimonialSchema } from './testimonial'
 import { siteSettingsSchema } from './siteSettings'
 import { registrationSchema } from './registration'
+import { teamMemberSchema } from './teamMember'
 
 export const schemaTypes = [
   // Content types
@@ -13,6 +14,7 @@ export const schemaTypes = [
   scheduleSchema,
   blogSchema,
   testimonialSchema,
+  teamMemberSchema,
 
   // Singletons
   siteSettingsSchema,
