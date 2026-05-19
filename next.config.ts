@@ -18,8 +18,7 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  // Sanity Studio needs styled-components
-  transpilePackages: ['next-sanity'],
+  transpilePackages: ['next-sanity', 'sanity', '@sanity/ui', '@sanity/icons', '@sanity/vision', '@sanity/document-internationalization'],
 
   // Ensure no edge-runtime-only APIs
   experimental: {
