@@ -4,6 +4,7 @@ import { Link } from '@/i18n/navigation'
 import { ArrowRight, ChevronRight, BookOpen, GraduationCap } from 'lucide-react'
 import { Hero } from '@/components/home/Hero'
 import { StatsBanner } from '@/components/home/StatsBanner'
+import { ElevateAISection } from '@/components/home/ElevateAISection'
 import { TestimonialsSlider } from '@/components/home/TestimonialsSlider'
 import { HomeFAQ } from '@/components/home/HomeFAQ'
 import { SectionHeader } from '@/components/shared/SectionHeader'
@@ -63,6 +64,9 @@ export default async function HomePage({
         studentsLabel={t('home.statsStudents')}
         countriesLabel={t('home.statsCountries')}
       />
+
+      {/* ── Elevate AI ───────────────────────────────────────────────────── */}
+      <ElevateAISection locale={loc} />
 
       {/* ── Segmentation ─────────────────────────────────────────────────── */}
       <section className="py-16 bg-white">
