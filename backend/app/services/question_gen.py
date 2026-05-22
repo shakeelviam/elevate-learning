@@ -120,11 +120,17 @@ def _question_hash(question_text: str) -> str:
     return hashlib.md5(normalised.encode()).hexdigest()
 
 
-def _build_context_block(chunks: list[dict[str, Any]]) -> str:
-    """Concatenate retrieved chunks into a readable context block."""
+def _build_context_block(chunks: list[dict[str, Any]], max_chars: int = 1500) -> str:
+    """Concatenate retrieved chunks into a readable context block, capped to keep prompts short."""
     parts: list[str] = []
+    total = 0
     for i, chunk in enumerate(chunks, start=1):
-        parts.append(f"[Excerpt {i} — Source: {chunk['source']}]\n{chunk['text']}")
+        text = chunk["text"][:600]  # cap each chunk
+        entry = f"[Excerpt {i}]\n{text}"
+        total += len(entry)
+        if total > max_chars:
+            break
+        parts.append(entry)
     return "\n\n".join(parts)
 
 

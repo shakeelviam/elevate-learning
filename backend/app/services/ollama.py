@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 # How long to wait for the LLM to finish generating (seconds).
 # A 5-question batch on a mid-range CPU typically takes 15-60s.
-GENERATION_TIMEOUT = 180.0
+GENERATION_TIMEOUT = 600.0
 
 
 def _extract_json(raw: str) -> dict[str, Any]:
@@ -74,7 +74,7 @@ async def generate_json(
         "options": {
             "temperature": 0.7,
             "top_p": 0.9,
-            "num_predict": 4096,
+            "num_predict": 1200,
         },
     }
     if system:
