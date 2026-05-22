@@ -121,6 +121,37 @@ def run_migrations() -> None:
 
     CREATE INDEX IF NOT EXISTS idx_sq_session ON session_questions(session_id);
     CREATE INDEX IF NOT EXISTS idx_sq_hash    ON session_questions(hash);
+
+    -- Admin-authored question banks (per exam type / section)
+    CREATE TABLE IF NOT EXISTS question_banks (
+        id          SERIAL PRIMARY KEY,
+        name        TEXT NOT NULL,
+        exam_type   TEXT NOT NULL,
+        section     TEXT,
+        description TEXT,
+        created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE TABLE IF NOT EXISTS bank_questions (
+        id            SERIAL PRIMARY KEY,
+        bank_id       INTEGER NOT NULL REFERENCES question_banks(id) ON DELETE CASCADE,
+        question_type TEXT NOT NULL DEFAULT 'mcq',
+        passage       TEXT,
+        passage_title TEXT,
+        question      TEXT NOT NULL,
+        option_a      TEXT,
+        option_b      TEXT,
+        option_c      TEXT,
+        option_d      TEXT,
+        correct       TEXT NOT NULL,
+        explanation   TEXT NOT NULL DEFAULT '',
+        topic         TEXT NOT NULL DEFAULT '',
+        difficulty    TEXT NOT NULL DEFAULT 'medium',
+        position      INTEGER NOT NULL DEFAULT 0,
+        created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_bq_bank ON bank_questions(bank_id);
     """
     with get_conn() as conn:
         with conn.cursor() as cur:

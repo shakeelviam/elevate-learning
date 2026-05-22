@@ -5,7 +5,7 @@ import {
   Shield, Plus, Trash2, Ban, CheckCircle2, KeyRound,
   LogOut, Users, Clock, BadgeCheck, AlertCircle, Loader2,
   Upload, Database, RefreshCw, FileText, ChevronDown, ChevronUp,
-  Key,
+  Key, ClipboardList,
 } from 'lucide-react'
 import { cn, formatExpiry } from '../../../lib/utils'
 import {
@@ -16,6 +16,7 @@ import {
   resetPasswordAction,
 } from './actions'
 import { adminLogoutAction } from '../login/actions'
+import { TestsTab } from './TestsTab'
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -614,12 +615,13 @@ function UsersTab() {
 
 // ── Root dashboard ─────────────────────────────────────────────────────────────
 
-type MainTab = 'credentials' | 'content' | 'users'
+type MainTab = 'credentials' | 'content' | 'users' | 'tests'
 
 const MAIN_TABS: { id: MainTab; label: string; icon: React.ElementType }[] = [
   { id: 'credentials', label: 'Credentials', icon: Key },
   { id: 'content',     label: 'Content',     icon: Database },
   { id: 'users',       label: 'Users',       icon: Users },
+  { id: 'tests',       label: 'Tests',       icon: ClipboardList },
 ]
 
 export default function AdminDashboard({ credentials }: { credentials: Credential[] }) {
@@ -667,6 +669,7 @@ export default function AdminDashboard({ credentials }: { credentials: Credentia
         {mainTab === 'credentials' && <CredentialsTab credentials={credentials} />}
         {mainTab === 'content'     && <ContentTab />}
         {mainTab === 'users'       && <UsersTab />}
+        {mainTab === 'tests'       && <TestsTab proxy={PROXY} />}
       </div>
     </div>
   )
