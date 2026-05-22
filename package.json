@@ -2,14 +2,24 @@
   "name": "elevate-learning",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
   "scripts": {
+    "dev:testlab": "npm run dev --workspace=apps/testlab",
+    "build:testlab": "npm run build --workspace=apps/testlab",
     "dev": "next dev",
+    "dev:backend": "cd backend && .venv/bin/uvicorn main:app --reload --port 8000",
+    "dev:sanity": "sanity dev",
+    "dev:all": "concurrently --names 'next,api,sanity' --prefix-colors 'blue,green,magenta' 'npm run dev' 'npm run dev:backend' 'npm run dev:sanity'",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "sanity": "sanity dev",
     "sanity:build": "sanity build",
-    "sanity:deploy": "sanity deploy"
+    "sanity:deploy": "sanity deploy",
+    "backend:setup": "cd backend && bash setup.sh",
+    "backend:admin": "cd backend && .venv/bin/python -m scripts.create_admin",
+    "backend:ingest": "cd backend && .venv/bin/python -m scripts.ingest_pdf"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.9.0",
@@ -51,6 +61,7 @@
   "devDependencies": {
     "@types/node": "^22.10.0",
     "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0"
+    "@types/react-dom": "^19.0.0",
+    "concurrently": "^9.2.1"
   }
 }

@@ -114,7 +114,7 @@ export function ElevateAISection({ locale }: ElevateAISectionProps) {
 
             {/* CTAs */}
             <div className="flex flex-wrap gap-3">
-              <Link href="/test-lab" locale={locale}>
+              <a href={process.env.NEXT_PUBLIC_TEST_LAB_URL ?? '#'} target="_blank" rel="noopener noreferrer">
                 <Button
                   size="xl"
                   className="bg-gradient-to-r from-gold-500 to-gold-600 !text-white shadow-[0_4px_20px_rgba(245,158,11,0.4)] hover:opacity-90"
@@ -122,16 +122,7 @@ export function ElevateAISection({ locale }: ElevateAISectionProps) {
                   {isRtl ? 'ادخل المختبر' : 'Enter the Test Lab'}
                   <ArrowRight className={`h-5 w-5 ${isRtl ? 'rotate-180' : ''}`} />
                 </Button>
-              </Link>
-              <Link href="/test-lab#how-it-works" locale={locale}>
-                <Button
-                  size="xl"
-                  variant="outline"
-                  className="border-brand-700 bg-transparent text-brand-200 hover:bg-brand-900 hover:text-white"
-                >
-                  {isRtl ? 'كيف يعمل؟' : 'How it works'}
-                </Button>
-              </Link>
+              </a>
             </div>
           </div>
 

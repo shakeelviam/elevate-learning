@@ -1,0 +1,36 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Admin-issued access credentials for Test Lab users
+model TlCredential {
+  id           Int         @id @default(autoincrement())
+  username     String      @unique
+  passwordHash String      @map("password_hash")
+  tier         String      @default("free") // "free" | "paid"
+  expiresAt    DateTime?   @map("expires_at") // null = free forever (never expires)
+  isActive     Boolean     @default(true) @map("is_active")
+  note         String?     // admin-facing label (e.g. student name)
+  createdAt    DateTime    @default(now()) @map("created_at")
+  sessions     TlSession[]
+
+  @@map("tl_credentials")
+}
+
+// Active browser sessions for Test Lab users
+model TlSession {
+  id           Int          @id @default(autoincrement())
+  credentialId Int          @map("credential_id")
+  token        String       @unique
+  fastApiToken String?      @map("fastapi_token") // JWT for FastAPI backend calls
+  createdAt    DateTime     @default(now()) @map("created_at")
+  expiresAt    DateTime     @map("expires_at")
+  credential   TlCredential @relation(fields: [credentialId], references: [id], onDelete: Cascade)
+
+  @@map("tl_sessions")
+}

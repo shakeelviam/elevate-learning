@@ -1,48 +1,83 @@
 /**
  * PM2 Ecosystem Configuration
  * ============================
- * VPS Deployment with PM2 (Node.js 20+)
+ * Manages two Next.js apps on one Contabo VPS.
  *
- * Usage:
- *   npm run build
+ * Setup:
+ *   npm run build && npm run build:testlab
  *   pm2 start ecosystem.config.cjs
  *   pm2 save
- *   pm2 startup   # Enable auto-restart on server reboot
+ *   pm2 startup
  *
- * With Docker instead, see Dockerfile in project root.
+ * Logs:
+ *   pm2 logs
+ *   pm2 logs main-site
+ *   pm2 logs testlab
  */
 
 module.exports = {
   apps: [
     {
-      name: 'elevate-learning',
+      name: 'main-site',
       script: 'node_modules/.bin/next',
-      args: 'start',
-      cwd: process.cwd(),
-
-      // Number of instances (use 'max' to use all CPU cores)
+      args: 'start -p 3000',
+      cwd: '/var/www/elevate-learning',
       instances: 1,
-      exec_mode: 'fork', // use 'cluster' if instances > 1
-
-      // Environment variables
+      exec_mode: 'fork',
+      watch: false,
+      autorestart: true,
+      max_restarts: 10,
+      restart_delay: 3000,
+      max_memory_restart: '512M',
       env: {
         NODE_ENV: 'production',
         PORT: 3000,
         HOSTNAME: '0.0.0.0',
       },
-
-      // Auto-restart settings
+      out_file: './logs/main-out.log',
+      error_file: './logs/main-error.log',
+      merge_logs: true,
+      log_date_format: 'YYYY-MM-DD HH:mm:ss',
+    },
+    {
+      name: 'testlab',
+      script: 'node_modules/.bin/next',
+      args: 'start -p 3001',
+      cwd: '/var/www/elevate-learning/apps/testlab',
+      instances: 1,
+      exec_mode: 'fork',
       watch: false,
       autorestart: true,
       max_restarts: 10,
       restart_delay: 3000,
-
-      // Memory limit — restart if process exceeds this
-      max_memory_restart: '512M',
-
-      // Log files
-      out_file: './logs/pm2-out.log',
-      error_file: './logs/pm2-error.log',
+      max_memory_restart: '384M',
+      env: {
+        NODE_ENV: 'production',
+        PORT: 3001,
+        HOSTNAME: '0.0.0.0',
+      },
+      out_file: '/var/www/elevate-learning/logs/testlab-out.log',
+      error_file: '/var/www/elevate-learning/logs/testlab-error.log',
+      merge_logs: true,
+      log_date_format: 'YYYY-MM-DD HH:mm:ss',
+    },
+    {
+      name: 'ai-backend',
+      script: '/var/www/elevate-learning/backend/.venv/bin/uvicorn',
+      args: 'main:app --host 0.0.0.0 --port 8000',
+      cwd: '/var/www/elevate-learning/backend',
+      interpreter: 'none',
+      instances: 1,
+      exec_mode: 'fork',
+      watch: false,
+      autorestart: true,
+      max_restarts: 10,
+      restart_delay: 5000,
+      env: {
+        PYTHONUNBUFFERED: '1',
+      },
+      out_file: '/var/www/elevate-learning/logs/backend-out.log',
+      error_file: '/var/www/elevate-learning/logs/backend-error.log',
       merge_logs: true,
       log_date_format: 'YYYY-MM-DD HH:mm:ss',
     },
