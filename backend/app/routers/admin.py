@@ -385,16 +385,17 @@ async def update_bank(
                               created_at=row[0], question_count=count)
 
 
-@router.delete("/banks/{bank_id}", status_code=204, summary="Delete a bank and all its questions")
+@router.delete("/banks/{bank_id}", summary="Delete a bank and all its questions")
 async def delete_bank(
     bank_id: int,
     _admin: dict[str, Any] = Depends(get_current_admin),
-) -> None:
+) -> dict[str, str]:
     with get_conn() as conn:
         with conn.cursor() as cur:
             cur.execute("DELETE FROM question_banks WHERE id=%s RETURNING id", (bank_id,))
             if not cur.fetchone():
                 raise HTTPException(status.HTTP_404_NOT_FOUND, "Bank not found")
+    return {"deleted": str(bank_id)}
 
 
 @router.post("/banks/{bank_id}/questions", response_model=BankQuestionPublic, status_code=201,
@@ -448,16 +449,17 @@ async def update_question(
     return BankQuestionPublic(id=question_id, bank_id=row[0], created_at=row[1], **body.model_dump())
 
 
-@router.delete("/questions/{question_id}", status_code=204, summary="Delete a question")
+@router.delete("/questions/{question_id}", summary="Delete a question")
 async def delete_question(
     question_id: int,
     _admin: dict[str, Any] = Depends(get_current_admin),
-) -> None:
+) -> dict[str, str]:
     with get_conn() as conn:
         with conn.cursor() as cur:
             cur.execute("DELETE FROM bank_questions WHERE id=%s RETURNING id", (question_id,))
             if not cur.fetchone():
                 raise HTTPException(status.HTTP_404_NOT_FOUND, "Question not found")
+    return {"deleted": str(question_id)}
 
 
 @router.post("/banks/{bank_id}/questions/bulk", summary="Bulk-add questions from a JSON array")
