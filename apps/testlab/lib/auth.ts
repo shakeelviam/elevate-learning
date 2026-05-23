@@ -87,7 +87,7 @@ export async function issueAdminSessionCookie(identity: AdminIdentity) {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production' && process.env.COOKIE_SECURE !== 'false',
     sameSite: 'lax',
-    path: '/admin',
+    path: '/',
     maxAge: 8 * 60 * 60,
   })
 }
