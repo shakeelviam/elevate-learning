@@ -12,7 +12,6 @@ import {
   Globe,
   ChevronDown,
   BookOpen,
-  FlaskConical,
   Home,
   Info,
   Mail,
@@ -120,17 +119,6 @@ export function Header({ locale, settings }: HeaderProps) {
 
             {/* Right actions */}
             <div className="flex items-center gap-2">
-              {/* Test Lab link — separate app */}
-              <a
-                href={process.env.NEXT_PUBLIC_TEST_LAB_URL ?? '#'}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden sm:inline-flex items-center gap-1.5 rounded-lg border border-gold-300 bg-gold-50 px-3 py-1.5 text-xs font-bold text-gold-700 hover:bg-gold-100 transition-colors"
-              >
-                <FlaskConical className="h-3.5 w-3.5" />
-                {t('testLab')}
-              </a>
-
               {/* Language switcher */}
               <button
                 onClick={switchLocale}
@@ -218,17 +206,6 @@ export function Header({ locale, settings }: HeaderProps) {
                   {item.label}
                 </Link>
               ))}
-
-              <a
-                href={process.env.NEXT_PUBLIC_TEST_LAB_URL ?? '#'}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gold-700 bg-gold-50 hover:bg-gold-100 transition-colors"
-                onClick={() => setMobileOpen(false)}
-              >
-                <FlaskConical className="h-4 w-4 text-gold-500" />
-                {t('testLab')}
-              </a>
 
               <hr className="my-4 border-gray-100" />
 

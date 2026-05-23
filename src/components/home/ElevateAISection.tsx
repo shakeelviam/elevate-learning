@@ -1,6 +1,5 @@
 'use client'
 
-import { Link } from '@/i18n/navigation'
 import {
   ArrowRight,
   BrainCircuit,
@@ -11,7 +10,6 @@ import {
   Sparkles,
   Zap,
 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 
 interface ElevateAISectionProps {
   locale: 'en' | 'ar'
@@ -112,16 +110,22 @@ export function ElevateAISection({ locale }: ElevateAISectionProps) {
               ))}
             </div>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap gap-3">
-              <a href={process.env.NEXT_PUBLIC_TEST_LAB_URL ?? '#'} target="_blank" rel="noopener noreferrer">
-                <Button
-                  size="xl"
-                  className="bg-gradient-to-r from-gold-500 to-gold-600 !text-white shadow-[0_4px_20px_rgba(245,158,11,0.4)] hover:opacity-90"
-                >
-                  {isRtl ? 'ادخل المختبر' : 'Enter the Test Lab'}
-                  <ArrowRight className={`h-5 w-5 ${isRtl ? 'rotate-180' : ''}`} />
-                </Button>
+            {/* Contact prompt */}
+            <div className="rounded-2xl border border-brand-700 bg-brand-900/60 px-6 py-5">
+              <p className="mb-3 text-sm font-semibold text-white">
+                {isRtl ? 'هل أنت مهتم بالوصول إلى مختبر الاختبارات؟' : 'Interested in Test Lab access?'}
+              </p>
+              <p className="mb-4 text-sm leading-relaxed text-brand-300">
+                {isRtl
+                  ? 'يتوفر مختبر الاختبارات للطلاب المسجلين فقط. تواصل معنا للحصول على بياناتك وبدء التدريب.'
+                  : 'Test Lab is available to enrolled students only. Reach out to us and we\'ll get you set up with your credentials.'}
+              </p>
+              <a
+                href="mailto:info@elevatelearning.ae"
+                className="inline-flex items-center gap-2 rounded-xl bg-gold-500 px-5 py-2.5 text-sm font-bold text-white shadow-[0_4px_16px_rgba(245,158,11,0.35)] hover:bg-gold-400 transition-colors"
+              >
+                {isRtl ? 'تواصل معنا' : 'Contact Us for Access'}
+                <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} />
               </a>
             </div>
           </div>
