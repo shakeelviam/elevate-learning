@@ -2,8 +2,7 @@
 // Only accessible when the tl_admin_session cookie is valid.
 
 import { NextRequest, NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
-import { issueFastApiJwt } from '../../../../../lib/auth'
+import { issueFastApiJwt, getAdminSession } from '../../../../../lib/auth'
 
 const FASTAPI_URL = process.env.FASTAPI_URL ?? 'http://localhost:8000'
 
@@ -13,9 +12,8 @@ async function getServiceToken(): Promise<string> {
 }
 
 async function checkAdminCookie(): Promise<boolean> {
-  const cookieStore = await cookies()
-  const token = cookieStore.get('tl_admin_session')?.value
-  return !!token && token === process.env.ADMIN_SESSION_SECRET
+  const session = await getAdminSession()
+  return !!session
 }
 
 async function proxyRequest(req: NextRequest, params: { path: string[] }): Promise<NextResponse> {

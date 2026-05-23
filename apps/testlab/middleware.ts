@@ -14,6 +14,11 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
+  // API routes handle their own auth — never redirect them to a login page
+  if (pathname.startsWith('/api/')) {
+    return NextResponse.next()
+  }
+
   if (pathname.startsWith('/admin')) {
     const token = req.cookies.get('tl_admin_session')?.value
     if (!token) return NextResponse.redirect(new URL('/admin/login', req.url))
