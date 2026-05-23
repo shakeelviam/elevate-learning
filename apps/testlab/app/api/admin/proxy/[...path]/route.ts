@@ -2,22 +2,30 @@
 // Only accessible when the tl_admin_session cookie is valid.
 
 import { NextRequest, NextResponse } from 'next/server'
-import { issueFastApiJwt, getAdminSession } from '../../../../../lib/auth'
+import { jwtVerify } from 'jose'
+import { issueFastApiJwt } from '../../../../../lib/auth'
 
 const FASTAPI_URL = process.env.FASTAPI_URL ?? 'http://localhost:8000'
 
 async function getServiceToken(): Promise<string> {
-  // Generate a long-lived admin JWT using the shared secret — never stored client-side
   return issueFastApiJwt(0, 'service_admin', true, null)
 }
 
-async function checkAdminCookie(): Promise<boolean> {
-  const session = await getAdminSession()
-  return !!session
+// Read the JWT directly from the request — avoids next/headers context issues in Route Handlers
+async function isAdminRequest(req: NextRequest): Promise<boolean> {
+  const token = req.cookies.get('tl_admin_session')?.value
+  if (!token) return false
+  try {
+    const secret = new TextEncoder().encode(process.env.ADMIN_SESSION_SECRET ?? '')
+    await jwtVerify(token, secret)
+    return true
+  } catch {
+    return false
+  }
 }
 
 async function proxyRequest(req: NextRequest, params: { path: string[] }): Promise<NextResponse> {
-  if (!(await checkAdminCookie())) {
+  if (!(await isAdminRequest(req))) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
