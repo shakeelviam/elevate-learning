@@ -51,7 +51,7 @@ export function Footer({ locale, settings }: FooterProps) {
       ]
 
   return (
-    <footer className="bg-gray-950 text-gray-300">
+    <footer className="bg-brand-900 text-gray-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-8">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
@@ -59,10 +59,10 @@ export function Footer({ locale, settings }: FooterProps) {
             <Link href="/" locale={locale} className="inline-flex mb-4">
               <div className="rounded-xl bg-white px-3 py-2">
                 <Image
-                  src="/logo.jpg"
+                  src="/elev8.svg"
                   alt={siteName}
-                  width={130}
-                  height={48}
+                  width={120}
+                  height={44}
                   className="object-contain"
                 />
               </div>

@@ -9,7 +9,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-gradient-to-r from-brand-600 to-brand-700 !text-white shadow-[0_4px_14px_rgba(27,42,74,0.25)] hover:opacity-90 hover:shadow-[0_6px_20px_rgba(27,42,74,0.35)] active:scale-[0.98]',
+          'bg-gradient-to-r from-gold-400 to-gold-500 !text-brand-900 shadow-[0_4px_14px_rgba(201,168,76,0.35)] hover:opacity-90 hover:shadow-[0_6px_20px_rgba(201,168,76,0.45)] active:scale-[0.98]',
         destructive:
           'bg-red-500 text-white hover:bg-red-600 shadow-sm',
         outline:
@@ -21,7 +21,7 @@ const buttonVariants = cva(
         link:
           'text-brand-600 underline-offset-4 hover:underline',
         gold:
-          'bg-gradient-to-r from-gold-500 to-gold-300 text-white shadow-[0_4px_14px_rgba(201,168,76,0.35)] hover:opacity-90 active:scale-[0.98]',
+          'bg-gradient-to-r from-gold-400 to-gold-500 text-brand-900 shadow-[0_4px_14px_rgba(201,168,76,0.35)] hover:opacity-90 active:scale-[0.98]',
       },
       size: {
         default: 'h-10 px-5 py-2.5',

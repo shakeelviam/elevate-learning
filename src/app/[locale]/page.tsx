@@ -81,8 +81,8 @@ export default async function HomePage({
             {/* Track 1 — Exam Prep */}
             <Link href="/courses?category=exam" locale={loc} className="flex">
               <div className="group flex flex-col w-full rounded-2xl border-2 border-brand-100 bg-gradient-to-br from-brand-50 to-white p-8 hover:border-brand-400 hover:shadow-lg transition-all duration-200 cursor-pointer">
-                <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-600 shadow-md">
-                  <GraduationCap className="h-7 w-7 text-white" />
+                <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-gold-400 to-gold-600 shadow-md">
+                  <GraduationCap className="h-7 w-7 text-brand-900" />
                 </div>
                 <h3 className="text-xl font-black text-gray-900 mb-2">
                   {loc === 'ar' ? 'التحضير للامتحانات' : 'Exam Preparation'}
@@ -219,7 +219,7 @@ export default async function HomePage({
           <Link href="/courses" locale={loc}>
             <Button
               size="xl"
-              className="bg-white text-brand-700 hover:bg-brand-50 shadow-xl"
+              className="bg-gradient-to-r from-gold-400 to-gold-500 text-brand-900 hover:opacity-90 shadow-xl"
             >
               {t('home.ctaButton')}
               <ArrowRight className={`h-5 w-5 ${loc === 'ar' ? 'flip-rtl' : ''}`} />

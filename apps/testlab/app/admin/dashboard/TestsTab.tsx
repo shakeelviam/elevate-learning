@@ -292,8 +292,8 @@ function QuestionForm({
         <button
           type="button" onClick={() => onSave(form)} disabled={!valid || saving}
           className={cn(
-            'flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold text-white transition-all',
-            valid && !saving ? 'bg-brand-600 hover:bg-brand-700' : 'cursor-not-allowed bg-gray-300',
+            'flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold transition-all',
+            valid && !saving ? 'bg-gradient-to-r from-gold-400 to-gold-500 text-brand-900 hover:opacity-90' : 'cursor-not-allowed bg-gray-300 text-gray-500',
           )}
         >
           {saving && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
@@ -546,7 +546,7 @@ export function TestsTab({ proxy }: { proxy: string }) {
             <h3 className="text-sm font-bold text-gray-700">Question Banks</h3>
             <button
               onClick={() => setShowBankForm((v) => !v)}
-              className="flex items-center gap-1 rounded-lg bg-brand-600 px-2.5 py-1.5 text-xs font-semibold text-white hover:bg-brand-700 transition"
+              className="flex items-center gap-1 rounded-lg bg-gradient-to-r from-gold-400 to-gold-500 px-2.5 py-1.5 text-xs font-semibold text-brand-900 hover:opacity-90 transition"
             >
               <Plus className="h-3.5 w-3.5" />
               New Bank
@@ -602,7 +602,7 @@ export function TestsTab({ proxy }: { proxy: string }) {
               <div className="flex gap-2">
                 <button
                   onClick={handleCreateBank} disabled={!bankForm.name.trim() || bankSaving}
-                  className="flex-1 rounded-lg bg-brand-600 py-1.5 text-xs font-semibold text-white hover:bg-brand-700 disabled:opacity-50 transition"
+                  className="flex-1 rounded-lg bg-gradient-to-r from-gold-400 to-gold-500 py-1.5 text-xs font-semibold text-brand-900 hover:opacity-90 disabled:opacity-50 transition"
                 >
                   {bankSaving ? <Loader2 className="mx-auto h-3.5 w-3.5 animate-spin" /> : 'Create'}
                 </button>
@@ -698,7 +698,7 @@ export function TestsTab({ proxy }: { proxy: string }) {
                 </div>
                 <button
                   onClick={() => { setShowQuestionForm(true); setEditingQuestion(null) }}
-                  className="flex items-center gap-1.5 rounded-lg bg-brand-600 px-3 py-2 text-xs font-semibold text-white hover:bg-brand-700 transition"
+                  className="flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-gold-400 to-gold-500 px-3 py-2 text-xs font-semibold text-brand-900 hover:opacity-90 transition"
                 >
                   <Plus className="h-3.5 w-3.5" />
                   Add Question

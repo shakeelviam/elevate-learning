@@ -71,7 +71,7 @@ export default function AdminLoginForm() {
           <button
             type="submit"
             disabled={isPending}
-            className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-gold-500 to-gold-400 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-gold-500/20 transition hover:opacity-90 disabled:opacity-60"
+            className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-gold-400 to-gold-500 px-6 py-3.5 text-sm font-bold text-brand-900 shadow-lg shadow-gold-500/20 transition hover:opacity-90 disabled:opacity-60"
           >
             {isPending ? (
               <>

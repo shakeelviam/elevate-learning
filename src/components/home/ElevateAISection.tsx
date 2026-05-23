@@ -197,7 +197,7 @@ export function ElevateAISection({ locale }: ElevateAISectionProps) {
                     <CheckCircle2 className="h-3.5 w-3.5 text-green-400" />
                     {isRtl ? 'أسئلة جديدة · لا تكرار أبداً' : 'Fresh questions · Never repeated'}
                   </div>
-                  <button className="flex items-center gap-1 rounded-lg bg-brand-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-brand-500 transition-colors">
+                  <button className="flex items-center gap-1 rounded-lg bg-gradient-to-r from-gold-400 to-gold-500 px-3 py-1.5 text-xs font-semibold text-brand-900 hover:opacity-90 transition-colors">
                     {isRtl ? 'التالي' : 'Next'}
                     <ArrowRight className={`h-3.5 w-3.5 ${isRtl ? 'rotate-180' : ''}`} />
                   </button>

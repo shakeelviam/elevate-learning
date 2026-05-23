@@ -158,7 +158,7 @@ function CreateForm({ onCreated }: { onCreated: () => void }) {
         <label className="mb-1 block text-xs font-semibold text-gray-500 uppercase tracking-wide">Note (optional)</label>
         <input name="note" maxLength={120} className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-brand-400 focus:outline-none" placeholder="e.g. John Smith — IELTS prep" />
       </div>
-      <button type="submit" disabled={pending} className="flex w-full items-center justify-center gap-2 rounded-lg bg-brand-600 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-500 disabled:opacity-50">
+      <button type="submit" disabled={pending} className="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-gold-400 to-gold-500 py-2.5 text-sm font-semibold text-brand-900 transition hover:opacity-90 disabled:opacity-50">
         {pending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
         {pending ? 'Creating…' : 'Create Credential'}
       </button>
@@ -222,7 +222,7 @@ function CredentialRow({ cred, onAction }: { cred: Credential; onAction: () => v
       {showReset && (
         <form onSubmit={handleResetSubmit} className="mt-3 flex items-center gap-2 border-t border-gray-100 pt-3">
           <input name="newPassword" type="text" required minLength={6} placeholder="New password (min 6 chars)" className="flex-1 rounded-lg border border-gray-200 px-3 py-1.5 text-sm focus:border-brand-400 focus:outline-none" />
-          <button type="submit" disabled={pending} className="rounded-lg bg-brand-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-brand-500 disabled:opacity-50">Save</button>
+          <button type="submit" disabled={pending} className="rounded-lg bg-gradient-to-r from-gold-400 to-gold-500 px-3 py-1.5 text-xs font-semibold text-brand-900 hover:opacity-90 disabled:opacity-50">Save</button>
           <button type="button" onClick={() => setShowReset(false)} className="rounded-lg px-3 py-1.5 text-xs text-gray-400 hover:text-gray-600">Cancel</button>
           {resetError && <span className="text-xs text-red-500">{resetError}</span>}
         </form>
@@ -283,7 +283,7 @@ function CredentialsTab({ credentials: initialCreds }: { credentials: Credential
           <h2 className="font-bold text-gray-900">Credentials</h2>
           <div className="flex gap-1">
             {(['all', 'active', 'expired'] as const).map(t => (
-              <button key={t} onClick={() => setCredFilter(t)} className={cn('rounded-lg px-3 py-1 text-xs font-semibold capitalize transition', credFilter === t ? 'bg-brand-600 text-white' : 'text-gray-500 hover:bg-gray-100')}>{t}</button>
+              <button key={t} onClick={() => setCredFilter(t)} className={cn('rounded-lg px-3 py-1 text-xs font-semibold capitalize transition', credFilter === t ? 'bg-gradient-to-r from-gold-400 to-gold-500 text-brand-900' : 'text-gray-500 hover:bg-gray-100')}>{t}</button>
             ))}
           </div>
         </div>
@@ -409,7 +409,7 @@ function UploadCard({ onSuccess }: { onSuccess: (r: UploadResult) => void }) {
         </div>
       )}
 
-      <button onClick={handleUpload} disabled={!file || loading} className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 py-3 text-sm font-semibold text-white transition hover:bg-brand-500 disabled:opacity-50">
+      <button onClick={handleUpload} disabled={!file || loading} className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-gold-400 to-gold-500 py-3 text-sm font-semibold text-brand-900 transition hover:opacity-90 disabled:opacity-50">
         {loading ? <><Loader2 className="h-4 w-4 animate-spin" />Ingesting…</> : <><Upload className="h-4 w-4" />Upload & Ingest</>}
       </button>
     </div>
@@ -723,7 +723,7 @@ function AdminRow({
               {showPass ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
             </button>
           </div>
-          <button type="submit" disabled={pending} className="rounded-lg bg-brand-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-brand-500 disabled:opacity-50">Save</button>
+          <button type="submit" disabled={pending} className="rounded-lg bg-gradient-to-r from-gold-400 to-gold-500 px-3 py-1.5 text-xs font-semibold text-brand-900 hover:opacity-90 disabled:opacity-50">Save</button>
           <button type="button" onClick={() => setShowReset(false)} className="rounded-lg px-3 py-1.5 text-xs text-gray-400 hover:text-gray-600">Cancel</button>
           {resetError && <span className="text-xs text-red-500">{resetError}</span>}
         </form>
@@ -821,7 +821,7 @@ function AdminsTab({ currentUsername }: { currentUsername: string }) {
               <div className="rounded-lg bg-amber-50 border border-amber-200 px-4 py-3 text-xs text-amber-700">
                 New admins can manage credentials, content, and question banks — but cannot create other admins.
               </div>
-              <button type="submit" className="flex w-full items-center justify-center gap-2 rounded-lg bg-brand-600 py-2.5 text-sm font-semibold text-white hover:bg-brand-500 transition">
+              <button type="submit" className="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-gold-400 to-gold-500 py-2.5 text-sm font-semibold text-brand-900 hover:opacity-90 transition">
                 <UserCog className="h-4 w-4" />Create Admin
               </button>
             </form>
@@ -875,13 +875,13 @@ export default function AdminDashboard({
   const visibleTabs = tabs.filter(t => !t.superOnly || isSuperAdmin)
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#FAFAF8]">
       {/* Top bar */}
       <header className="border-b border-gray-200 bg-white px-6 py-4">
         <div className="mx-auto flex max-w-5xl items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600">
-              <Shield className="h-4 w-4 text-white" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-gold-400 to-gold-600">
+              <Shield className="h-4 w-4 text-brand-900" />
             </div>
             <div>
               <h1 className="text-sm font-black text-gray-900">Test Lab Admin</h1>
@@ -908,7 +908,7 @@ export default function AdminDashboard({
               onClick={() => setMainTab(id)}
               className={cn(
                 'flex items-center gap-2 border-b-2 px-4 py-3 text-sm font-semibold transition-colors',
-                mainTab === id ? 'border-brand-600 text-brand-600' : 'border-transparent text-gray-500 hover:text-gray-700',
+                mainTab === id ? 'border-gold-500 text-gold-600' : 'border-transparent text-gray-500 hover:text-gray-700',
               )}
             >
               <Icon className="h-4 w-4" />{label}

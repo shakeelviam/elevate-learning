@@ -88,10 +88,10 @@ export function Header({ locale, settings }: HeaderProps) {
             {/* Logo */}
             <Link href="/" locale={locale} className="flex items-center flex-shrink-0">
               <Image
-                src="/logo.jpg"
+                src="/elev8.svg"
                 alt={siteName}
-                width={140}
-                height={52}
+                width={120}
+                height={44}
                 className="object-contain"
                 priority
               />
