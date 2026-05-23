@@ -12,8 +12,9 @@ const variants = [
   { id: 'dash', label: 'Option D — Stat Dashboard', Component: HeroStatDashboard },
 ]
 
-export default function DemoPage({ params }: { params: { locale: 'en' | 'ar' } }) {
-  const locale = params.locale === 'ar' ? 'ar' : 'en'
+export default async function DemoPage({ params }: { params: Promise<{ locale: 'en' | 'ar' }> }) {
+  const { locale: rawLocale } = await params
+  const locale = rawLocale === 'ar' ? 'ar' : 'en'
 
   return (
     <main className="min-h-screen bg-slate-100 py-12 px-4">
