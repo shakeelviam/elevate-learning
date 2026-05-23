@@ -5,7 +5,7 @@ import {
   Shield, Plus, Trash2, Ban, CheckCircle2, KeyRound,
   LogOut, Users, Clock, BadgeCheck, AlertCircle, Loader2,
   Upload, Database, RefreshCw, FileText, ChevronDown, ChevronUp,
-  Key, ClipboardList,
+  Key, ClipboardList, UserCog, Eye, EyeOff,
 } from 'lucide-react'
 import { cn, formatExpiry } from '../../../lib/utils'
 import {
@@ -14,6 +14,10 @@ import {
   restoreCredentialAction,
   deleteCredentialAction,
   resetPasswordAction,
+  createAdminUserAction,
+  toggleAdminActiveAction,
+  deleteAdminUserAction,
+  resetAdminUserPasswordAction,
 } from './actions'
 import { adminLogoutAction } from '../login/actions'
 import { TestsTab } from './TestsTab'
@@ -35,6 +39,16 @@ type CollectionStats = {
   collection_name: string
   total_chunks: number
   breakdown: Record<string, number>
+}
+
+type AdminUserRow = {
+  id: number
+  username: string
+  displayName: string | null
+  isSuperAdmin: boolean
+  isActive: boolean
+  createdBy: string | null
+  createdAt: Date
 }
 
 type FastApiUser = {
@@ -613,19 +627,252 @@ function UsersTab() {
   )
 }
 
+// ── Admins tab (super admin only) ─────────────────────────────────────────────
+
+function AdminRow({
+  admin,
+  onAction,
+}: { admin: AdminUserRow; onAction: () => void }) {
+  const [pending, startTransition] = useTransition()
+  const [showReset, setShowReset] = useState(false)
+  const [resetError, setResetError] = useState('')
+  const [showPass, setShowPass] = useState(false)
+
+  const act = (fn: () => Promise<unknown>) =>
+    startTransition(async () => { await fn(); onAction() })
+
+  const handleResetSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setResetError('')
+    const fd = new FormData(e.currentTarget)
+    startTransition(async () => {
+      const res = await resetAdminUserPasswordAction(admin.id, fd)
+      if (res?.error) setResetError(res.error)
+      else setShowReset(false)
+    })
+  }
+
+  return (
+    <div className={cn('rounded-xl border p-4', admin.isActive ? 'border-gray-100 bg-white' : 'border-gray-100 bg-gray-50 opacity-60')}>
+      <div className="flex flex-wrap items-start gap-3">
+        <div className="flex-1 min-w-0">
+          <div className="flex flex-wrap items-center gap-2 mb-1">
+            <span className="font-bold text-gray-900">{admin.displayName ?? admin.username}</span>
+            {admin.displayName && <span className="text-xs text-gray-400">@{admin.username}</span>}
+            <span className={cn('text-xs font-semibold', admin.isActive ? 'text-green-600' : 'text-gray-400')}>
+              {admin.isActive ? 'Active' : 'Disabled'}
+            </span>
+            {admin.isSuperAdmin && (
+              <span className="rounded-full bg-gold-100 px-2 py-0.5 text-xs font-bold text-gold-700">Super Admin</span>
+            )}
+          </div>
+          {admin.createdBy && (
+            <p className="text-xs text-gray-400">Created by {admin.createdBy} · {admin.createdAt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' })}</p>
+          )}
+        </div>
+        <div className="flex items-center gap-1.5">
+          {pending ? <Loader2 className="h-4 w-4 animate-spin text-gray-400" /> : (
+            <>
+              <button
+                onClick={() => setShowReset(v => !v)}
+                title="Reset password"
+                className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-brand-600 transition"
+              >
+                <KeyRound className="h-4 w-4" />
+              </button>
+              {admin.isActive ? (
+                <button
+                  onClick={() => act(() => toggleAdminActiveAction(admin.id, false))}
+                  title="Disable"
+                  className="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-600 transition"
+                >
+                  <Ban className="h-4 w-4" />
+                </button>
+              ) : (
+                <button
+                  onClick={() => act(() => toggleAdminActiveAction(admin.id, true))}
+                  title="Enable"
+                  className="rounded-lg p-1.5 text-gray-400 hover:bg-green-50 hover:text-green-600 transition"
+                >
+                  <CheckCircle2 className="h-4 w-4" />
+                </button>
+              )}
+              <button
+                onClick={() => { if (confirm(`Delete admin "${admin.username}"?`)) act(() => deleteAdminUserAction(admin.id)) }}
+                title="Delete"
+                className="rounded-lg p-1.5 text-gray-400 hover:bg-red-50 hover:text-red-600 transition"
+              >
+                <Trash2 className="h-4 w-4" />
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+      {showReset && (
+        <form onSubmit={handleResetSubmit} className="mt-3 flex items-center gap-2 border-t border-gray-100 pt-3">
+          <div className="relative flex-1">
+            <input
+              name="newPassword"
+              type={showPass ? 'text' : 'password'}
+              required
+              minLength={6}
+              placeholder="New password (min 6 chars)"
+              className="w-full rounded-lg border border-gray-200 px-3 py-1.5 pr-8 text-sm focus:border-brand-400 focus:outline-none"
+            />
+            <button type="button" onClick={() => setShowPass(v => !v)} className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400">
+              {showPass ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+            </button>
+          </div>
+          <button type="submit" disabled={pending} className="rounded-lg bg-brand-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-brand-500 disabled:opacity-50">Save</button>
+          <button type="button" onClick={() => setShowReset(false)} className="rounded-lg px-3 py-1.5 text-xs text-gray-400 hover:text-gray-600">Cancel</button>
+          {resetError && <span className="text-xs text-red-500">{resetError}</span>}
+        </form>
+      )}
+    </div>
+  )
+}
+
+function AdminsTab({ currentUsername }: { currentUsername: string }) {
+  const [admins, setAdmins] = useState<AdminUserRow[]>([])
+  const [loading, setLoading] = useState(true)
+  const [showCreate, setShowCreate] = useState(false)
+  const [showPass, setShowPass] = useState(false)
+  const [createError, setCreateError] = useState('')
+  const [, startTransition] = useTransition()
+
+  const load = () => {
+    setLoading(true)
+    fetch('/api/admin/admins')
+      .then(r => r.json())
+      .then(setAdmins)
+      .catch(() => {})
+      .finally(() => setLoading(false))
+  }
+
+  useEffect(() => { load() }, [])
+
+  const handleCreate = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setCreateError('')
+    const fd = new FormData(e.currentTarget)
+    startTransition(async () => {
+      const res = await createAdminUserAction(fd)
+      if (res?.error) { setCreateError(res.error); return }
+      ;(e.target as HTMLFormElement).reset()
+      setShowCreate(false)
+      load()
+    })
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Stats */}
+      <div className="grid grid-cols-2 gap-4">
+        {[
+          { label: 'Total Admins', value: admins.length, color: 'text-gray-700' },
+          { label: 'Active', value: admins.filter(a => a.isActive).length, color: 'text-green-600' },
+        ].map(({ label, value, color }) => (
+          <div key={label} className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm">
+            <p className="text-xs text-gray-400 mb-1">{label}</p>
+            <p className={cn('text-2xl font-black', color)}>{value}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Create */}
+      <div className="rounded-xl border border-gray-100 bg-white shadow-sm">
+        <button
+          onClick={() => setShowCreate(v => !v)}
+          className="flex w-full items-center justify-between px-6 py-4"
+        >
+          <div className="flex items-center gap-2">
+            <Plus className="h-4 w-4 text-brand-600" />
+            <span className="font-semibold text-gray-900">Create Admin User</span>
+          </div>
+          <span className="text-xs text-gray-400">{showCreate ? '▲ Collapse' : '▼ Expand'}</span>
+        </button>
+        {showCreate && (
+          <div className="border-t border-gray-100 px-6 pb-6 pt-5">
+            <form onSubmit={handleCreate} className="space-y-4">
+              {createError && (
+                <div className="flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2.5 text-sm text-red-700">
+                  <AlertCircle className="h-4 w-4 shrink-0" />{createError}
+                </div>
+              )}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="mb-1 block text-xs font-semibold text-gray-500 uppercase tracking-wide">Username *</label>
+                  <input name="username" required placeholder="admin_name" className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-brand-400 focus:outline-none" />
+                </div>
+                <div>
+                  <label className="mb-1 block text-xs font-semibold text-gray-500 uppercase tracking-wide">Password *</label>
+                  <div className="relative">
+                    <input name="password" type={showPass ? 'text' : 'password'} required minLength={6} placeholder="min. 6 chars" className="w-full rounded-lg border border-gray-200 px-3 py-2 pr-9 text-sm focus:border-brand-400 focus:outline-none" />
+                    <button type="button" onClick={() => setShowPass(v => !v)} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400">
+                      {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-semibold text-gray-500 uppercase tracking-wide">Display Name (optional)</label>
+                <input name="displayName" placeholder="e.g. Sarah Ahmed" className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-brand-400 focus:outline-none" />
+              </div>
+              <div className="rounded-lg bg-amber-50 border border-amber-200 px-4 py-3 text-xs text-amber-700">
+                New admins can manage credentials, content, and question banks — but cannot create other admins.
+              </div>
+              <button type="submit" className="flex w-full items-center justify-center gap-2 rounded-lg bg-brand-600 py-2.5 text-sm font-semibold text-white hover:bg-brand-500 transition">
+                <UserCog className="h-4 w-4" />Create Admin
+              </button>
+            </form>
+          </div>
+        )}
+      </div>
+
+      {/* List */}
+      <div className="rounded-xl border border-gray-100 bg-white shadow-sm">
+        <div className="border-b border-gray-100 px-6 py-4">
+          <h2 className="font-bold text-gray-900">Admin Accounts</h2>
+          <p className="text-xs text-gray-400 mt-0.5">Only you ({currentUsername}) can manage these accounts.</p>
+        </div>
+        <div className="p-4 space-y-3">
+          {loading ? (
+            <div className="flex justify-center py-8"><Loader2 className="h-5 w-5 animate-spin text-gray-300" /></div>
+          ) : admins.length === 0 ? (
+            <p className="py-8 text-center text-sm text-gray-400">No admin users yet. Create one above.</p>
+          ) : (
+            admins.map(a => <AdminRow key={a.id} admin={a} onAction={load} />)
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ── Root dashboard ─────────────────────────────────────────────────────────────
 
-type MainTab = 'credentials' | 'content' | 'users' | 'tests'
+type MainTab = 'credentials' | 'content' | 'tests' | 'users' | 'admins'
 
-const MAIN_TABS: { id: MainTab; label: string; icon: React.ElementType }[] = [
-  { id: 'credentials', label: 'Credentials', icon: Key },
-  { id: 'content',     label: 'Content',     icon: Database },
-  { id: 'users',       label: 'Users',       icon: Users },
-  { id: 'tests',       label: 'Tests',       icon: ClipboardList },
-]
-
-export default function AdminDashboard({ credentials }: { credentials: Credential[] }) {
+export default function AdminDashboard({
+  credentials,
+  isSuperAdmin,
+  adminUsername,
+}: {
+  credentials: Credential[]
+  isSuperAdmin: boolean
+  adminUsername: string
+}) {
   const [mainTab, setMainTab] = useState<MainTab>('credentials')
+
+  const tabs: { id: MainTab; label: string; icon: React.ElementType; superOnly?: boolean }[] = [
+    { id: 'credentials', label: 'Credentials', icon: Key },
+    { id: 'content',     label: 'Content',     icon: Database },
+    { id: 'tests',       label: 'Tests',       icon: ClipboardList },
+    { id: 'users',       label: 'Users',       icon: Users },
+    { id: 'admins',      label: 'Admins',      icon: UserCog, superOnly: true },
+  ]
+
+  const visibleTabs = tabs.filter(t => !t.superOnly || isSuperAdmin)
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -638,7 +885,10 @@ export default function AdminDashboard({ credentials }: { credentials: Credentia
             </div>
             <div>
               <h1 className="text-sm font-black text-gray-900">Test Lab Admin</h1>
-              <p className="text-xs text-gray-400">Management Console</p>
+              <p className="text-xs text-gray-400">
+                {adminUsername}
+                {isSuperAdmin && <span className="ml-1.5 rounded-full bg-gold-100 px-1.5 py-0.5 text-[10px] font-bold text-gold-700">Super Admin</span>}
+              </p>
             </div>
           </div>
           <form action={adminLogoutAction}>
@@ -652,11 +902,14 @@ export default function AdminDashboard({ credentials }: { credentials: Credentia
       {/* Tab bar */}
       <div className="border-b border-gray-200 bg-white px-6">
         <div className="mx-auto flex max-w-5xl gap-1">
-          {MAIN_TABS.map(({ id, label, icon: Icon }) => (
+          {visibleTabs.map(({ id, label, icon: Icon }) => (
             <button
               key={id}
               onClick={() => setMainTab(id)}
-              className={cn('flex items-center gap-2 border-b-2 px-4 py-3 text-sm font-semibold transition-colors', mainTab === id ? 'border-brand-600 text-brand-600' : 'border-transparent text-gray-500 hover:text-gray-700')}
+              className={cn(
+                'flex items-center gap-2 border-b-2 px-4 py-3 text-sm font-semibold transition-colors',
+                mainTab === id ? 'border-brand-600 text-brand-600' : 'border-transparent text-gray-500 hover:text-gray-700',
+              )}
             >
               <Icon className="h-4 w-4" />{label}
             </button>
@@ -668,8 +921,9 @@ export default function AdminDashboard({ credentials }: { credentials: Credentia
       <div className="mx-auto max-w-5xl px-6 py-8">
         {mainTab === 'credentials' && <CredentialsTab credentials={credentials} />}
         {mainTab === 'content'     && <ContentTab />}
-        {mainTab === 'users'       && <UsersTab />}
         {mainTab === 'tests'       && <TestsTab proxy={PROXY} />}
+        {mainTab === 'users'       && <UsersTab />}
+        {mainTab === 'admins'      && isSuperAdmin && <AdminsTab currentUsername={adminUsername} />}
       </div>
     </div>
   )

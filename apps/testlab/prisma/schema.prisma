@@ -22,6 +22,20 @@ model TlCredential {
   @@map("tl_credentials")
 }
 
+// Admin users managed by the super-admin
+model AdminUser {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  passwordHash String   @map("password_hash")
+  displayName  String?  @map("display_name")
+  isSuperAdmin Boolean  @default(false) @map("is_super_admin")
+  isActive     Boolean  @default(true) @map("is_active")
+  createdBy    String?  @map("created_by")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("admin_users")
+}
+
 // Active browser sessions for Test Lab users
 model TlSession {
   id           Int          @id @default(autoincrement())

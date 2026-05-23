@@ -9,21 +9,53 @@ import { cn } from '../../../lib/utils'
 
 // ── Exam config ───────────────────────────────────────────────────────────────
 
-const EXAM_TYPES = ['IELTS', 'TOEFL', 'OET', 'SAT', 'GRE', 'GMAT', 'PTE', 'GENERAL']
+const EXAM_GROUPS: { label: string; types: string[] }[] = [
+  {
+    label: 'International Exams',
+    types: ['IELTS', 'TOEFL', 'OET', 'PTE', 'CELPIP'],
+  },
+  {
+    label: 'Academic / Graduate',
+    types: ['SAT', 'GRE', 'GMAT'],
+  },
+  {
+    label: 'Language Courses',
+    types: ['ENGLISH', 'FRENCH', 'ARABIC', 'SPANISH', 'GERMAN', 'BUSINESS ENGLISH'],
+  },
+  {
+    label: 'Language Certificates',
+    types: ['DELF/DALF', 'DELE', 'GENERAL'],
+  },
+]
+
+const EXAM_TYPES = EXAM_GROUPS.flatMap(g => g.types)
 
 const EXAM_SECTIONS: Record<string, string[]> = {
-  IELTS:   ['Reading (Academic)', 'Reading (General Training)', 'Listening'],
-  TOEFL:   ['Reading', 'Listening'],
-  OET:     ['Reading Part A', 'Reading Part B-C', 'Listening Part A', 'Listening Part B-C'],
-  SAT:     ['Reading & Writing', 'Math'],
-  GRE:     ['Verbal Reasoning', 'Quantitative Reasoning'],
-  GMAT:    ['Verbal', 'Quantitative', 'Integrated Reasoning'],
-  PTE:     ['Reading', 'Listening'],
-  GENERAL: ['Mixed'],
+  // International exams
+  IELTS:            ['Reading (Academic)', 'Reading (General Training)', 'Listening'],
+  TOEFL:            ['Reading', 'Listening'],
+  OET:              ['Reading Part A', 'Reading Part B–C', 'Listening Part A', 'Listening Part B–C'],
+  PTE:              ['Reading', 'Listening'],
+  CELPIP:           ['Reading', 'Listening'],
+  // Academic / Graduate
+  SAT:              ['Reading & Writing', 'Math'],
+  GRE:              ['Verbal Reasoning', 'Quantitative Reasoning'],
+  GMAT:             ['Verbal', 'Quantitative', 'Integrated Reasoning'],
+  // Language courses
+  ENGLISH:          ['Grammar', 'Vocabulary', 'Reading', 'Listening', 'Writing'],
+  FRENCH:           ['Reading', 'Grammar & Vocabulary', 'Listening', 'Writing'],
+  ARABIC:           ['Reading', 'Grammar & Vocabulary', 'Listening'],
+  SPANISH:          ['Reading', 'Grammar & Vocabulary', 'Listening'],
+  GERMAN:           ['Reading', 'Grammar & Vocabulary', 'Listening'],
+  'BUSINESS ENGLISH': ['Reading', 'Vocabulary', 'Listening', 'Writing'],
+  // Language certificates
+  'DELF/DALF':      ['Compréhension de l\'oral', 'Compréhension des écrits', 'Production écrite'],
+  DELE:             ['Comprensión de lectura', 'Comprensión auditiva', 'Expresión escrita'],
+  GENERAL:          ['Mixed'],
 }
 
-// Exam types that have reading passages
-const PASSAGE_EXAMS = new Set(['IELTS', 'TOEFL', 'OET', 'GMAT', 'PTE'])
+// Exam types that support reading passage questions
+const PASSAGE_EXAMS = new Set(['IELTS', 'TOEFL', 'OET', 'GMAT', 'PTE', 'CELPIP', 'ENGLISH', 'FRENCH', 'ARABIC', 'SPANISH', 'GERMAN'])
 // Exam types that support TFNG (True/False/Not Given)
 const TFNG_EXAMS = new Set(['IELTS'])
 
@@ -539,7 +571,11 @@ export function TestsTab({ proxy }: { proxy: string }) {
                   onChange={(e) => setBankForm((f) => ({ ...f, exam_type: e.target.value, section: '' }))}
                   className="input-sm mt-1"
                 >
-                  {EXAM_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+                  {EXAM_GROUPS.map((g) => (
+                    <optgroup key={g.label} label={g.label}>
+                      {g.types.map((t) => <option key={t} value={t}>{t}</option>)}
+                    </optgroup>
+                  ))}
                 </select>
               </div>
               <div>

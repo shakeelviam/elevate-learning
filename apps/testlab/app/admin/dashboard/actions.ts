@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { db } from '../../../lib/db'
-import { hashPassword } from '../../../lib/auth'
+import { hashPassword, getAdminSession, createAdminUser, setAdminUserActive, deleteAdminUser, resetAdminUserPassword } from '../../../lib/auth'
 import { durationToExpiry } from '../../../lib/utils'
 
 const CreateSchema = z.object({
@@ -74,6 +74,54 @@ export async function resetPasswordAction(id: number, formData: FormData) {
   if (newPassword.length < 6) return { error: 'Password must be at least 6 characters.' }
   const passwordHash = await hashPassword(newPassword)
   await db.tlCredential.update({ where: { id }, data: { passwordHash } })
+  revalidatePath('/admin/dashboard')
+  return { success: true }
+}
+
+// ── Admin user management (super admin only) ──────────────────────────────────
+
+async function requireSuperAdmin() {
+  const session = await getAdminSession()
+  if (!session?.isSuperAdmin) throw new Error('Forbidden')
+}
+
+export async function createAdminUserAction(formData: FormData) {
+  await requireSuperAdmin()
+  const session = await getAdminSession()
+  const username    = (formData.get('username') as string ?? '').trim()
+  const password    = (formData.get('password') as string ?? '').trim()
+  const displayName = (formData.get('displayName') as string ?? '').trim()
+
+  if (!username || password.length < 6) return { error: 'Username required and password must be at least 6 characters.' }
+
+  const result = await createAdminUser({
+    username,
+    password,
+    displayName: displayName || undefined,
+    createdBy: session?.username ?? 'superadmin',
+  })
+
+  revalidatePath('/admin/dashboard')
+  return result
+}
+
+export async function toggleAdminActiveAction(id: number, isActive: boolean) {
+  await requireSuperAdmin()
+  await setAdminUserActive(id, isActive)
+  revalidatePath('/admin/dashboard')
+}
+
+export async function deleteAdminUserAction(id: number) {
+  await requireSuperAdmin()
+  await deleteAdminUser(id)
+  revalidatePath('/admin/dashboard')
+}
+
+export async function resetAdminUserPasswordAction(id: number, formData: FormData) {
+  await requireSuperAdmin()
+  const newPassword = (formData.get('newPassword') as string ?? '').trim()
+  if (newPassword.length < 6) return { error: 'Password must be at least 6 characters.' }
+  await resetAdminUserPassword(id, newPassword)
   revalidatePath('/admin/dashboard')
   return { success: true }
 }
