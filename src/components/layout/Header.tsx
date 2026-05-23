@@ -5,8 +5,8 @@ import { useTranslations } from 'next-intl'
 import { usePathname, useRouter } from '@/i18n/navigation'
 import { Link } from '@/i18n/navigation'
 import { useUser, UserButton, SignedIn, SignedOut } from '@clerk/nextjs'
+import Image from 'next/image'
 import {
-  GraduationCap,
   Menu,
   X,
   Globe,
@@ -86,13 +86,15 @@ export function Header({ locale, settings }: HeaderProps) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between gap-4">
             {/* Logo */}
-            <Link href="/" locale={locale} className="flex items-center gap-2.5 flex-shrink-0">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 shadow-brand">
-                <GraduationCap className="h-5 w-5 text-white" />
-              </div>
-              <span className="text-lg font-bold text-gray-900 tracking-tight">
-                {siteName}
-              </span>
+            <Link href="/" locale={locale} className="flex items-center flex-shrink-0">
+              <Image
+                src="/logo.jpg"
+                alt={siteName}
+                width={140}
+                height={52}
+                className="object-contain"
+                priority
+              />
             </Link>
 
             {/* Desktop Nav */}

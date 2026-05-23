@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
+import Image from 'next/image'
 import {
-  GraduationCap,
   Phone,
   Mail,
   MapPin,
@@ -56,11 +56,16 @@ export function Footer({ locale, settings }: FooterProps) {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" locale={locale} className="flex items-center gap-2.5 mb-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700">
-                <GraduationCap className="h-5 w-5 text-white" />
+            <Link href="/" locale={locale} className="inline-flex mb-4">
+              <div className="rounded-xl bg-white px-3 py-2">
+                <Image
+                  src="/logo.jpg"
+                  alt={siteName}
+                  width={130}
+                  height={48}
+                  className="object-contain"
+                />
               </div>
-              <span className="text-lg font-bold text-white">{siteName}</span>
             </Link>
             <p className="text-sm leading-relaxed text-gray-400 mb-6">
               {locale === 'ar'
