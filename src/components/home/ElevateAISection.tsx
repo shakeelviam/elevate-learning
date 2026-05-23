@@ -80,7 +80,7 @@ export function ElevateAISection({ locale }: ElevateAISectionProps) {
               )}
             </h2>
 
-            <p className="mb-8 text-lg leading-relaxed text-brand-200">
+            <p className="mb-8 text-lg leading-relaxed text-white/80">
               {isRtl
                 ? 'محرك اختبارات متطور مصمم خصيصاً لـ IELTS وTOEFL وسائر الامتحانات الدولية. أسئلة جديدة كل مرة، مستوحاة من المواد الأصلية.'
                 : 'A powerful test engine built for IELTS, TOEFL, and every major exam. New, copyright-safe questions every session — drawn from real study materials.'}
@@ -89,9 +89,9 @@ export function ElevateAISection({ locale }: ElevateAISectionProps) {
             {/* Feature list */}
             <ul className="mb-10 space-y-3">
               {features.map(({ icon: Icon, label }) => (
-                <li key={label} className="flex items-center gap-3 text-sm text-brand-100">
+                <li key={label} className="flex items-center gap-3 text-sm text-white/90">
                   <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-brand-800">
-                    <Icon className="h-3.5 w-3.5 text-brand-300" />
+                    <Icon className="h-3.5 w-3.5 text-gold-400" />
                   </span>
                   {label}
                 </li>
@@ -103,7 +103,7 @@ export function ElevateAISection({ locale }: ElevateAISectionProps) {
               {EXAM_BADGES.map((badge) => (
                 <span
                   key={badge}
-                  className="rounded-lg border border-brand-700 bg-brand-900 px-3 py-1 text-xs font-bold tracking-widest text-brand-300"
+                  className="rounded-lg border border-gold-700/40 bg-brand-900 px-3 py-1 text-xs font-bold tracking-widest text-gold-300"
                 >
                   {badge}
                 </span>
@@ -115,7 +115,7 @@ export function ElevateAISection({ locale }: ElevateAISectionProps) {
               <p className="mb-3 text-sm font-semibold text-white">
                 {isRtl ? 'هل أنت مهتم بالوصول إلى مختبر الاختبارات؟' : 'Interested in Test Lab access?'}
               </p>
-              <p className="mb-4 text-sm leading-relaxed text-brand-300">
+              <p className="mb-4 text-sm leading-relaxed text-white/70">
                 {isRtl
                   ? 'يتوفر مختبر الاختبارات للطلاب المسجلين فقط. تواصل معنا للحصول على بياناتك وبدء التدريب.'
                   : 'Test Lab is available to enrolled students only. Reach out to us and we\'ll get you set up with your credentials.'}

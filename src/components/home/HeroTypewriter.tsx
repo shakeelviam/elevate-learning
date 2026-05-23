@@ -45,21 +45,21 @@ export function HeroTypewriter({ locale }: { locale: 'en' | 'ar' }) {
         {/* Top label */}
         <div className="flex items-center gap-2">
           <span className="h-2 w-2 rounded-full bg-gold-400 animate-pulse" />
-          <p className="text-brand-200 text-xs uppercase tracking-widest">
+          <p className="text-gold-200 text-xs uppercase tracking-widest">
             {locale === 'ar' ? 'إليفيت ليرنينج — الكويت' : 'Elevate Learning — Kuwait'}
           </p>
         </div>
 
         {/* Middle: typewriter */}
         <div>
-          <p className="text-brand-300 text-sm mb-3">
+          <p className="text-gold-300 text-sm mb-3">
             {locale === 'ar' ? 'أتقن' : 'Master'}
           </p>
-          <h3 className="text-white font-black leading-tight mb-1" style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.5rem)', minHeight: '3.2em' }}>
+          <h3 className="text-gold-300 font-black leading-tight mb-1" style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.5rem)', minHeight: '3.2em' }}>
             {displayed}
             <span className="inline-block w-[3px] h-[1em] bg-gold-400 ml-1 align-middle animate-pulse" />
           </h3>
-          <p className="text-brand-200 text-sm leading-relaxed mt-4">
+          <p className="text-gold-200 text-sm leading-relaxed mt-4">
             {locale === 'ar'
               ? 'مع أفضل المدرسين في الكويت'
               : "with Kuwait's finest instructors"}
