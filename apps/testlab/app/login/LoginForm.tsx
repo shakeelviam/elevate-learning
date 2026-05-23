@@ -20,8 +20,7 @@ export default function LoginForm() {
 
   return (
     <div className="w-full max-w-md">
-      {/* Card */}
-      <div className="rounded-3xl bg-white/10 backdrop-blur-md border border-white/20 p-8 shadow-2xl">
+      <div className="rounded-3xl bg-white/10 backdrop-blur-md border border-white/15 p-8 shadow-2xl">
         {/* Logo */}
         <div className="mb-8 flex flex-col items-center gap-3">
           <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-gold-400 to-gold-600 shadow-lg">
@@ -29,7 +28,7 @@ export default function LoginForm() {
           </div>
           <div className="text-center">
             <h1 className="text-2xl font-black text-white">Test Lab</h1>
-            <p className="text-sm text-brand-300 mt-1">Enter your access credentials to continue</p>
+            <p className="text-sm text-white/60 mt-1">Enter your access credentials to continue</p>
           </div>
         </div>
 
@@ -42,7 +41,7 @@ export default function LoginForm() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="mb-1.5 block text-sm font-semibold text-brand-200">
+            <label className="mb-1.5 block text-sm font-semibold text-white/80">
               Username
             </label>
             <input
@@ -50,13 +49,13 @@ export default function LoginForm() {
               type="text"
               required
               autoComplete="username"
-              className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-brand-400 outline-none transition focus:border-gold-400 focus:bg-white/15 focus:ring-2 focus:ring-gold-400/30"
+              className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-white/30 outline-none transition focus:border-gold-400 focus:bg-white/15 focus:ring-2 focus:ring-gold-400/30"
               placeholder="your_username"
             />
           </div>
 
           <div>
-            <label className="mb-1.5 block text-sm font-semibold text-brand-200">
+            <label className="mb-1.5 block text-sm font-semibold text-white/80">
               Password
             </label>
             <input
@@ -64,7 +63,7 @@ export default function LoginForm() {
               type="password"
               required
               autoComplete="current-password"
-              className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-brand-400 outline-none transition focus:border-gold-400 focus:bg-white/15 focus:ring-2 focus:ring-gold-400/30"
+              className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-white/30 outline-none transition focus:border-gold-400 focus:bg-white/15 focus:ring-2 focus:ring-gold-400/30"
               placeholder="••••••••"
             />
           </div>
@@ -72,7 +71,7 @@ export default function LoginForm() {
           <button
             type="submit"
             disabled={isPending}
-            className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-gold-500 to-gold-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg transition hover:from-gold-600 hover:to-gold-700 disabled:opacity-60"
+            className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-gold-500 to-gold-400 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-gold-500/20 transition hover:opacity-90 disabled:opacity-60"
           >
             {isPending ? (
               <>
@@ -85,7 +84,7 @@ export default function LoginForm() {
           </button>
         </form>
 
-        <p className="mt-6 text-center text-xs text-brand-400">
+        <p className="mt-6 text-center text-xs text-white/40">
           Access credentials are provided by your administrator.
         </p>
       </div>

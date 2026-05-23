@@ -19,57 +19,77 @@ export default function AdminLoginForm() {
   }
 
   return (
-    <div className="w-full max-w-sm">
-      <div className="rounded-2xl border border-gray-800 bg-gray-900 p-8 shadow-2xl">
+    <div className="w-full max-w-md">
+      <div className="rounded-3xl bg-white/10 backdrop-blur-md border border-white/15 p-8 shadow-2xl">
+        {/* Logo */}
         <div className="mb-8 flex flex-col items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-600">
-            <Shield className="h-6 w-6 text-white" />
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-gold-400 to-gold-600 shadow-lg">
+            <Shield className="h-8 w-8 text-white" />
           </div>
           <div className="text-center">
-            <h1 className="text-xl font-black text-white">Admin Access</h1>
-            <p className="text-sm text-gray-400 mt-1">Test Lab Control Panel</p>
+            <h1 className="text-2xl font-black text-white">Admin Access</h1>
+            <p className="text-sm text-white/60 mt-1">Test Lab Control Panel</p>
           </div>
         </div>
 
         {error && (
-          <div className="mb-5 flex items-center gap-2 rounded-lg border border-red-800 bg-red-950 px-3 py-2.5 text-sm text-red-400">
-            <AlertCircle className="h-4 w-4 flex-shrink-0" />
-            {error}
+          <div className="mb-6 flex items-start gap-3 rounded-xl border border-red-400/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+            <AlertCircle className="mt-0.5 h-4 w-4 flex-shrink-0" />
+            <span>{error}</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-gray-400">
+            <label className="mb-1.5 block text-sm font-semibold text-white/80">
               Username
             </label>
             <input
               name="username"
               type="text"
               required
-              className="w-full rounded-lg border border-gray-700 bg-gray-800 px-3 py-2.5 text-sm text-white outline-none transition focus:border-brand-500 focus:ring-1 focus:ring-brand-500"
+              autoComplete="username"
+              className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-white/30 outline-none transition focus:border-gold-400 focus:bg-white/15 focus:ring-2 focus:ring-gold-400/30"
+              placeholder="admin"
             />
           </div>
+
           <div>
-            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-gray-400">
+            <label className="mb-1.5 block text-sm font-semibold text-white/80">
               Password
             </label>
             <input
               name="password"
               type="password"
               required
-              className="w-full rounded-lg border border-gray-700 bg-gray-800 px-3 py-2.5 text-sm text-white outline-none transition focus:border-brand-500 focus:ring-1 focus:ring-brand-500"
+              autoComplete="current-password"
+              className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-white/30 outline-none transition focus:border-gold-400 focus:bg-white/15 focus:ring-2 focus:ring-gold-400/30"
+              placeholder="••••••••"
             />
           </div>
+
           <button
             type="submit"
             disabled={isPending}
-            className="flex w-full items-center justify-center gap-2 rounded-lg bg-brand-600 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-500 disabled:opacity-50"
+            className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-gold-500 to-gold-400 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-gold-500/20 transition hover:opacity-90 disabled:opacity-60"
           >
-            {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Shield className="h-4 w-4" />}
-            {isPending ? 'Signing in…' : 'Sign In'}
+            {isPending ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Signing in…
+              </>
+            ) : (
+              <>
+                <Shield className="h-4 w-4" />
+                Sign In
+              </>
+            )}
           </button>
         </form>
+
+        <p className="mt-6 text-center text-xs text-white/40">
+          Restricted to authorised administrators only.
+        </p>
       </div>
     </div>
   )
