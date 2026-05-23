@@ -35,20 +35,20 @@ function baseEmailLayout(content: string, locale: 'en' | 'ar'): string {
   <style>
     body { margin: 0; padding: 0; background: #f5f7fa; font-family: ${isRtl ? "'Segoe UI', Tahoma, Arial" : "'Inter', 'Helvetica Neue', Arial"}, sans-serif; direction: ${isRtl ? 'rtl' : 'ltr'}; }
     .container { max-width: 600px; margin: 40px auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
-    .header { background: linear-gradient(135deg, #0d8be8 0%, #0357a0 100%); padding: 32px 40px; text-align: center; }
+    .header { background: linear-gradient(135deg, #1B2A4A 0%, #253663 100%); padding: 32px 40px; text-align: center; }
     .header h1 { color: white; margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
     .header p { color: rgba(255,255,255,0.8); margin: 8px 0 0; font-size: 14px; }
     .body { padding: 40px; }
-    .body h2 { color: #0d8be8; font-size: 20px; margin: 0 0 16px; }
+    .body h2 { color: #1B2A4A; font-size: 20px; margin: 0 0 16px; }
     .body p { color: #374151; line-height: 1.7; margin: 0 0 12px; font-size: 15px; }
     .info-table { width: 100%; border-collapse: collapse; margin: 24px 0; }
     .info-table td { padding: 10px 14px; font-size: 14px; border-bottom: 1px solid #e5e7eb; }
     .info-table td:first-child { color: #6b7280; font-weight: 500; width: 40%; }
     .info-table td:last-child { color: #111827; }
-    .cta-btn { display: inline-block; background: #0d8be8; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px; margin: 16px 0; }
+    .cta-btn { display: inline-block; background: #C9A84C; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px; margin: 16px 0; }
     .footer { background: #f9fafb; padding: 24px 40px; text-align: center; border-top: 1px solid #e5e7eb; }
     .footer p { color: #9ca3af; font-size: 13px; margin: 4px 0; }
-    .badge { display: inline-block; background: #f0f7ff; color: #0d8be8; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+    .badge { display: inline-block; background: #F5E9C4; color: #1B2A4A; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; }
   </style>
 </head>
 <body>
@@ -82,7 +82,7 @@ function registrationStudentEmailEn(data: RegistrationEmailData): string {
       <tr><td>Phone</td><td>${data.phone}</td></tr>
       <tr><td>Status</td><td><span class="badge">Pending Confirmation</span></td></tr>
     </table>
-    <p>While you wait, feel free to browse our <a href="${process.env.NEXT_PUBLIC_APP_URL}/en/courses" style="color:#0d8be8">other courses</a> or contact us on WhatsApp for any questions.</p>`,
+    <p>While you wait, feel free to browse our <a href="${process.env.NEXT_PUBLIC_APP_URL}/en/courses" style="color:#C9A84C">other courses</a> or contact us on WhatsApp for any questions.</p>`,
     'en'
   )
 }
@@ -98,7 +98,7 @@ function registrationStudentEmailAr(data: RegistrationEmailData): string {
       <tr><td>الهاتف</td><td>${data.phone}</td></tr>
       <tr><td>الحالة</td><td><span class="badge">في انتظار التأكيد</span></td></tr>
     </table>
-    <p>في انتظار ذلك، يمكنك تصفح <a href="${process.env.NEXT_PUBLIC_APP_URL}/ar/courses" style="color:#0d8be8">دوراتنا الأخرى</a> أو التواصل معنا عبر واتساب لأي استفسار.</p>`,
+    <p>في انتظار ذلك، يمكنك تصفح <a href="${process.env.NEXT_PUBLIC_APP_URL}/ar/courses" style="color:#C9A84C">دوراتنا الأخرى</a> أو التواصل معنا عبر واتساب لأي استفسار.</p>`,
     'ar'
   )
 }
@@ -131,7 +131,7 @@ function contactInstituteEmail(data: ContactEmailData): string {
       ${data.subject ? `<tr><td>Subject</td><td>${data.subject}</td></tr>` : ''}
     </table>
     <p><strong>Message:</strong></p>
-    <p style="background:#f9fafb;padding:16px;border-radius:8px;border-left:4px solid #0d8be8">${data.message}</p>`,
+    <p style="background:#f9fafb;padding:16px;border-radius:8px;border-left:4px solid #C9A84C">${data.message}</p>`,
     'en'
   )
 }

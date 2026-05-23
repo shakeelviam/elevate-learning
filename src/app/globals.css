@@ -2,28 +2,35 @@
 
 /* ── Tailwind v4 Theme: Custom Colors ────────────────────────────────────────── */
 @theme {
-  --color-brand-50: #f0f7ff;
-  --color-brand-100: #e0effe;
-  --color-brand-200: #b9dffd;
-  --color-brand-300: #7cc5fb;
-  --color-brand-400: #37a6f6;
-  --color-brand-500: #0d8be8;
-  --color-brand-600: #026dc6;
-  --color-brand-700: #0357a0;
-  --color-brand-800: #074a84;
-  --color-brand-900: #0c3f6e;
-  --color-brand-950: #082849;
+  /* Navy scale — primary brand */
+  --color-brand-50:  #EFF2F7;
+  --color-brand-100: #D5DCEA;
+  --color-brand-200: #AAB8D3;
+  --color-brand-300: #7F96BC;
+  --color-brand-400: #5473A5;
+  --color-brand-500: #3D5080;
+  --color-brand-600: #253663;
+  --color-brand-700: #1B2A4A;
+  --color-brand-800: #162240;
+  --color-brand-900: #111833;
+  --color-brand-950: #0C1226;
 
-  --color-gold-50: #fffbeb;
-  --color-gold-100: #fef3c7;
-  --color-gold-200: #fde68a;
-  --color-gold-300: #fcd34d;
-  --color-gold-400: #fbbf24;
-  --color-gold-500: #f59e0b;
-  --color-gold-600: #d97706;
-  --color-gold-700: #b45309;
-  --color-gold-800: #92400e;
-  --color-gold-900: #78350f;
+  /* Gold scale — accent only (CTAs, highlights, gradients) */
+  --color-gold-50:  #FBF6E8;
+  --color-gold-100: #F5E9C4;
+  --color-gold-200: #EDCE87;
+  --color-gold-300: #E8C96B;
+  --color-gold-400: #D4B558;
+  --color-gold-500: #C9A84C;
+  --color-gold-600: #B08A38;
+  --color-gold-700: #8C6C28;
+  --color-gold-800: #6B5018;
+  --color-gold-900: #4A3610;
+
+  /* Neutral surface tokens */
+  --color-off-white:  #FAFAF8;
+  --color-gray-soft:  #F0EDE6;
+  --color-gray-mid:   #C2BFB8;
 
   --font-family-sans: var(--font-body);
   --font-family-display: var(--font-display);
@@ -39,21 +46,21 @@
 
 /* ── Brand Tokens ────────────────────────────────────────────────────────────── */
 :root {
-  --brand-primary: #0d8be8;
-  --brand-primary-dark: #0357a0;
-  --brand-gold: #f59e0b;
-  --brand-gold-light: #fcd34d;
+  --brand-primary: #1B2A4A;
+  --brand-primary-dark: #162240;
+  --brand-gold: #C9A84C;
+  --brand-gold-light: #E8C96B;
 
   --surface-1: #ffffff;
-  --surface-2: #f8fafc;
-  --surface-3: #f1f5f9;
+  --surface-2: #FAFAF8;
+  --surface-3: #F0EDE6;
 
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #94a3b8;
+  --text-primary: #1B2A4A;
+  --text-secondary: #6B7080;
+  --text-muted: #C2BFB8;
 
-  --border: #e2e8f0;
-  --border-focus: #0d8be8;
+  --border: #C2BFB8;
+  --border-focus: #C9A84C;
 
   --radius: 12px;
   --radius-sm: 8px;
@@ -62,7 +69,7 @@
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
   --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.06);
-  --shadow-brand: 0 8px 32px rgba(13, 139, 232, 0.24);
+  --shadow-brand: 0 8px 32px rgba(27, 42, 74, 0.24);
 }
 
 /* ── Base Typography ─────────────────────────────────────────────────────────── */
@@ -270,9 +277,9 @@ html[lang="ar"] h3 {
 
 .hero-gradient {
   background:
-    radial-gradient(ellipse 80% 80% at 20% 40%, rgba(13, 139, 232, 0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 60% at 80% 80%, rgba(245, 158, 11, 0.08) 0%, transparent 60%),
-    linear-gradient(135deg, #f8fafc 0%, #e0effe 50%, #f0f7ff 100%);
+    radial-gradient(ellipse 80% 80% at 20% 40%, rgba(27, 42, 74, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 60% at 80% 80%, rgba(201, 168, 76, 0.08) 0%, transparent 60%),
+    linear-gradient(135deg, #FFFFFF 0%, #FAFAF8 50%, #EFF2F7 100%);
 }
 
 /* ── Card hover effects ──────────────────────────────────────────────────────── */
@@ -295,7 +302,7 @@ html[lang="ar"] h3 {
 /* ── Gradient text ───────────────────────────────────────────────────────────── */
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--brand-primary) 0%, #026dc6 100%);
+  background: linear-gradient(135deg, #C9A84C 0%, #E8C96B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -304,6 +311,6 @@ html[lang="ar"] h3 {
 /* ── Section patterns ────────────────────────────────────────────────────────── */
 
 .section-pattern {
-  background-image: radial-gradient(circle, rgba(13, 139, 232, 0.06) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(27, 42, 74, 0.06) 1px, transparent 1px);
   background-size: 32px 32px;
 }
