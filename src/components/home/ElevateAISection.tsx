@@ -82,8 +82,8 @@ export function ElevateAISection({ locale }: ElevateAISectionProps) {
 
             <p className="mb-8 text-lg leading-relaxed text-brand-200">
               {isRtl
-                ? 'أول محرك اختبارات يعمل بالذكاء الاصطناعي محلياً، مصمم خصيصاً لـ IELTS وTOEFL وسائر الامتحانات الدولية. أسئلة جديدة كل مرة، مستوحاة من المواد الأصلية.'
-                : 'The first locally-run AI test engine built for IELTS, TOEFL, and every major exam. New, copyright-safe questions every session — drawn from real study materials.'}
+                ? 'محرك اختبارات متطور مصمم خصيصاً لـ IELTS وTOEFL وسائر الامتحانات الدولية. أسئلة جديدة كل مرة، مستوحاة من المواد الأصلية.'
+                : 'A powerful test engine built for IELTS, TOEFL, and every major exam. New, copyright-safe questions every session — drawn from real study materials.'}
             </p>
 
             {/* Feature list */}
@@ -195,7 +195,7 @@ export function ElevateAISection({ locale }: ElevateAISectionProps) {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1.5 text-xs text-brand-400">
                     <CheckCircle2 className="h-3.5 w-3.5 text-green-400" />
-                    {isRtl ? 'تم التوليد بالذكاء الاصطناعي · لا تكرار' : 'AI-generated · Never repeated'}
+                    {isRtl ? 'أسئلة جديدة · لا تكرار أبداً' : 'Fresh questions · Never repeated'}
                   </div>
                   <button className="flex items-center gap-1 rounded-lg bg-brand-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-brand-500 transition-colors">
                     {isRtl ? 'التالي' : 'Next'}
