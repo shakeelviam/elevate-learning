@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
     // Send emails
     const settings = await getSiteSettings()
     const instituteEmail =
-      settings?.contactInfo?.email ?? 'info@elevate-learning.com'
+      settings?.contactInfo?.email ?? 'info@elev8-edu.com'
 
     await sendRegistrationEmails(
       {

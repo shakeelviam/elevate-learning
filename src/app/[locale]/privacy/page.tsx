@@ -11,7 +11,7 @@ export async function generateMetadata({
     title: locale === 'ar' ? 'سياسة الخصوصية' : 'Privacy Policy',
     description:
       locale === 'ar'
-        ? 'سياسة الخصوصية لمعهد إليفيت ليرنينج'
+        ? 'سياسة الخصوصية لمركز إيليفيت للتعليم'
         : 'Privacy Policy for Elevate Learning Institute',
   }
 }
@@ -61,7 +61,7 @@ All processors are contractually obligated to protect your data and process it o
 • **Correction**: Request correction of inaccurate or incomplete data.
 • **Deletion**: Request deletion of your data, subject to legal retention obligations.
 • **Portability**: Receive your data in a structured, machine-readable format.
-To exercise these rights, contact us at privacy@elevate-learning.com.`,
+To exercise these rights, contact us at info@elev8-edu.com.`,
     },
     {
       heading: '7. Cookies',
@@ -84,7 +84,7 @@ To exercise these rights, contact us at privacy@elevate-learning.com.`,
       body: `For privacy-related enquiries or to exercise your rights:
 **Elevate Learning**
 Kuwait City, Kuwait
-Email: privacy@elevate-learning.com
+Email: info@elev8-edu.com
 Phone: +965 2222 3333`,
     },
   ],
@@ -96,7 +96,7 @@ const arContent = {
   sections: [
     {
       heading: '1. من نحن',
-      body: 'إليفيت ليرنينج ("نحن"، "لنا") معهد تدريب لغوي مقره مدينة الكويت، الكويت. ندير موقع elevate-learning.com ونقدم دورات تعلم اللغات والتحضير للامتحانات.',
+      body: 'مركز إيليفيت للتعليم ("نحن"، "لنا") معهد تدريب لغوي مقره مدينة الكويت، الكويت. ندير موقع elev8-edu.com ونقدم دورات تعلم اللغات والتحضير للامتحانات.',
     },
     {
       heading: '2. المعلومات التي نجمعها',
@@ -135,7 +135,7 @@ const arContent = {
 • **التصحيح**: طلب تصحيح البيانات غير الدقيقة.
 • **الحذف**: طلب حذف بياناتك.
 • **قابلية النقل**: استلام بياناتك بتنسيق منظم.
-لممارسة هذه الحقوق، تواصل معنا على: privacy@elevate-learning.com`,
+لممارسة هذه الحقوق، تواصل معنا على: info@elev8-edu.com`,
     },
     {
       heading: '7. ملفات تعريف الارتباط',
@@ -156,9 +156,9 @@ const arContent = {
     {
       heading: '11. تواصل معنا',
       body: `لأي استفسارات تتعلق بالخصوصية:
-**إليفيت ليرنينج**
+**مركز إيليفيت للتعليم**
 مدينة الكويت، الكويت
-البريد الإلكتروني: privacy@elevate-learning.com
+البريد الإلكتروني: info@elev8-edu.com
 الهاتف: 3333 2222 965+`,
     },
   ],

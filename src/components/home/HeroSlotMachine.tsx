@@ -97,7 +97,7 @@ export function HeroSlotMachine({ locale }: { locale: 'en' | 'ar' }) {
 
         <div className="absolute bottom-6 inset-x-6 flex items-center justify-between">
           <p className="text-brand-300 text-xs uppercase tracking-widest">
-            {locale === 'ar' ? 'إليفيت ليرنينج' : 'Elevate Learning'}
+            {locale === 'ar' ? 'مركز إيليفيت للتعليم' : 'Elevate Learning'}
           </p>
           <div className="flex gap-1.5">
             {items.map((_, i) => (

@@ -29,7 +29,7 @@ export default async function ContactPage({
   const address = getLocaleText(settings?.contactInfo?.address, loc) ??
     (loc === 'ar' ? 'مدينة الكويت، الكويت' : 'Kuwait City, Kuwait')
   const phone = settings?.contactInfo?.phone ?? '+965 2222 3333'
-  const email = settings?.contactInfo?.email ?? 'info@elevate-learning.com'
+  const email = settings?.contactInfo?.email ?? 'info@elev8-edu.com'
   const whatsapp = settings?.contactInfo?.whatsapp ?? '96522223333'
   const whatsAppUrl = buildWhatsAppUrl(whatsapp, t('contact.whatsappMessage'))
 

@@ -74,7 +74,7 @@ export function HeroCardStack({ locale }: { locale: 'en' | 'ar' }) {
         <Top.Icon className="h-9 w-9 text-white/80" strokeWidth={1.5} />
         <div>
           <p className="text-brand-200 text-xs uppercase tracking-widest mb-2">
-            {locale === 'ar' ? 'إليفيت ليرنينج' : 'Elevate Learning'}
+            {locale === 'ar' ? 'مركز إيليفيت للتعليم' : 'Elevate Learning'}
           </p>
           <h3 className="text-white text-3xl sm:text-4xl font-black leading-tight mb-3">{Top.title}</h3>
           <p className="text-brand-100 text-sm leading-relaxed">{Top.body}</p>

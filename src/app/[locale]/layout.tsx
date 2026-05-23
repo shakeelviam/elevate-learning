@@ -34,7 +34,7 @@ export async function generateMetadata({
     },
     description:
       locale === 'ar'
-        ? 'معهد إليفيت ليرنينج — التميز في تعليم اللغات والتحضير للامتحانات في الكويت'
+        ? 'مركز إيليفيت للتعليم — التميز في تعليم اللغات والتحضير للامتحانات في الكويت'
         : 'Elevate Learning — Excellence in language education and exam preparation in Kuwait',
     alternates: {
       languages: {

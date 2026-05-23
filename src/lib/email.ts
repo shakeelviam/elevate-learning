@@ -2,7 +2,7 @@ import 'server-only'
 import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
-const fromAddress = process.env.RESEND_FROM_ADDRESS ?? 'noreply@elevate-learning.com'
+const fromAddress = process.env.RESEND_FROM_ADDRESS ?? 'noreply@elev8-edu.com'
 
 interface RegistrationEmailData {
   fullName: string
@@ -54,14 +54,14 @@ function baseEmailLayout(content: string, locale: 'en' | 'ar'): string {
 <body>
   <div class="container">
     <div class="header">
-      <h1>${isRtl ? 'إليفيت ليرنينج' : 'Elevate Learning'}</h1>
+      <h1>${isRtl ? 'مركز إيليفيت للتعليم' : 'Elevate Learning'}</h1>
       <p>${isRtl ? 'معهدك الرائد للتعليم اللغوي في الكويت' : 'Kuwait\'s Premier Language Institute'}</p>
     </div>
     <div class="body">
       ${content}
     </div>
     <div class="footer">
-      <p>${isRtl ? '© 2024 إليفيت ليرنينج · الكويت' : '© 2024 Elevate Learning · Kuwait'}</p>
+      <p>${isRtl ? '© 2024 مركز إيليفيت للتعليم · الكويت' : '© 2024 Elevate Learning · Kuwait'}</p>
       <p>${isRtl ? 'هذا البريد الإلكتروني أُرسل تلقائياً، يرجى عدم الرد عليه.' : 'This is an automated email. Please do not reply directly.'}</p>
     </div>
   </div>
@@ -205,7 +205,7 @@ export async function sendContactEmail(
     resend.emails.send({
       from: fromAddress,
       to: data.email,
-      subject: locale === 'ar' ? 'شكراً للتواصل مع إليفيت ليرنينج' : 'We received your message – Elevate Learning',
+      subject: locale === 'ar' ? 'شكراً للتواصل مع مركز إيليفيت للتعليم' : 'We received your message – Elevate Learning',
       html: contactConfirmationEmail(data, locale),
     }),
   ])

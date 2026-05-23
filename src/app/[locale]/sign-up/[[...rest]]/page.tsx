@@ -38,7 +38,7 @@ export default async function SignUpPage({
           </h1>
           <p className="text-gray-500 text-sm mt-1">
             {locale === 'ar'
-              ? 'انضم إلى آلاف الطلاب في إليفيت'
+              ? 'انضم إلى آلاف الطلاب في مركز إيليفيت'
               : 'Join thousands of students at Elevate'}
           </p>
         </div>

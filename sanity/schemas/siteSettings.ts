@@ -21,7 +21,7 @@ export const siteSettingsSchema = defineType({
       group: 'branding',
       fields: [
         { name: 'en', type: 'string', title: 'English', initialValue: 'Elevate Learning' },
-        { name: 'ar', type: 'string', title: 'Arabic', initialValue: 'إليفيت ليرنينج' },
+        { name: 'ar', type: 'string', title: 'Arabic', initialValue: 'مركز إيليفيت للتعليم' },
       ],
     }),
 

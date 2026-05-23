@@ -103,7 +103,7 @@ export function FlipBook({ locale }: { locale: 'en' | 'ar' }) {
         {/* Text content */}
         <div>
           <p className="text-brand-200 text-xs uppercase tracking-widest mb-3">
-            {locale === 'ar' ? 'إليفيت ليرنينج' : 'Elevate Learning'}
+            {locale === 'ar' ? 'مركز إيليفيت للتعليم' : 'Elevate Learning'}
           </p>
           <h3 className="text-white text-3xl sm:text-4xl font-black leading-tight mb-4">
             {page.title}
