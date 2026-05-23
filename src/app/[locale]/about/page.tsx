@@ -70,7 +70,7 @@ export default async function AboutPage({
           <div className="prose-elevate text-lg space-y-4">
             {loc === 'ar' ? (
               <>
-                <p>تأسس معهد إليفيت ليرنينج عام 2012 في مدينة الكويت بهدف تقديم أرقى برامج تعلم اللغات والتحضير للامتحانات في المنطقة.</p>
+                <p>تأسس مركز إيليفيت للتعليم عام 2012 في مدينة الكويت بهدف تقديم أرقى برامج تعلم اللغات والتحضير للامتحانات في المنطقة.</p>
                 <p>بدأنا بدورتين فقط وفريق من ثلاثة مدربين، وتطورنا اليوم لنصبح المعهد الأول في الكويت بأكثر من 40 دورة و8000 خريج من 30 جنسية مختلفة.</p>
                 <p>نؤمن بأن اللغة هي جسر يربط الثقافات والمجتمعات. مهمتنا هي تزويد كل طالب بالمهارات والثقة اللازمة للنجاح في عالم متعدد اللغات.</p>
               </>
@@ -115,7 +115,7 @@ export default async function AboutPage({
               </h2>
               <p className="text-gray-500 max-w-xl mx-auto">
                 {loc === 'ar'
-                  ? 'الأشخاص الذين يجعلون إليفيت ليرنينج استثنائياً'
+                  ? 'الأشخاص الذين يجعلون مركز إيليفيت للتعليم استثنائياً'
                   : 'The people who make Elevate Learning exceptional'}
               </p>
             </div>
@@ -184,7 +184,7 @@ export default async function AboutPage({
       <div className="py-16 text-center bg-gray-50 border-t border-gray-100">
         <div className="mx-auto max-w-xl px-4">
           <h2 className="text-3xl font-black text-gray-900 mb-4">
-            {loc === 'ar' ? 'انضم إلى عائلة إليفيت' : 'Join the Elevate Family'}
+            {loc === 'ar' ? 'انضم إلى عائلة مركز إيليفيت' : 'Join the Elevate Family'}
           </h2>
           <p className="text-gray-500 mb-6">
             {loc === 'ar'

@@ -58,7 +58,7 @@ export async function sendContactAction(
   try {
     const settings = await getSiteSettings()
     const instituteEmail =
-      settings?.contactInfo?.email ?? 'info@elevate-learning.com'
+      settings?.contactInfo?.email ?? 'info@elev8-edu.com'
 
     await sendContactEmail(
       {

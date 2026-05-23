@@ -46,7 +46,7 @@ export function HeroTypewriter({ locale }: { locale: 'en' | 'ar' }) {
         <div className="flex items-center gap-2">
           <span className="h-2 w-2 rounded-full bg-gold-400 animate-pulse" />
           <p className="text-gold-200 text-xs uppercase tracking-widest">
-            {locale === 'ar' ? 'إليفيت ليرنينج — الكويت' : 'Elevate Learning — Kuwait'}
+            {locale === 'ar' ? 'مركز إيليفيت للتعليم — الكويت' : 'Elevate Learning — Kuwait'}
           </p>
         </div>
 

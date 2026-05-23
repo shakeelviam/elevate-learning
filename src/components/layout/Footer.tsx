@@ -27,7 +27,7 @@ export function Footer({ locale, settings }: FooterProps) {
   const address = settings?.contactInfo?.address?.[locale] ?? 
     (locale === 'ar' ? 'مدينة الكويت، الكويت' : 'Kuwait City, Kuwait')
   const phone = settings?.contactInfo?.phone ?? '+965 2222 3333'
-  const email = settings?.contactInfo?.email ?? 'info@elevate-learning.com'
+  const email = settings?.contactInfo?.email ?? 'info@elev8-edu.com'
   const social = settings?.socialLinks ?? {}
 
   const navLinks = locale === 'ar'

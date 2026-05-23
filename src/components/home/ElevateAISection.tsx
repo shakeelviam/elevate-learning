@@ -121,7 +121,7 @@ export function ElevateAISection({ locale }: ElevateAISectionProps) {
                   : 'Test Lab is available to enrolled students only. Reach out to us and we\'ll get you set up with your credentials.'}
               </p>
               <a
-                href="mailto:info@elevatelearning.ae"
+                href="mailto:info@elev8-edu.com"
                 className="inline-flex items-center gap-2 rounded-xl bg-gold-500 px-5 py-2.5 text-sm font-bold text-white shadow-[0_4px_16px_rgba(201,168,76,0.35)] hover:bg-gold-400 transition-colors"
               >
                 {isRtl ? 'تواصل معنا' : 'Contact Us for Access'}
