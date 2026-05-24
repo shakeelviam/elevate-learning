@@ -48,7 +48,7 @@ export async function getSiteSettings(): Promise<SanitySiteSettings | null> {
         navigation
       }`,
       {},
-      { next: { revalidate: 60 } }
+      { cache: 'no-store' }
     ),
     null
   )
@@ -299,7 +299,7 @@ export async function getFaqs(homepageOnly = false): Promise<SanityFaq[]> {
         showOnHomepage
       }`,
       {},
-      { next: { revalidate: 3600 } }
+      { cache: 'no-store' }
     ),
     []
   )
@@ -319,7 +319,7 @@ export async function getTestimonials(): Promise<SanityTestimonial[]> {
         rating
       }`,
       {},
-      { next: { revalidate: 3600 } }
+      { cache: 'no-store' }
     ),
     []
   )
@@ -371,7 +371,7 @@ export async function getTeamMembers(): Promise<SanityTeamMember[]> {
         linkedin
       }`,
       {},
-      { next: { revalidate: 3600 } }
+      { cache: 'no-store' }
     ),
     []
   )
