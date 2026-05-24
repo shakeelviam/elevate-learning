@@ -86,7 +86,7 @@ export function Header({ locale, settings }: HeaderProps) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between gap-4">
             {/* Logo */}
-            <Link href="/" locale={locale} className="flex items-center flex-shrink-0">
+            <Link href="/" locale={locale} className="flex flex-col items-start flex-shrink-0">
               <Image
                 src="/elev8.svg"
                 alt={siteName}
@@ -95,6 +95,11 @@ export function Header({ locale, settings }: HeaderProps) {
                 className="object-contain"
                 priority
               />
+              {locale === 'ar' && (
+                <span className="text-[10px] font-semibold tracking-wide text-brand-900 leading-none -mt-1">
+                  مركز إيليفيت للتعليم
+                </span>
+              )}
             </Link>
 
             {/* Desktop Nav */}

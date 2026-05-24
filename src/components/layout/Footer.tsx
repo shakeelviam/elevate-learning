@@ -56,17 +56,24 @@ export function Footer({ locale, settings }: FooterProps) {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" locale={locale} className="inline-flex mb-4">
-              <div className="rounded-xl bg-white px-3 py-2">
-                <Image
-                  src="/elev8.svg"
-                  alt={siteName}
-                  width={120}
-                  height={44}
-                  className="object-contain"
-                />
-              </div>
-            </Link>
+            <div className="inline-flex flex-col items-start mb-4">
+              <Link href="/" locale={locale} className="inline-flex">
+                <div className="rounded-xl bg-white px-3 py-2">
+                  <Image
+                    src="/elev8.svg"
+                    alt={siteName}
+                    width={120}
+                    height={44}
+                    className="object-contain"
+                  />
+                </div>
+              </Link>
+              {locale === 'ar' && (
+                <span className="mt-2 text-[11px] font-semibold tracking-wide text-gray-300">
+                  مركز إيليفيت للتعليم
+                </span>
+              )}
+            </div>
             <p className="text-sm leading-relaxed text-gray-400 mb-6">
               {locale === 'ar'
                 ? 'معهدك الرائد لتعلم اللغات والتحضير للامتحانات في الكويت.'
