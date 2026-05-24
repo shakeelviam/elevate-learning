@@ -48,7 +48,7 @@ export async function getSiteSettings(): Promise<SanitySiteSettings | null> {
         navigation
       }`,
       {},
-      { next: { revalidate: 3600 } }
+      { next: { revalidate: 60 } }
     ),
     null
   )
