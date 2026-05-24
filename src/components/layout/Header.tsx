@@ -95,7 +95,7 @@ export function Header({ locale, settings }: HeaderProps) {
                 className="object-contain"
                 priority
               />
-              <span className="text-[10px] font-medium tracking-[0.18em] text-gold-500 leading-none -mt-1">
+              <span className="text-[11px] font-medium tracking-[0.22em] text-gold-500 leading-none mt-1">
                 {locale === 'ar' ? 'مركز إيليفيت للتعليم' : 'LEARNING CENTER'}
               </span>
             </Link>
