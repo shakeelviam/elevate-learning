@@ -1,33 +1,32 @@
-import { Trophy, BookOpen, GraduationCap, Globe, type LucideIcon } from 'lucide-react'
+import { Users, LayoutGrid, Languages, UserCheck, type LucideIcon } from 'lucide-react'
 
 interface StatsBannerProps {
   locale: 'en' | 'ar'
-  yearsValue: string
-  coursesValue: string
-  studentsValue: string
-  countriesValue: string
-  yearsLabel: string
-  coursesLabel: string
-  studentsLabel: string
-  countriesLabel: string
+  stat1Value: string
+  stat2Value: string
+  stat3Value: string
+  stat4Value: string
+  stat1Label: string
+  stat2Label: string
+  stat3Label: string
+  stat4Label: string
 }
 
 export function StatsBanner({
-  locale,
-  yearsValue,
-  coursesValue,
-  studentsValue,
-  countriesValue,
-  yearsLabel,
-  coursesLabel,
-  studentsLabel,
-  countriesLabel,
+  stat1Value,
+  stat2Value,
+  stat3Value,
+  stat4Value,
+  stat1Label,
+  stat2Label,
+  stat3Label,
+  stat4Label,
 }: StatsBannerProps) {
   const stats: { value: string; label: string; Icon: LucideIcon }[] = [
-    { value: yearsValue, label: yearsLabel, Icon: Trophy },
-    { value: coursesValue, label: coursesLabel, Icon: BookOpen },
-    { value: studentsValue, label: studentsLabel, Icon: GraduationCap },
-    { value: countriesValue, label: countriesLabel, Icon: Globe },
+    { value: stat1Value, label: stat1Label, Icon: Users },
+    { value: stat2Value, label: stat2Label, Icon: LayoutGrid },
+    { value: stat3Value, label: stat3Label, Icon: Languages },
+    { value: stat4Value, label: stat4Label, Icon: UserCheck },
   ]
 
   return (

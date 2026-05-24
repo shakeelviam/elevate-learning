@@ -1,5 +1,5 @@
 import { Link } from '@/i18n/navigation'
-import { ArrowRight, CheckCircle2, GraduationCap, MapPin, Star } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Sparkles, MapPin, Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { SanitySiteSettings } from '@/types/sanity'
 import { getLocaleText } from '@/lib/utils'
@@ -45,8 +45,12 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
     : (isRtl ? DEFAULT_BADGES_AR : DEFAULT_BADGES_EN)
 
   const floatStats = settings?.heroFloatingStats
-  const graduatesCount = floatStats?.graduatesCount ?? '8,000+'
-  const graduatesLabel = isRtl ? (floatStats?.graduatesLabelAr ?? 'طالب تخرج') : (floatStats?.graduatesLabelEn ?? 'Graduates')
+  const graduatesCount = isRtl
+    ? (floatStats?.graduatesCountAr ?? 'جديد')
+    : (floatStats?.graduatesCount ?? 'NEW')
+  const graduatesLabel = isRtl
+    ? (floatStats?.graduatesLabelAr ?? 'التسجيل مفتوح للدفعة الأولى')
+    : (floatStats?.graduatesLabelEn ?? 'Now Enrolling First Cohort')
   const rating = floatStats?.rating ?? '4.9/5'
   const ratingLabel = isRtl ? (floatStats?.ratingLabelAr ?? 'تقييم الطلاب') : (floatStats?.ratingLabelEn ?? 'Student Rating')
 
@@ -146,7 +150,7 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
               <div className="absolute -bottom-6 -start-6 bg-white rounded-2xl shadow-xl p-4 border border-gray-100">
                 <div className="flex items-center gap-3">
                   <div className="h-12 w-12 rounded-xl bg-brand-50 flex items-center justify-center">
-                    <GraduationCap className="h-6 w-6 text-brand-500" />
+                    <Sparkles className="h-6 w-6 text-brand-500" />
                   </div>
                   <div>
                     <p className="text-xl font-black text-gray-900">{graduatesCount}</p>

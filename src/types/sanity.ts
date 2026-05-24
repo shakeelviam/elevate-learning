@@ -167,6 +167,7 @@ export interface SanitySiteSettings {
   heroBadges?: Array<{ _key?: string; en?: string; ar?: string }>
   heroFloatingStats?: {
     graduatesCount?: string
+    graduatesCountAr?: string
     graduatesLabelEn?: string
     graduatesLabelAr?: string
     rating?: string
@@ -175,10 +176,10 @@ export interface SanitySiteSettings {
   }
   // Stats banner
   stats?: {
-    yearsValue?: string
-    coursesValue?: string
-    studentsValue?: string
-    countriesValue?: string
+    stat1En?: string; stat1Ar?: string; stat1LabelEn?: string; stat1LabelAr?: string
+    stat2En?: string; stat2Ar?: string; stat2LabelEn?: string; stat2LabelAr?: string
+    stat3En?: string; stat3Ar?: string; stat3LabelEn?: string; stat3LabelAr?: string
+    stat4En?: string; stat4Ar?: string; stat4LabelEn?: string; stat4LabelAr?: string
   }
   // Home sections
   pathSection?: {

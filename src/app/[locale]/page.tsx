@@ -56,14 +56,14 @@ export default async function HomePage({
       {/* ── Stats ────────────────────────────────────────────────────────── */}
       <StatsBanner
         locale={loc}
-        yearsValue={settings?.stats?.yearsValue ?? t('home.statsYearsValue')}
-        coursesValue={settings?.stats?.coursesValue ?? t('home.statsCoursesValue')}
-        studentsValue={settings?.stats?.studentsValue ?? t('home.statsStudentsValue')}
-        countriesValue={settings?.stats?.countriesValue ?? t('home.statsCountriesValue')}
-        yearsLabel={t('home.statsYears')}
-        coursesLabel={t('home.statsCourses')}
-        studentsLabel={t('home.statsStudents')}
-        countriesLabel={t('home.statsCountries')}
+        stat1Value={loc === 'ar' ? (settings?.stats?.stat1Ar ?? t('home.stat1ValueAr')) : (settings?.stats?.stat1En ?? t('home.stat1Value'))}
+        stat2Value={loc === 'ar' ? (settings?.stats?.stat2Ar ?? t('home.stat2ValueAr')) : (settings?.stats?.stat2En ?? t('home.stat2Value'))}
+        stat3Value={loc === 'ar' ? (settings?.stats?.stat3Ar ?? t('home.stat3ValueAr')) : (settings?.stats?.stat3En ?? t('home.stat3Value'))}
+        stat4Value={loc === 'ar' ? (settings?.stats?.stat4Ar ?? t('home.stat4ValueAr')) : (settings?.stats?.stat4En ?? t('home.stat4Value'))}
+        stat1Label={loc === 'ar' ? (settings?.stats?.stat1LabelAr ?? t('home.stat1LabelAr')) : (settings?.stats?.stat1LabelEn ?? t('home.stat1Label'))}
+        stat2Label={loc === 'ar' ? (settings?.stats?.stat2LabelAr ?? t('home.stat2LabelAr')) : (settings?.stats?.stat2LabelEn ?? t('home.stat2Label'))}
+        stat3Label={loc === 'ar' ? (settings?.stats?.stat3LabelAr ?? t('home.stat3LabelAr')) : (settings?.stats?.stat3LabelEn ?? t('home.stat3Label'))}
+        stat4Label={loc === 'ar' ? (settings?.stats?.stat4LabelAr ?? t('home.stat4LabelAr')) : (settings?.stats?.stat4LabelEn ?? t('home.stat4Label'))}
       />
 
       {/* ── Elevate AI ───────────────────────────────────────────────────── */}
