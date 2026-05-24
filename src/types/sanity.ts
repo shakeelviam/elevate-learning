@@ -104,6 +104,16 @@ export interface SanityBlogPost extends SanityBlogPostSummary {
   body?: I18nPortableText
 }
 
+// ── FAQ ───────────────────────────────────────────────────────────────────────
+
+export interface SanityFaq {
+  _id: string
+  question: I18nString
+  answer: I18nText
+  order?: number
+  showOnHomepage?: boolean
+}
+
 // ── Testimonial ───────────────────────────────────────────────────────────────
 
 export interface SanityTestimonial {
@@ -128,6 +138,12 @@ export interface SanitySiteSettings {
   heroHeadline?: I18nString
   heroSubheadline?: I18nText
   heroImage?: SanityImage
+  stats?: {
+    yearsValue?: string
+    coursesValue?: string
+    studentsValue?: string
+    countriesValue?: string
+  }
   aboutText?: I18nPortableText
   contactInfo?: {
     phone?: string

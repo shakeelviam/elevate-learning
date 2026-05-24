@@ -10,7 +10,7 @@ import { HomeFAQ } from '@/components/home/HomeFAQ'
 import { SectionHeader } from '@/components/shared/SectionHeader'
 import { CourseCard } from '@/components/courses/CourseCard'
 import { Button } from '@/components/ui/button'
-import { getSiteSettings, getFeaturedCourses, getTestimonials } from '@/sanity/lib/queries'
+import { getSiteSettings, getFeaturedCourses, getTestimonials, getFaqs } from '@/sanity/lib/queries'
 
 export async function generateMetadata({
   params,
@@ -36,10 +36,11 @@ export default async function HomePage({
   const loc = locale as 'en' | 'ar'
   const t = await getTranslations({ locale: loc })
 
-  const [settings, featuredCourses, testimonials] = await Promise.all([
+  const [settings, featuredCourses, testimonials, faqs] = await Promise.all([
     getSiteSettings(),
     getFeaturedCourses(6),
     getTestimonials(),
+    getFaqs(true),
   ])
 
   return (
@@ -55,10 +56,10 @@ export default async function HomePage({
       {/* ── Stats ────────────────────────────────────────────────────────── */}
       <StatsBanner
         locale={loc}
-        yearsValue={t('home.statsYearsValue')}
-        coursesValue={t('home.statsCoursesValue')}
-        studentsValue={t('home.statsStudentsValue')}
-        countriesValue={t('home.statsCountriesValue')}
+        yearsValue={settings?.stats?.yearsValue ?? t('home.statsYearsValue')}
+        coursesValue={settings?.stats?.coursesValue ?? t('home.statsCoursesValue')}
+        studentsValue={settings?.stats?.studentsValue ?? t('home.statsStudentsValue')}
+        countriesValue={settings?.stats?.countriesValue ?? t('home.statsCountriesValue')}
         yearsLabel={t('home.statsYears')}
         coursesLabel={t('home.statsCourses')}
         studentsLabel={t('home.statsStudents')}
@@ -199,7 +200,7 @@ export default async function HomePage({
             title={t('home.faqTitle')}
             subtitle={t('home.faqSubtitle')}
           />
-          <HomeFAQ locale={loc} />
+          <HomeFAQ locale={loc} faqs={faqs} />
         </div>
       </section>
 

@@ -8,6 +8,7 @@ export const siteSettingsSchema = defineType({
   groups: [
     { name: 'branding', title: 'Branding', default: true },
     { name: 'hero', title: 'Hero Section' },
+    { name: 'stats', title: 'Stats' },
     { name: 'about', title: 'About' },
     { name: 'contact', title: 'Contact' },
     { name: 'social', title: 'Social Links' },
@@ -62,6 +63,21 @@ export const siteSettingsSchema = defineType({
       type: 'image',
       group: 'hero',
       options: { hotspot: true },
+    }),
+
+    // ── Stats ─────────────────────────────────────────────────────────────
+    defineField({
+      name: 'stats',
+      title: 'Statistics',
+      type: 'object',
+      group: 'stats',
+      description: 'Numbers shown in the stats banner (e.g. "12+", "8,000+")',
+      fields: [
+        { name: 'yearsValue', type: 'string', title: 'Years of Excellence (value)', initialValue: '12+' },
+        { name: 'coursesValue', type: 'string', title: 'Active Courses (value)', initialValue: '40+' },
+        { name: 'studentsValue', type: 'string', title: 'Graduates (value)', initialValue: '8,000+' },
+        { name: 'countriesValue', type: 'string', title: 'Nationalities Served (value)', initialValue: '30+' },
+      ],
     }),
 
     // ── About ─────────────────────────────────────────────────────────────

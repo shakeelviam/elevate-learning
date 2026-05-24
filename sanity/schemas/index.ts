@@ -3,6 +3,7 @@ import { instructorSchema } from './instructor'
 import { scheduleSchema } from './schedule'
 import { blogSchema } from './blog'
 import { testimonialSchema } from './testimonial'
+import { faqSchema } from './faq'
 import { siteSettingsSchema } from './siteSettings'
 import { registrationSchema } from './registration'
 import { teamMemberSchema } from './teamMember'
@@ -14,6 +15,7 @@ export const schemaTypes = [
   scheduleSchema,
   blogSchema,
   testimonialSchema,
+  faqSchema,
   teamMemberSchema,
 
   // Singletons

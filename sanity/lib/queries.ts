@@ -6,6 +6,7 @@ import type {
   SanityBlogPost,
   SanityBlogPostSummary,
   SanityTestimonial,
+  SanityFaq,
   SanitySiteSettings,
   SanityRegistration,
   SanitySchedule,
@@ -30,6 +31,7 @@ export async function getSiteSettings(): Promise<SanitySiteSettings | null> {
         heroHeadline,
         heroSubheadline,
         heroImage,
+        stats,
         aboutText,
         contactInfo,
         socialLinks,
@@ -263,6 +265,28 @@ export async function getBlogSlugs(): Promise<Array<{ slug: { en: { current: str
     () => sanityClient.fetch(
       groq`*[_type == "blog" && defined(slug.en.current)]{
         slug
+      }`,
+      {},
+      { next: { revalidate: 3600 } }
+    ),
+    []
+  )
+}
+
+// ── FAQs ─────────────────────────────────────────────────────────────────────
+
+export async function getFaqs(homepageOnly = false): Promise<SanityFaq[]> {
+  const filter = homepageOnly
+    ? '_type == "faq" && showOnHomepage == true'
+    : '_type == "faq"'
+  return safeFetch(
+    () => sanityClient.fetch(
+      groq`*[${filter}] | order(order asc)[0...50]{
+        _id,
+        question,
+        answer,
+        order,
+        showOnHomepage
       }`,
       {},
       { next: { revalidate: 3600 } }
