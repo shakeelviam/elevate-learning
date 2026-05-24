@@ -95,11 +95,9 @@ export function Header({ locale, settings }: HeaderProps) {
                 className="object-contain"
                 priority
               />
-              {locale === 'ar' && (
-                <span className="text-[10px] font-semibold tracking-wide text-brand-900 leading-none -mt-1">
-                  مركز إيليفيت للتعليم
-                </span>
-              )}
+              <span className="text-[10px] font-semibold tracking-widest text-brand-900 leading-none -mt-1">
+                {locale === 'ar' ? 'مركز إيليفيت للتعليم' : 'LEARNING CENTER'}
+              </span>
             </Link>
 
             {/* Desktop Nav */}
