@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button'
 import type { SanitySiteSettings } from '@/types/sanity'
 import { getLocaleText } from '@/lib/utils'
 import { urlFor } from '@/sanity/lib/imageUrl'
-import { HeroTypewriter } from './HeroTypewriter'
 
 interface HeroProps {
   locale: 'en' | 'ar'
@@ -30,7 +29,7 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
 
   const heroImageUrl = settings?.heroImage
     ? urlFor(settings.heroImage).width(1200).height(800).url()
-    : null
+    : '/hero-image.jpg'
 
   const badges = isRtl ? TRUST_BADGES_AR : TRUST_BADGES_EN
 
@@ -102,21 +101,17 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
           {/* Image column */}
           <div className={`relative ${isRtl ? 'lg:order-1' : ''}`}>
             <div className="relative">
-              {/* Main image card / FlipBook */}
-              {heroImageUrl ? (
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3]">
-                  <Image
-                    src={heroImageUrl}
-                    alt="Elevate Learning"
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover"
-                    priority
-                  />
-                </div>
-              ) : (
-                <HeroTypewriter locale={locale} />
-              )}
+              {/* Hero image */}
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3]">
+                <Image
+                  src={heroImageUrl}
+                  alt="Elevate Learning"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                  priority
+                />
+              </div>
 
               {/* Floating stats card */}
               <div className="absolute -bottom-6 -start-6 bg-white rounded-2xl shadow-xl p-4 border border-gray-100">
