@@ -84,7 +84,7 @@ export function Header({ locale, settings }: HeaderProps) {
         )}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between gap-4">
+          <div className="flex h-20 items-center justify-between gap-4">
             {/* Logo */}
             <Link href="/" locale={locale} className="flex flex-col items-start flex-shrink-0">
               <Image
@@ -189,7 +189,7 @@ export function Header({ locale, settings }: HeaderProps) {
           <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" />
           <div
             className={cn(
-              'absolute top-16 bottom-0 w-72 bg-white shadow-xl overflow-y-auto',
+              'absolute top-20 bottom-0 w-72 bg-white shadow-xl overflow-y-auto',
               locale === 'ar' ? 'left-0' : 'right-0'
             )}
             onClick={(e) => e.stopPropagation()}
@@ -258,7 +258,7 @@ export function Header({ locale, settings }: HeaderProps) {
       )}
 
       {/* Spacer for fixed header */}
-      <div className="h-16" />
+      <div className="h-20" />
     </>
   )
 }
