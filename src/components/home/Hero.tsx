@@ -17,12 +17,12 @@ const DEFAULT_BADGES_EN = ['IELTS Certified', '12+ Years Experience', 'Kuwait-Ba
 const DEFAULT_BADGES_AR = ['شهادة IELTS', '+12 سنة خبرة', 'مقيم في الكويت']
 
 const CAROUSEL_FALLBACK = [
-  '/hero-image.jpg',
-  '/carousel/slide-1.jpg',
-  '/carousel/slide-2.jpg',
-  '/carousel/slide-3.jpg',
   '/carousel/slide-4.jpg',
+  '/carousel/slide-3.jpg',
+  '/carousel/slide-2.jpg',
   '/carousel/slide-5.jpg',
+  '/carousel/slide-6.jpg',
+  '/carousel/slide-1.jpg',
 ]
 
 export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProps) {
