@@ -211,15 +211,6 @@ export function ElevateAISection({ locale, settings }: ElevateAISectionProps) {
                 </div>
               </div>
 
-              {/* Floating badge below card */}
-              <div className="mt-4 flex justify-center">
-                <span className="inline-flex items-center gap-2 rounded-full border border-brand-700 bg-brand-900/80 px-4 py-1.5 text-xs text-brand-300 backdrop-blur-sm">
-                  <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
-                  {isRtl
-                    ? 'يعمل 100% على جهازك — خصوصيتك محفوظة'
-                    : 'Runs 100% on your hardware — your data stays local'}
-                </span>
-              </div>
             </div>
           </div>
 
