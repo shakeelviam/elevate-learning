@@ -9,31 +9,58 @@ import {
   RefreshCw,
   Sparkles,
   Zap,
+  type LucideIcon,
 } from 'lucide-react'
+import type { SanitySiteSettings } from '@/types/sanity'
 
 interface ElevateAISectionProps {
   locale: 'en' | 'ar'
+  settings?: SanitySiteSettings | null
 }
 
-const FEATURES_EN = [
-  { icon: RefreshCw,   label: 'Fresh questions every session — never repeated' },
+const ICON_MAP: Record<string, LucideIcon> = {
+  RefreshCw, BrainCircuit, Zap, ChartBar, Sparkles, ArrowRight,
+}
+
+const DEFAULT_FEATURES_EN = [
+  { icon: RefreshCw,    label: 'Fresh questions every session — never repeated' },
   { icon: BrainCircuit, label: 'Adapts in real-time to your weak areas' },
-  { icon: Zap,         label: 'Instant explanations for every answer' },
-  { icon: ChartBar,    label: 'Visual analytics track your progress over time' },
+  { icon: Zap,          label: 'Instant explanations for every answer' },
+  { icon: ChartBar,     label: 'Visual analytics track your progress over time' },
 ]
 
-const FEATURES_AR = [
+const DEFAULT_FEATURES_AR = [
   { icon: RefreshCw,    label: 'أسئلة جديدة في كل جلسة — لا تكرار أبداً' },
   { icon: BrainCircuit, label: 'يتكيف تلقائياً مع نقاط ضعفك' },
   { icon: Zap,          label: 'شرح فوري لكل إجابة' },
   { icon: ChartBar,     label: 'تحليلات بصرية لتتبع تقدمك' },
 ]
 
-const EXAM_BADGES = ['IELTS', 'TOEFL', 'OET', 'GMAT', 'SAT', 'PTE']
+const DEFAULT_EXAM_BADGES = ['IELTS', 'TOEFL', 'OET', 'GMAT', 'SAT', 'PTE']
 
-export function ElevateAISection({ locale }: ElevateAISectionProps) {
+export function ElevateAISection({ locale, settings }: ElevateAISectionProps) {
   const isRtl = locale === 'ar'
-  const features = isRtl ? FEATURES_AR : FEATURES_EN
+  const ai = settings?.aiSection
+
+  const pill = isRtl ? (ai?.pillAr ?? 'جديد — مختبر الاختبارات التكيّفية') : (ai?.pillEn ?? 'NEW — Adaptive Practice Tests')
+  const titleColored = isRtl ? (ai?.titleAr ?? 'مختبر الاختبارات:') : (ai?.titleEn ?? 'The Test Lab:')
+  const titleSuffix = isRtl ? (ai?.titleSuffixAr ?? 'تدريب تكيّفي لا نهاية له') : (ai?.titleSuffixEn ?? 'Infinite Adaptive Practice')
+  const desc = isRtl
+    ? (ai?.descAr ?? 'محرك اختبارات متطور مصمم خصيصاً لـ IELTS وTOEFL وسائر الامتحانات الدولية. أسئلة جديدة كل مرة، مستوحاة من المواد الأصلية.')
+    : (ai?.descEn ?? 'A powerful test engine built for IELTS, TOEFL, and every major exam. New, copyright-safe questions every session — drawn from real study materials.')
+  const examBadges = ai?.examBadges ?? DEFAULT_EXAM_BADGES
+  const contactTitle = isRtl ? (ai?.contactTitleAr ?? 'هل أنت مهتم بالوصول إلى مختبر الاختبارات؟') : (ai?.contactTitleEn ?? 'Interested in Test Lab access?')
+  const contactDesc = isRtl
+    ? (ai?.contactDescAr ?? 'يتوفر مختبر الاختبارات للطلاب المسجلين فقط. تواصل معنا للحصول على بياناتك وبدء التدريب.')
+    : (ai?.contactDescEn ?? "Test Lab is available to enrolled students only. Reach out to us and we'll get you set up with your credentials.")
+  const contactBtn = isRtl ? (ai?.contactButtonAr ?? 'تواصل معنا') : (ai?.contactButtonEn ?? 'Contact Us for Access')
+
+  const features = ai?.features && ai.features.length > 0
+    ? ai.features.map((f) => ({
+        icon: ICON_MAP[f.icon ?? ''] ?? Zap,
+        label: (isRtl ? f.ar : f.en) ?? '',
+      }))
+    : (isRtl ? DEFAULT_FEATURES_AR : DEFAULT_FEATURES_EN)
 
   return (
     <section
@@ -61,30 +88,16 @@ export function ElevateAISection({ locale }: ElevateAISectionProps) {
             {/* Pill badge */}
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold-500/30 bg-gold-500/10 px-4 py-1.5 text-sm font-semibold text-gold-300">
               <Sparkles className="h-3.5 w-3.5 text-gold-400" />
-              {isRtl ? 'جديد — مختبر الاختبارات التكيّفية' : 'NEW — Adaptive Practice Tests'}
+              {pill}
             </div>
 
             <h2 className="mb-4 text-4xl font-black leading-[1.1] text-white sm:text-5xl">
-              {isRtl ? (
-                <>
-                  <span className="text-gold-400">مختبر الاختبارات:</span>
-                  <br />
-                  تدريب تكيّفي لا نهاية له
-                </>
-              ) : (
-                <>
-                  <span className="text-gold-400">The Test Lab:</span>
-                  <br />
-                  Infinite Adaptive Practice
-                </>
-              )}
+              <span className="text-gold-400">{titleColored}</span>
+              <br />
+              {titleSuffix}
             </h2>
 
-            <p className="mb-8 text-lg leading-relaxed text-white/80">
-              {isRtl
-                ? 'محرك اختبارات متطور مصمم خصيصاً لـ IELTS وTOEFL وسائر الامتحانات الدولية. أسئلة جديدة كل مرة، مستوحاة من المواد الأصلية.'
-                : 'A powerful test engine built for IELTS, TOEFL, and every major exam. New, copyright-safe questions every session — drawn from real study materials.'}
-            </p>
+            <p className="mb-8 text-lg leading-relaxed text-white/80">{desc}</p>
 
             {/* Feature list */}
             <ul className="mb-10 space-y-3">
@@ -100,7 +113,7 @@ export function ElevateAISection({ locale }: ElevateAISectionProps) {
 
             {/* Exam type badges */}
             <div className="mb-10 flex flex-wrap gap-2">
-              {EXAM_BADGES.map((badge) => (
+              {examBadges.map((badge) => (
                 <span
                   key={badge}
                   className="rounded-lg border border-gold-700/40 bg-brand-900 px-3 py-1 text-xs font-bold tracking-widest text-gold-300"
@@ -112,19 +125,13 @@ export function ElevateAISection({ locale }: ElevateAISectionProps) {
 
             {/* Contact prompt */}
             <div className="rounded-2xl border border-brand-700 bg-brand-900/60 px-6 py-5">
-              <p className="mb-3 text-sm font-semibold text-white">
-                {isRtl ? 'هل أنت مهتم بالوصول إلى مختبر الاختبارات؟' : 'Interested in Test Lab access?'}
-              </p>
-              <p className="mb-4 text-sm leading-relaxed text-white/70">
-                {isRtl
-                  ? 'يتوفر مختبر الاختبارات للطلاب المسجلين فقط. تواصل معنا للحصول على بياناتك وبدء التدريب.'
-                  : 'Test Lab is available to enrolled students only. Reach out to us and we\'ll get you set up with your credentials.'}
-              </p>
+              <p className="mb-3 text-sm font-semibold text-white">{contactTitle}</p>
+              <p className="mb-4 text-sm leading-relaxed text-white/70">{contactDesc}</p>
               <a
                 href="mailto:info@elev8-edu.com"
                 className="inline-flex items-center gap-2 rounded-xl bg-gold-500 px-5 py-2.5 text-sm font-bold text-white shadow-[0_4px_16px_rgba(201,168,76,0.35)] hover:bg-gold-400 transition-colors"
               >
-                {isRtl ? 'تواصل معنا' : 'Contact Us for Access'}
+                {contactBtn}
                 <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} />
               </a>
             </div>

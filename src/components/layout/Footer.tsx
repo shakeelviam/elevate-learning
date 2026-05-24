@@ -75,9 +75,10 @@ export function Footer({ locale, settings }: FooterProps) {
               )}
             </div>
             <p className="text-sm leading-relaxed text-gray-400 mb-6">
-              {locale === 'ar'
-                ? 'معهدك الرائد لتعلم اللغات والتحضير للامتحانات في الكويت.'
-                : "Kuwait's leading institute for language learning and exam preparation."}
+              {settings?.footerDescription?.[locale] ||
+                (locale === 'ar'
+                  ? 'معهدك الرائد لتعلم اللغات والتحضير للامتحانات في الكويت.'
+                  : "Kuwait's leading institute for language learning and exam preparation.")}
             </p>
             {/* Social links */}
             <div className="flex gap-2">

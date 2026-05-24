@@ -132,19 +132,90 @@ export interface NavItem {
   href: string
 }
 
+export interface SanityHeroImage {
+  _type: 'image'
+  asset: { _ref: string; _type: 'reference' }
+  hotspot?: { x: number; y: number }
+  altText?: I18nString
+}
+
+export interface SanityValueItem {
+  _key?: string
+  iconName?: string
+  titleEn?: string
+  titleAr?: string
+  descEn?: string
+  descAr?: string
+}
+
+export interface SanityAIFeature {
+  _key?: string
+  en?: string
+  ar?: string
+  icon?: string
+}
+
 export interface SanitySiteSettings {
   siteName?: I18nString
   logo?: SanityImage
+  // Hero
   heroHeadline?: I18nString
   heroSubheadline?: I18nText
   heroImage?: SanityImage
+  heroImages?: SanityHeroImage[]
+  heroPill?: I18nString
+  heroBadges?: Array<{ _key?: string; en?: string; ar?: string }>
+  heroFloatingStats?: {
+    graduatesCount?: string
+    graduatesLabelEn?: string
+    graduatesLabelAr?: string
+    rating?: string
+    ratingLabelEn?: string
+    ratingLabelAr?: string
+  }
+  // Stats banner
   stats?: {
     yearsValue?: string
     coursesValue?: string
     studentsValue?: string
     countriesValue?: string
   }
+  // Home sections
+  pathSection?: {
+    labelEn?: string; labelAr?: string
+    titleEn?: string; titleAr?: string
+    examTitleEn?: string; examTitleAr?: string
+    examDescEn?: string; examDescAr?: string
+    langTitleEn?: string; langTitleAr?: string
+    langDescEn?: string; langDescAr?: string
+    browseLabelEn?: string; browseLabelAr?: string
+  }
+  ctaBanner?: {
+    titleEn?: string; titleAr?: string
+    subtitleEn?: string; subtitleAr?: string
+    buttonEn?: string; buttonAr?: string
+  }
+  aiSection?: {
+    pillEn?: string; pillAr?: string
+    titleEn?: string; titleAr?: string
+    titleSuffixEn?: string; titleSuffixAr?: string
+    descEn?: string; descAr?: string
+    examBadges?: string[]
+    features?: SanityAIFeature[]
+    contactTitleEn?: string; contactTitleAr?: string
+    contactDescEn?: string; contactDescAr?: string
+    contactButtonEn?: string; contactButtonAr?: string
+  }
+  // About page
+  aboutHero?: {
+    titleEn?: string; titleAr?: string
+    subtitleEn?: string; subtitleAr?: string
+  }
+  ourValues?: SanityValueItem[]
   aboutText?: I18nPortableText
+  // Footer
+  footerDescription?: I18nText
+  // Contact
   contactInfo?: {
     phone?: string
     whatsapp?: string

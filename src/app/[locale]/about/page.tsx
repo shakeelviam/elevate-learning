@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
-import { Award, Users, BookOpen, Globe, Linkedin } from 'lucide-react'
+import { Award, Users, BookOpen, Globe, Linkedin, Star, type LucideIcon } from 'lucide-react'
 import Image from 'next/image'
 import { PortableText } from '@/components/shared/PortableText'
 import { Button } from '@/components/ui/button'
@@ -35,7 +35,9 @@ export default async function AboutPage({
 
   const aboutBody = settings?.aboutText?.[loc] ?? settings?.aboutText?.en
 
-  const values = loc === 'ar'
+  const ICON_MAP: Record<string, LucideIcon> = { Award, Users, BookOpen, Globe, Star }
+
+  const DEFAULT_VALUES = loc === 'ar'
     ? [
         { icon: Award, title: 'التميز', desc: 'نلتزم بأعلى معايير التعليم اللغوي.' },
         { icon: Users, title: 'المجتمع', desc: 'بيئة تعليمية داعمة ومتنوعة.' },
@@ -49,15 +51,30 @@ export default async function AboutPage({
         { icon: Globe, title: 'Openness', desc: 'We connect students to the world through the power of language.' },
       ]
 
+  const values = settings?.ourValues && settings.ourValues.length > 0
+    ? settings.ourValues.map((v) => ({
+        icon: ICON_MAP[v.iconName ?? ''] ?? Star,
+        title: (loc === 'ar' ? v.titleAr : v.titleEn) ?? '',
+        desc: (loc === 'ar' ? v.descAr : v.descEn) ?? '',
+      }))
+    : DEFAULT_VALUES
+
+  const aboutHeroTitle = loc === 'ar'
+    ? (settings?.aboutHero?.titleAr ?? t('about.title'))
+    : (settings?.aboutHero?.titleEn ?? t('about.title'))
+  const aboutHeroSubtitle = loc === 'ar'
+    ? (settings?.aboutHero?.subtitleAr ?? t('about.subtitle'))
+    : (settings?.aboutHero?.subtitleEn ?? t('about.subtitle'))
+
   return (
     <div className="min-h-screen">
       {/* Hero */}
       <div className="hero-gradient border-b border-brand-100 py-20 text-center">
         <div className="mx-auto max-w-3xl px-4">
           <h1 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4">
-            {t('about.title')}
+            {aboutHeroTitle}
           </h1>
-          <p className="text-xl text-gray-600">{t('about.subtitle')}</p>
+          <p className="text-xl text-gray-600">{aboutHeroSubtitle}</p>
         </div>
       </div>
 

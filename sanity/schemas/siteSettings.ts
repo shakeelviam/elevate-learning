@@ -9,7 +9,9 @@ export const siteSettingsSchema = defineType({
     { name: 'branding', title: 'Branding', default: true },
     { name: 'hero', title: 'Hero Section' },
     { name: 'stats', title: 'Stats' },
-    { name: 'about', title: 'About' },
+    { name: 'homeSections', title: 'Home Sections' },
+    { name: 'about', title: 'About Page' },
+    { name: 'footer', title: 'Footer' },
     { name: 'contact', title: 'Contact' },
     { name: 'social', title: 'Social Links' },
     { name: 'nav', title: 'Navigation' },
@@ -59,10 +61,79 @@ export const siteSettingsSchema = defineType({
 
     defineField({
       name: 'heroImage',
-      title: 'Hero Background Image',
+      title: 'Hero Background Image (single)',
       type: 'image',
       group: 'hero',
       options: { hotspot: true },
+      description: 'Used as fallback if no carousel images are set.',
+    }),
+
+    defineField({
+      name: 'heroImages',
+      title: 'Hero Carousel Images',
+      type: 'array',
+      group: 'hero',
+      description: 'Upload multiple images for the auto-rotating carousel. Upload real student photos here — Arabs, Indians, Filipinos, Nepali, Sri Lankan, etc.',
+      of: [{
+        type: 'image',
+        options: { hotspot: true },
+        fields: [
+          {
+            name: 'altText',
+            title: 'Alt Text',
+            type: 'object',
+            fields: [
+              { name: 'en', type: 'string', title: 'English' },
+              { name: 'ar', type: 'string', title: 'Arabic' },
+            ],
+          },
+        ],
+      }],
+      validation: (rule) => rule.max(8),
+    }),
+
+    defineField({
+      name: 'heroPill',
+      title: 'Hero Pre-headline Pill',
+      type: 'object',
+      group: 'hero',
+      description: 'Small label above the headline (e.g. "Kuwait — Excellence in Language Education")',
+      fields: [
+        { name: 'en', type: 'string', title: 'English', initialValue: 'Kuwait — Excellence in Language Education' },
+        { name: 'ar', type: 'string', title: 'Arabic', initialValue: 'الكويت — التميز في تعليم اللغات' },
+      ],
+    }),
+
+    defineField({
+      name: 'heroBadges',
+      title: 'Hero Trust Badges',
+      type: 'array',
+      group: 'hero',
+      description: 'Short trust indicators shown below the headline (e.g. "IELTS Certified", "12+ Years Experience")',
+      of: [{
+        type: 'object',
+        fields: [
+          { name: 'en', type: 'string', title: 'English' },
+          { name: 'ar', type: 'string', title: 'Arabic' },
+        ],
+        preview: { select: { title: 'en', subtitle: 'ar' } },
+      }],
+    }),
+
+    defineField({
+      name: 'heroFloatingStats',
+      title: 'Hero Floating Stats Card',
+      type: 'object',
+      group: 'hero',
+      description: 'The small floating card on the bottom-left of the hero image.',
+      fields: [
+        { name: 'graduatesCount', type: 'string', title: 'Graduate Count', initialValue: '8,000+' },
+        { name: 'graduatesLabelEn', type: 'string', title: 'Label (English)', initialValue: 'Graduates' },
+        { name: 'graduatesLabelAr', type: 'string', title: 'Label (Arabic)', initialValue: 'طالب تخرج' },
+        { name: 'rating', type: 'string', title: 'Star Rating', initialValue: '4.9/5' },
+        { name: 'ratingLabelEn', type: 'string', title: 'Rating Label (English)', initialValue: 'Student Rating' },
+        { name: 'ratingLabelAr', type: 'string', title: 'Rating Label (Arabic)', initialValue: 'تقييم الطلاب' },
+      ],
     }),
 
     // ── Stats ─────────────────────────────────────────────────────────────
@@ -80,7 +151,118 @@ export const siteSettingsSchema = defineType({
       ],
     }),
 
+    // ── Home Sections ─────────────────────────────────────────────────────
+    defineField({
+      name: 'pathSection',
+      title: '"Choose Your Path" Section',
+      type: 'object',
+      group: 'homeSections',
+      fields: [
+        { name: 'labelEn', type: 'string', title: 'Section Label (EN)', initialValue: 'What are you looking for?' },
+        { name: 'labelAr', type: 'string', title: 'Section Label (AR)', initialValue: 'ما الذي تبحث عنه؟' },
+        { name: 'titleEn', type: 'string', title: 'Title (EN)', initialValue: 'Choose your path' },
+        { name: 'titleAr', type: 'string', title: 'Title (AR)', initialValue: 'اختر مسارك' },
+        { name: 'examTitleEn', type: 'string', title: 'Exam Track Title (EN)', initialValue: 'Exam Preparation' },
+        { name: 'examTitleAr', type: 'string', title: 'Exam Track Title (AR)', initialValue: 'التحضير للامتحانات' },
+        { name: 'examDescEn', type: 'text', title: 'Exam Track Description (EN)', rows: 2, initialValue: 'IELTS · TOEFL · OET · GMAT · SAT — get the score you need.' },
+        { name: 'examDescAr', type: 'text', title: 'Exam Track Description (AR)', rows: 2, initialValue: 'IELTS · TOEFL · OET · GMAT · SAT — احصل على الدرجة التي تحتاجها.' },
+        { name: 'langTitleEn', type: 'string', title: 'Language Track Title (EN)', initialValue: 'Language Learning' },
+        { name: 'langTitleAr', type: 'string', title: 'Language Track Title (AR)', initialValue: 'تعلّم لغة جديدة' },
+        { name: 'langDescEn', type: 'text', title: 'Language Track Description (EN)', rows: 2, initialValue: 'English · Arabic · French · German — speak confidently from day one.' },
+        { name: 'langDescAr', type: 'text', title: 'Language Track Description (AR)', rows: 2, initialValue: 'الإنجليزية · العربية · الفرنسية · الألمانية — تحدّث بثقة من اليوم الأول.' },
+        { name: 'browseLabelEn', type: 'string', title: 'Browse Button (EN)', initialValue: 'Browse courses' },
+        { name: 'browseLabelAr', type: 'string', title: 'Browse Button (AR)', initialValue: 'استعرض الدورات' },
+      ],
+    }),
+
+    defineField({
+      name: 'ctaBanner',
+      title: 'CTA Banner Section',
+      type: 'object',
+      group: 'homeSections',
+      description: 'The dark blue call-to-action section at the bottom of the home page.',
+      fields: [
+        { name: 'titleEn', type: 'string', title: 'Title (EN)', initialValue: 'Ready to Start Your Journey?' },
+        { name: 'titleAr', type: 'string', title: 'Title (AR)', initialValue: 'هل أنت مستعد لبدء رحلتك؟' },
+        { name: 'subtitleEn', type: 'text', title: 'Subtitle (EN)', rows: 2, initialValue: 'Join thousands of students from Kuwait and beyond. Enrol today and start speaking with confidence.' },
+        { name: 'subtitleAr', type: 'text', title: 'Subtitle (AR)', rows: 2, initialValue: 'انضم إلى آلاف الطلاب من الكويت وخارجها. سجّل اليوم وابدأ التحدث بثقة.' },
+        { name: 'buttonEn', type: 'string', title: 'Button Text (EN)', initialValue: 'Browse All Courses' },
+        { name: 'buttonAr', type: 'string', title: 'Button Text (AR)', initialValue: 'تصفح جميع الدورات' },
+      ],
+    }),
+
+    defineField({
+      name: 'aiSection',
+      title: 'Test Lab / AI Section',
+      type: 'object',
+      group: 'homeSections',
+      description: 'The dark section promoting the Test Lab.',
+      fields: [
+        { name: 'pillEn', type: 'string', title: 'Pill Label (EN)', initialValue: 'NEW — Adaptive Practice Tests' },
+        { name: 'pillAr', type: 'string', title: 'Pill Label (AR)', initialValue: 'جديد — مختبر الاختبارات التكيّفية' },
+        { name: 'titleEn', type: 'string', title: 'Colored Title Part (EN)', initialValue: 'The Test Lab:' },
+        { name: 'titleAr', type: 'string', title: 'Colored Title Part (AR)', initialValue: 'مختبر الاختبارات:' },
+        { name: 'titleSuffixEn', type: 'string', title: 'Title Suffix (EN)', initialValue: 'Infinite Adaptive Practice' },
+        { name: 'titleSuffixAr', type: 'string', title: 'Title Suffix (AR)', initialValue: 'تدريب تكيّفي لا نهاية له' },
+        { name: 'descEn', type: 'text', title: 'Description (EN)', rows: 3, initialValue: 'A powerful test engine built for IELTS, TOEFL, and every major exam. New, copyright-safe questions every session — drawn from real study materials.' },
+        { name: 'descAr', type: 'text', title: 'Description (AR)', rows: 3, initialValue: 'محرك اختبارات متطور مصمم خصيصاً لـ IELTS وTOEFL وسائر الامتحانات الدولية. أسئلة جديدة كل مرة، مستوحاة من المواد الأصلية.' },
+        { name: 'examBadges', type: 'array', title: 'Exam Badges', of: [{ type: 'string' }], initialValue: ['IELTS', 'TOEFL', 'OET', 'GMAT', 'SAT', 'PTE'] },
+        {
+          name: 'features',
+          title: 'Feature Bullets',
+          type: 'array',
+          of: [{
+            type: 'object',
+            fields: [
+              { name: 'en', type: 'string', title: 'English' },
+              { name: 'ar', type: 'string', title: 'Arabic' },
+              { name: 'icon', type: 'string', title: 'Icon name (lucide)', initialValue: 'Zap' },
+            ],
+            preview: { select: { title: 'en' } },
+          }],
+        },
+        { name: 'contactTitleEn', type: 'string', title: 'Contact Box Title (EN)', initialValue: 'Interested in Test Lab access?' },
+        { name: 'contactTitleAr', type: 'string', title: 'Contact Box Title (AR)', initialValue: 'هل أنت مهتم بالوصول إلى مختبر الاختبارات؟' },
+        { name: 'contactDescEn', type: 'text', title: 'Contact Box Description (EN)', rows: 2, initialValue: "Test Lab is available to enrolled students only. Reach out to us and we'll get you set up with your credentials." },
+        { name: 'contactDescAr', type: 'text', title: 'Contact Box Description (AR)', rows: 2, initialValue: 'يتوفر مختبر الاختبارات للطلاب المسجلين فقط. تواصل معنا للحصول على بياناتك وبدء التدريب.' },
+        { name: 'contactButtonEn', type: 'string', title: 'Contact Button (EN)', initialValue: 'Contact Us for Access' },
+        { name: 'contactButtonAr', type: 'string', title: 'Contact Button (AR)', initialValue: 'تواصل معنا' },
+      ],
+    }),
+
     // ── About ─────────────────────────────────────────────────────────────
+    defineField({
+      name: 'aboutHero',
+      title: 'About Page Hero',
+      type: 'object',
+      group: 'about',
+      fields: [
+        { name: 'titleEn', type: 'string', title: 'Title (EN)', initialValue: 'About Elevate Learning' },
+        { name: 'titleAr', type: 'string', title: 'Title (AR)', initialValue: 'عن مركز إيليفيت للتعليم' },
+        { name: 'subtitleEn', type: 'text', title: 'Subtitle (EN)', rows: 2, initialValue: 'Empowering students across Kuwait and the Gulf since 2012.' },
+        { name: 'subtitleAr', type: 'text', title: 'Subtitle (AR)', rows: 2, initialValue: 'نمكّن الطلاب في الكويت والخليج منذ عام 2012.' },
+      ],
+    }),
+
+    defineField({
+      name: 'ourValues',
+      title: 'Our Values',
+      type: 'array',
+      group: 'about',
+      description: 'Values cards shown on the About page.',
+      of: [{
+        type: 'object',
+        fields: [
+          { name: 'iconName', type: 'string', title: 'Icon name (lucide)', initialValue: 'Star' },
+          { name: 'titleEn', type: 'string', title: 'Title (EN)' },
+          { name: 'titleAr', type: 'string', title: 'Title (AR)' },
+          { name: 'descEn', type: 'text', title: 'Description (EN)', rows: 2 },
+          { name: 'descAr', type: 'text', title: 'Description (AR)', rows: 2 },
+        ],
+        preview: { select: { title: 'titleEn', subtitle: 'titleAr' } },
+      }],
+    }),
+
     defineField({
       name: 'aboutText',
       title: 'About Text',
@@ -99,6 +281,19 @@ export const siteSettingsSchema = defineType({
           title: 'Arabic',
           of: [{ type: 'block' }],
         },
+      ],
+    }),
+
+    // ── Footer ────────────────────────────────────────────────────────────
+    defineField({
+      name: 'footerDescription',
+      title: 'Footer Description',
+      type: 'object',
+      group: 'footer',
+      description: 'Short tagline shown under the logo in the footer.',
+      fields: [
+        { name: 'en', type: 'text', title: 'English', rows: 2, initialValue: "Kuwait's leading institute for language learning and exam preparation." },
+        { name: 'ar', type: 'text', title: 'Arabic', rows: 2, initialValue: 'معهدك الرائد لتعلم اللغات والتحضير للامتحانات في الكويت.' },
       ],
     }),
 

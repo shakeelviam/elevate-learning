@@ -67,16 +67,20 @@ export default async function HomePage({
       />
 
       {/* ── Elevate AI ───────────────────────────────────────────────────── */}
-      <ElevateAISection locale={loc} />
+      <ElevateAISection locale={loc} settings={settings} />
 
       {/* ── Segmentation ─────────────────────────────────────────────────── */}
       <section className="py-16 bg-white">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <p className="text-center text-sm font-semibold text-brand-600 uppercase tracking-widest mb-3">
-            {loc === 'ar' ? 'ما الذي تبحث عنه؟' : "What are you looking for?"}
+            {loc === 'ar'
+              ? (settings?.pathSection?.labelAr ?? 'ما الذي تبحث عنه؟')
+              : (settings?.pathSection?.labelEn ?? 'What are you looking for?')}
           </p>
           <h2 className="text-center text-3xl sm:text-4xl font-black text-gray-900 mb-10">
-            {loc === 'ar' ? 'اختر مسارك' : 'Choose your path'}
+            {loc === 'ar'
+              ? (settings?.pathSection?.titleAr ?? 'اختر مسارك')
+              : (settings?.pathSection?.titleEn ?? 'Choose your path')}
           </h2>
           <div className="grid sm:grid-cols-2 gap-6">
             {/* Track 1 — Exam Prep */}
@@ -86,15 +90,19 @@ export default async function HomePage({
                   <GraduationCap className="h-7 w-7 text-brand-900" />
                 </div>
                 <h3 className="text-xl font-black text-gray-900 mb-2">
-                  {loc === 'ar' ? 'التحضير للامتحانات' : 'Exam Preparation'}
+                  {loc === 'ar'
+                    ? (settings?.pathSection?.examTitleAr ?? 'التحضير للامتحانات')
+                    : (settings?.pathSection?.examTitleEn ?? 'Exam Preparation')}
                 </h3>
                 <p className="text-sm text-gray-500 leading-relaxed mb-5 flex-1">
                   {loc === 'ar'
-                    ? 'IELTS · TOEFL · OET · GMAT · SAT — احصل على الدرجة التي تحتاجها.'
-                    : 'IELTS · TOEFL · OET · GMAT · SAT — get the score you need.'}
+                    ? (settings?.pathSection?.examDescAr ?? 'IELTS · TOEFL · OET · GMAT · SAT — احصل على الدرجة التي تحتاجها.')
+                    : (settings?.pathSection?.examDescEn ?? 'IELTS · TOEFL · OET · GMAT · SAT — get the score you need.')}
                 </p>
                 <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 group-hover:gap-2.5 transition-all">
-                  {loc === 'ar' ? 'استعرض الدورات' : 'Browse courses'}
+                  {loc === 'ar'
+                    ? (settings?.pathSection?.browseLabelAr ?? 'استعرض الدورات')
+                    : (settings?.pathSection?.browseLabelEn ?? 'Browse courses')}
                   <ArrowRight className={`h-4 w-4 ${loc === 'ar' ? 'rotate-180' : ''}`} />
                 </span>
               </div>
@@ -107,15 +115,19 @@ export default async function HomePage({
                   <BookOpen className="h-7 w-7 text-white" />
                 </div>
                 <h3 className="text-xl font-black text-gray-900 mb-2">
-                  {loc === 'ar' ? 'تعلّم لغة جديدة' : 'Language Learning'}
+                  {loc === 'ar'
+                    ? (settings?.pathSection?.langTitleAr ?? 'تعلّم لغة جديدة')
+                    : (settings?.pathSection?.langTitleEn ?? 'Language Learning')}
                 </h3>
                 <p className="text-sm text-gray-500 leading-relaxed mb-5 flex-1">
                   {loc === 'ar'
-                    ? 'الإنجليزية · العربية · الفرنسية · الألمانية — تحدّث بثقة من اليوم الأول.'
-                    : 'English · Arabic · French · German — speak confidently from day one.'}
+                    ? (settings?.pathSection?.langDescAr ?? 'الإنجليزية · العربية · الفرنسية · الألمانية — تحدّث بثقة من اليوم الأول.')
+                    : (settings?.pathSection?.langDescEn ?? 'English · Arabic · French · German — speak confidently from day one.')}
                 </p>
                 <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 group-hover:gap-2.5 transition-all">
-                  {loc === 'ar' ? 'استعرض الدورات' : 'Browse courses'}
+                  {loc === 'ar'
+                    ? (settings?.pathSection?.browseLabelAr ?? 'استعرض الدورات')
+                    : (settings?.pathSection?.browseLabelEn ?? 'Browse courses')}
                   <ArrowRight className={`h-4 w-4 ${loc === 'ar' ? 'rotate-180' : ''}`} />
                 </span>
               </div>
@@ -212,17 +224,23 @@ export default async function HomePage({
 
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4">
-            {t('home.ctaTitle')}
+            {loc === 'ar'
+              ? (settings?.ctaBanner?.titleAr ?? t('home.ctaTitle'))
+              : (settings?.ctaBanner?.titleEn ?? t('home.ctaTitle'))}
           </h2>
           <p className="text-lg text-brand-100 mb-8 max-w-2xl mx-auto">
-            {t('home.ctaSubtitle')}
+            {loc === 'ar'
+              ? (settings?.ctaBanner?.subtitleAr ?? t('home.ctaSubtitle'))
+              : (settings?.ctaBanner?.subtitleEn ?? t('home.ctaSubtitle'))}
           </p>
           <Link href="/courses" locale={loc}>
             <Button
               size="xl"
               className="bg-gradient-to-r from-gold-400 to-gold-500 text-brand-900 hover:opacity-90 shadow-xl"
             >
-              {t('home.ctaButton')}
+              {loc === 'ar'
+                ? (settings?.ctaBanner?.buttonAr ?? t('home.ctaButton'))
+                : (settings?.ctaBanner?.buttonEn ?? t('home.ctaButton'))}
               <ArrowRight className={`h-5 w-5 ${loc === 'ar' ? 'flip-rtl' : ''}`} />
             </Button>
           </Link>
