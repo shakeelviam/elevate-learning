@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { usePathname, useRouter } from '@/i18n/navigation'
 import { Link } from '@/i18n/navigation'
@@ -11,11 +11,6 @@ import {
   X,
   Globe,
   ChevronDown,
-  BookOpen,
-  Home,
-  Info,
-  Mail,
-  HelpCircle,
   LayoutDashboard,
 } from 'lucide-react'
 import type { SanitySiteSettings, NavItem } from '@/types/sanity'
@@ -29,7 +24,15 @@ interface HeaderProps {
 
 const DEFAULT_NAV_EN: NavItem[] = [
   { label: 'Home', href: '/' },
-  { label: 'Courses', href: '/courses' },
+  {
+    label: 'Courses',
+    href: '/courses',
+    children: [
+      { label: 'Language Courses', href: '/courses?category=language' },
+      { label: 'Exam Preparation', href: '/courses?category=exam' },
+      { label: 'All Courses', href: '/courses' },
+    ],
+  },
   { label: 'About', href: '/about' },
   { label: 'FAQ', href: '/faq' },
   { label: 'Contact', href: '/contact' },
@@ -37,7 +40,15 @@ const DEFAULT_NAV_EN: NavItem[] = [
 
 const DEFAULT_NAV_AR: NavItem[] = [
   { label: 'الرئيسية', href: '/' },
-  { label: 'الدورات', href: '/courses' },
+  {
+    label: 'الدورات',
+    href: '/courses',
+    children: [
+      { label: 'دورات اللغات', href: '/courses?category=language' },
+      { label: 'التحضير للامتحانات', href: '/courses?category=exam' },
+      { label: 'جميع الدورات', href: '/courses' },
+    ],
+  },
   { label: 'من نحن', href: '/about' },
   { label: 'الأسئلة الشائعة', href: '/faq' },
   { label: 'تواصل معنا', href: '/contact' },
@@ -49,6 +60,8 @@ export function Header({ locale, settings }: HeaderProps) {
   const router = useRouter()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [openMenu, setOpenMenu] = useState<string | null>(null)
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const navItems =
     settings?.navigation?.[locale] ??
@@ -70,7 +83,16 @@ export function Header({ locale, settings }: HeaderProps) {
 
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/'
-    return pathname.startsWith(href)
+    return pathname.startsWith(href.split('?')[0])
+  }
+
+  const handleMenuEnter = (href: string) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    setOpenMenu(href)
+  }
+
+  const handleMenuLeave = () => {
+    closeTimer.current = setTimeout(() => setOpenMenu(null), 120)
   }
 
   return (
@@ -103,22 +125,64 @@ export function Header({ locale, settings }: HeaderProps) {
             {/* Desktop Nav */}
             <nav className="hidden lg:flex items-center gap-1">
               {navItems.map((item) => (
-                <Link
+                <div
                   key={item.href}
-                  href={item.href}
-                  locale={locale}
-                  className={cn(
-                    'relative px-3.5 py-2 text-sm font-medium rounded-lg transition-colors duration-150',
-                    isActive(item.href)
-                      ? 'text-brand-600 bg-brand-50'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                  )}
+                  className="relative"
+                  onMouseEnter={() => item.children && handleMenuEnter(item.href)}
+                  onMouseLeave={handleMenuLeave}
                 >
-                  {item.label}
-                  {isActive(item.href) && (
-                    <span className="absolute bottom-1 inset-x-3 h-0.5 bg-brand-500 rounded-full" />
+                  <Link
+                    href={item.href}
+                    locale={locale}
+                    className={cn(
+                      'relative flex items-center gap-1 px-3.5 py-2 text-sm font-medium rounded-lg transition-colors duration-150',
+                      isActive(item.href)
+                        ? 'text-brand-600 bg-brand-50'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    )}
+                  >
+                    {item.label}
+                    {item.children && (
+                      <ChevronDown
+                        className={cn(
+                          'h-3.5 w-3.5 transition-transform duration-200',
+                          openMenu === item.href && 'rotate-180'
+                        )}
+                      />
+                    )}
+                    {isActive(item.href) && (
+                      <span className="absolute bottom-1 inset-x-3 h-0.5 bg-brand-500 rounded-full" />
+                    )}
+                  </Link>
+
+                  {/* Dropdown panel */}
+                  {item.children && openMenu === item.href && (
+                    <div
+                      className={cn(
+                        'absolute top-full mt-1 min-w-[200px] bg-white rounded-2xl shadow-xl border border-gray-100 py-2 z-50',
+                        locale === 'ar' ? 'right-0' : 'left-0'
+                      )}
+                      onMouseEnter={() => handleMenuEnter(item.href)}
+                      onMouseLeave={handleMenuLeave}
+                    >
+                      {item.children.map((child, idx) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          locale={locale}
+                          className={cn(
+                            'flex items-center px-4 py-2.5 text-sm text-gray-600 hover:bg-brand-50 hover:text-brand-600 transition-colors',
+                            idx === item.children!.length - 1 &&
+                              'mt-1 border-t border-gray-100 text-brand-600 font-medium'
+                          )}
+                          onClick={() => setOpenMenu(null)}
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
                   )}
-                </Link>
+                </div>
               ))}
             </nav>
 
@@ -134,6 +198,15 @@ export function Header({ locale, settings }: HeaderProps) {
                 <span>{locale === 'en' ? 'العربية' : 'English'}</span>
               </button>
 
+              {/* Enquire Now — always visible */}
+              <Link
+                href="/contact"
+                locale={locale}
+                className="hidden sm:inline-flex px-4 py-1.5 text-sm font-semibold text-brand-900 bg-gradient-to-r from-gold-400 to-gold-500 rounded-lg hover:opacity-90 transition-opacity shadow-sm"
+              >
+                {locale === 'ar' ? 'استفسر الآن' : 'Enquire Now'}
+              </Link>
+
               {/* Auth */}
               <SignedOut>
                 <Link
@@ -142,13 +215,6 @@ export function Header({ locale, settings }: HeaderProps) {
                   className="hidden sm:inline-flex px-4 py-1.5 text-sm font-medium text-gray-700 hover:text-brand-600 transition-colors"
                 >
                   {t('signIn')}
-                </Link>
-                <Link
-                  href="/sign-up"
-                  locale={locale}
-                  className="hidden sm:inline-flex px-4 py-1.5 text-sm font-semibold text-white bg-gradient-to-r from-brand-500 to-brand-700 rounded-lg hover:opacity-90 transition-opacity shadow-sm"
-                >
-                  {t('signUp')}
                 </Link>
               </SignedOut>
               <SignedIn>
@@ -196,23 +262,55 @@ export function Header({ locale, settings }: HeaderProps) {
           >
             <nav className="p-4 space-y-1">
               {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  locale={locale}
-                  className={cn(
-                    'flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors',
-                    isActive(item.href)
-                      ? 'bg-brand-50 text-brand-600'
-                      : 'text-gray-700 hover:bg-gray-50'
+                <div key={item.href}>
+                  <Link
+                    href={item.href}
+                    locale={locale}
+                    className={cn(
+                      'flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-colors',
+                      isActive(item.href)
+                        ? 'bg-brand-50 text-brand-600'
+                        : 'text-gray-700 hover:bg-gray-50'
+                    )}
+                    onClick={() => !item.children && setMobileOpen(false)}
+                  >
+                    {item.label}
+                    {item.children && (
+                      <ChevronDown className="h-4 w-4 text-gray-400" />
+                    )}
+                  </Link>
+                  {/* Mobile sub-items */}
+                  {item.children && (
+                    <div className={cn(
+                      'mt-1 ms-4 space-y-0.5 border-s-2 border-brand-100 ps-3',
+                    )}>
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          locale={locale}
+                          className="block px-3 py-2 rounded-lg text-sm text-gray-500 hover:text-brand-600 hover:bg-brand-50 transition-colors"
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
                   )}
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {item.label}
-                </Link>
+                </div>
               ))}
 
               <hr className="my-4 border-gray-100" />
+
+              {/* Enquire Now mobile */}
+              <Link
+                href="/contact"
+                locale={locale}
+                className="flex items-center justify-center px-4 py-3 rounded-xl text-sm font-semibold text-brand-900 bg-gradient-to-r from-gold-400 to-gold-500"
+                onClick={() => setMobileOpen(false)}
+              >
+                {locale === 'ar' ? 'استفسر الآن' : 'Enquire Now'}
+              </Link>
 
               {/* Mobile language switcher */}
               <button
