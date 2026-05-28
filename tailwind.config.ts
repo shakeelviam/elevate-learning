@@ -10,7 +10,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ['var(--font-body)'],
-        display: ['var(--font-display)'],
+        display: ['Space Grotesk', 'var(--font-display)', 'sans-serif'],
         arabic: ['var(--font-arabic)'],
       },
       colors: {

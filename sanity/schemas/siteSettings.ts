@@ -366,6 +366,34 @@ export const siteSettingsSchema = defineType({
               fields: [
                 { name: 'label', type: 'string', title: 'Label' },
                 { name: 'href', type: 'string', title: 'Path (e.g. /courses)' },
+                {
+                  name: 'children',
+                  type: 'array',
+                  title: 'Sub-menu Groups',
+                  of: [{
+                    type: 'object',
+                    name: 'navGroup',
+                    fields: [
+                      { name: 'label', type: 'string', title: 'Group Label' },
+                      { name: 'href', type: 'string', title: 'Group Link' },
+                      {
+                        name: 'children',
+                        type: 'array',
+                        title: 'Items',
+                        of: [{
+                          type: 'object',
+                          name: 'navChild',
+                          fields: [
+                            { name: 'label', type: 'string', title: 'Label' },
+                            { name: 'href', type: 'string', title: 'Path' },
+                          ],
+                          preview: { select: { title: 'label', subtitle: 'href' } },
+                        }],
+                      },
+                    ],
+                    preview: { select: { title: 'label', subtitle: 'href' } },
+                  }],
+                },
               ],
               preview: { select: { title: 'label', subtitle: 'href' } },
             },
@@ -382,6 +410,34 @@ export const siteSettingsSchema = defineType({
               fields: [
                 { name: 'label', type: 'string', title: 'Label' },
                 { name: 'href', type: 'string', title: 'Path (e.g. /courses)' },
+                {
+                  name: 'children',
+                  type: 'array',
+                  title: 'Sub-menu Groups',
+                  of: [{
+                    type: 'object',
+                    name: 'navGroup',
+                    fields: [
+                      { name: 'label', type: 'string', title: 'Group Label' },
+                      { name: 'href', type: 'string', title: 'Group Link' },
+                      {
+                        name: 'children',
+                        type: 'array',
+                        title: 'Items',
+                        of: [{
+                          type: 'object',
+                          name: 'navChild',
+                          fields: [
+                            { name: 'label', type: 'string', title: 'Label' },
+                            { name: 'href', type: 'string', title: 'Path' },
+                          ],
+                          preview: { select: { title: 'label', subtitle: 'href' } },
+                        }],
+                      },
+                    ],
+                    preview: { select: { title: 'label', subtitle: 'href' } },
+                  }],
+                },
               ],
               preview: { select: { title: 'label', subtitle: 'href' } },
             },

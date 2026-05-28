@@ -25,12 +25,32 @@ interface HeaderProps {
 const DEFAULT_NAV_EN: NavItem[] = [
   { label: 'Home', href: '/' },
   {
-    label: 'Courses',
+    label: 'We Offer',
     href: '/courses',
     children: [
-      { label: 'Language Courses', href: '/courses?category=language' },
-      { label: 'Exam Preparation', href: '/courses?category=exam' },
-      { label: 'All Courses', href: '/courses' },
+      {
+        label: 'Language Courses',
+        href: '/courses?category=language',
+        children: [
+          { label: 'English',  href: '/courses?category=language&language=english' },
+          { label: 'Arabic',   href: '/courses?category=language&language=arabic'  },
+          { label: 'French',   href: '/courses?category=language&language=french'  },
+          { label: 'German',   href: '/courses?category=language&language=german'  },
+          { label: 'Spanish',  href: '/courses?category=language&language=spanish' },
+        ],
+      },
+      {
+        label: 'Test Prep',
+        href: '/courses?category=exam',
+        children: [
+          { label: 'IELTS', href: '/courses?category=exam&examType=ielts' },
+          { label: 'TOEFL', href: '/courses?category=exam&examType=toefl' },
+          { label: 'OET',   href: '/courses?category=exam&examType=oet'   },
+          { label: 'GMAT',  href: '/courses?category=exam&examType=gmat'  },
+          { label: 'SAT',   href: '/courses?category=exam&examType=sat'   },
+          { label: 'PTE',   href: '/courses?category=exam&examType=pte'   },
+        ],
+      },
     ],
   },
   { label: 'About', href: '/about' },
@@ -41,12 +61,32 @@ const DEFAULT_NAV_EN: NavItem[] = [
 const DEFAULT_NAV_AR: NavItem[] = [
   { label: 'الرئيسية', href: '/' },
   {
-    label: 'الدورات',
+    label: 'ما نقدمه',
     href: '/courses',
     children: [
-      { label: 'دورات اللغات', href: '/courses?category=language' },
-      { label: 'التحضير للامتحانات', href: '/courses?category=exam' },
-      { label: 'جميع الدورات', href: '/courses' },
+      {
+        label: 'دورات اللغات',
+        href: '/courses?category=language',
+        children: [
+          { label: 'الإنجليزية', href: '/courses?category=language&language=english' },
+          { label: 'العربية',    href: '/courses?category=language&language=arabic'  },
+          { label: 'الفرنسية',   href: '/courses?category=language&language=french'  },
+          { label: 'الألمانية',  href: '/courses?category=language&language=german'  },
+          { label: 'الإسبانية', href: '/courses?category=language&language=spanish' },
+        ],
+      },
+      {
+        label: 'تحضير الامتحانات',
+        href: '/courses?category=exam',
+        children: [
+          { label: 'IELTS', href: '/courses?category=exam&examType=ielts' },
+          { label: 'TOEFL', href: '/courses?category=exam&examType=toefl' },
+          { label: 'OET',   href: '/courses?category=exam&examType=oet'   },
+          { label: 'GMAT',  href: '/courses?category=exam&examType=gmat'  },
+          { label: 'SAT',   href: '/courses?category=exam&examType=sat'   },
+          { label: 'PTE',   href: '/courses?category=exam&examType=pte'   },
+        ],
+      },
     ],
   },
   { label: 'من نحن', href: '/about' },
@@ -135,10 +175,10 @@ export function Header({ locale, settings }: HeaderProps) {
                     href={item.href}
                     locale={locale}
                     className={cn(
-                      'relative flex items-center gap-1 px-3.5 py-2 text-sm font-medium rounded-lg transition-colors duration-150',
+                      'relative flex items-center gap-1 px-3.5 py-2 text-sm font-bold rounded-lg transition-colors duration-150',
                       isActive(item.href)
                         ? 'text-brand-600 bg-brand-50'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                        : 'text-gray-700 hover:text-brand-600 hover:bg-gray-50'
                     )}
                   >
                     {item.label}
@@ -159,27 +199,63 @@ export function Header({ locale, settings }: HeaderProps) {
                   {item.children && openMenu === item.href && (
                     <div
                       className={cn(
-                        'absolute top-full mt-1 min-w-[200px] bg-white rounded-2xl shadow-xl border border-gray-100 py-2 z-50',
-                        locale === 'ar' ? 'right-0' : 'left-0'
+                        'absolute top-full mt-1 bg-white rounded-2xl shadow-xl border border-gray-100 py-4 z-50',
+                        locale === 'ar' ? 'right-0' : 'left-0',
+                        item.children.some(c => c.children?.length)
+                          ? 'min-w-[360px]'
+                          : 'min-w-[200px]'
                       )}
                       onMouseEnter={() => handleMenuEnter(item.href)}
                       onMouseLeave={handleMenuLeave}
                     >
-                      {item.children.map((child, idx) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          locale={locale}
-                          className={cn(
-                            'flex items-center px-4 py-2.5 text-sm text-gray-600 hover:bg-brand-50 hover:text-brand-600 transition-colors',
-                            idx === item.children!.length - 1 &&
-                              'mt-1 border-t border-gray-100 text-brand-600 font-medium'
-                          )}
-                          onClick={() => setOpenMenu(null)}
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
+                      {item.children.some(c => c.children?.length) ? (
+                        /* Two-column mega panel */
+                        <div className="grid grid-cols-2 gap-0 px-2">
+                          {item.children.map((group) => (
+                            <div key={group.href} className="px-3">
+                              <Link
+                                href={group.href}
+                                locale={locale}
+                                className="block text-xs font-extrabold text-brand-600 uppercase tracking-wider mb-2 hover:text-brand-700"
+                                onClick={() => setOpenMenu(null)}
+                              >
+                                {group.label}
+                              </Link>
+                              <div className="space-y-0.5">
+                                {group.children?.map((child) => (
+                                  <Link
+                                    key={child.href}
+                                    href={child.href}
+                                    locale={locale}
+                                    className="flex items-center gap-2 px-2 py-1.5 text-sm text-gray-600 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition-colors"
+                                    onClick={() => setOpenMenu(null)}
+                                  >
+                                    <span className="h-1.5 w-1.5 rounded-full bg-brand-300 flex-shrink-0" />
+                                    {child.label}
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        /* Single-column list */
+                        item.children.map((child, idx) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            locale={locale}
+                            className={cn(
+                              'flex items-center px-4 py-2.5 text-sm text-gray-600 hover:bg-brand-50 hover:text-brand-600 transition-colors',
+                              idx === item.children!.length - 1 &&
+                                'mt-1 border-t border-gray-100 text-brand-600 font-medium'
+                            )}
+                            onClick={() => setOpenMenu(null)}
+                          >
+                            {child.label}
+                          </Link>
+                        ))
+                      )}
                     </div>
                   )}
                 </div>
@@ -281,20 +357,40 @@ export function Header({ locale, settings }: HeaderProps) {
                   </Link>
                   {/* Mobile sub-items */}
                   {item.children && (
-                    <div className={cn(
-                      'mt-1 ms-4 space-y-0.5 border-s-2 border-brand-100 ps-3',
-                    )}>
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          locale={locale}
-                          className="block px-3 py-2 rounded-lg text-sm text-gray-500 hover:text-brand-600 hover:bg-brand-50 transition-colors"
-                          onClick={() => setMobileOpen(false)}
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
+                    <div className="mt-1 ms-4 space-y-2 border-s-2 border-brand-100 ps-3">
+                      {item.children.map((group) =>
+                        group.children?.length ? (
+                          /* Group with children */
+                          <div key={group.href}>
+                            <p className="px-3 py-1 text-xs font-extrabold text-brand-600 uppercase tracking-wider">
+                              {group.label}
+                            </p>
+                            {group.children.map((child) => (
+                              <Link
+                                key={child.href}
+                                href={child.href}
+                                locale={locale}
+                                className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-gray-500 hover:text-brand-600 hover:bg-brand-50 transition-colors"
+                                onClick={() => setMobileOpen(false)}
+                              >
+                                <span className="h-1.5 w-1.5 rounded-full bg-brand-300 flex-shrink-0" />
+                                {child.label}
+                              </Link>
+                            ))}
+                          </div>
+                        ) : (
+                          /* Plain link */
+                          <Link
+                            key={group.href}
+                            href={group.href}
+                            locale={locale}
+                            className="block px-3 py-2 rounded-lg text-sm text-gray-500 hover:text-brand-600 hover:bg-brand-50 transition-colors"
+                            onClick={() => setMobileOpen(false)}
+                          >
+                            {group.label}
+                          </Link>
+                        )
+                      )}
                     </div>
                   )}
                 </div>

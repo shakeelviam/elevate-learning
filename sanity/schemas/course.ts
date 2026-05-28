@@ -66,6 +66,45 @@ export const courseSchema = defineType({
     }),
 
     defineField({
+      name: 'language',
+      title: 'Language',
+      type: 'string',
+      group: 'content',
+      description: 'Which language does this course teach?',
+      hidden: ({ document }) => document?.category !== 'language',
+      options: {
+        list: [
+          { title: 'English', value: 'english' },
+          { title: 'Arabic', value: 'arabic' },
+          { title: 'French', value: 'french' },
+          { title: 'German', value: 'german' },
+          { title: 'Spanish', value: 'spanish' },
+        ],
+        layout: 'radio',
+      },
+    }),
+
+    defineField({
+      name: 'examType',
+      title: 'Exam Type',
+      type: 'string',
+      group: 'content',
+      description: 'Which exam does this course prepare for?',
+      hidden: ({ document }) => document?.category !== 'exam',
+      options: {
+        list: [
+          { title: 'IELTS', value: 'ielts' },
+          { title: 'TOEFL', value: 'toefl' },
+          { title: 'OET', value: 'oet' },
+          { title: 'GMAT', value: 'gmat' },
+          { title: 'SAT', value: 'sat' },
+          { title: 'PTE', value: 'pte' },
+        ],
+        layout: 'radio',
+      },
+    }),
+
+    defineField({
       name: 'level',
       title: 'Level',
       type: 'string',

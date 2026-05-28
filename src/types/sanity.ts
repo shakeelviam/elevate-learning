@@ -57,12 +57,17 @@ export interface SanitySchedule {
   enrolledCount?: number
 }
 
+export type CourseLanguage = 'english' | 'arabic' | 'french' | 'german' | 'spanish'
+export type ExamType = 'ielts' | 'toefl' | 'oet' | 'gmat' | 'sat' | 'pte'
+
 export interface SanityCourseSummary {
   _id: string
   title: I18nString
   slug: I18nSlug
   category: 'language' | 'exam'
   level: 'beginner' | 'intermediate' | 'advanced' | 'all'
+  language?: CourseLanguage
+  examType?: ExamType
   duration?: string
   price?: number
   featured?: boolean

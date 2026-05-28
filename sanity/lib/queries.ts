@@ -60,6 +60,8 @@ export async function getAllCourses(params?: {
   category?: string
   level?: string
   search?: string
+  language?: string
+  examType?: string
 }): Promise<SanityCourseSummary[]> {
   const filters: string[] = ['_type == "course"']
 
@@ -68,6 +70,12 @@ export async function getAllCourses(params?: {
   }
   if (params?.level && params.level !== 'all') {
     filters.push(`level == "${params.level}"`)
+  }
+  if (params?.language) {
+    filters.push(`language == "${params.language}"`)
+  }
+  if (params?.examType) {
+    filters.push(`examType == "${params.examType}"`)
   }
 
   const filterStr = filters.join(' && ')
@@ -80,6 +88,8 @@ export async function getAllCourses(params?: {
         slug,
         category,
         level,
+        language,
+        examType,
         duration,
         price,
         featured,

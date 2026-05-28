@@ -12,6 +12,8 @@ interface CoursesPageProps {
     category?: string
     level?: string
     search?: string
+    language?: string
+    examType?: string
   }>
 }
 
@@ -43,6 +45,8 @@ export default async function CoursesPage({
     category: sp.category,
     level: sp.level,
     search: sp.search,
+    language: sp.language,
+    examType: sp.examType,
   })
 
   return (
@@ -67,6 +71,8 @@ export default async function CoursesPage({
             currentCategory={sp.category}
             currentLevel={sp.level}
             currentSearch={sp.search}
+            currentLanguage={sp.language}
+            currentExamType={sp.examType}
           />
         </div>
 
