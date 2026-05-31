@@ -23,7 +23,7 @@ export default function ChangePasswordPage() {
     setLoading(true)
     try {
       await user?.updatePassword({ currentPassword: current, newPassword: next })
-      await user?.update({ publicMetadata: { ...user.publicMetadata, must_change_password: 'false' } })
+      await fetch('/api/clear-password-flag', { method: 'POST' })
       router.push('/chat')
     } catch (err: unknown) {
       setError((err as { errors?: { message: string }[] })?.errors?.[0]?.message ?? 'Failed to update password.')
