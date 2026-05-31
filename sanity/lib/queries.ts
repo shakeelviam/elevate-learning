@@ -178,7 +178,7 @@ export async function getCourseBySlug(
         }
       }`,
       { slug },
-      { next: { revalidate: 60 } }
+      { cache: 'no-store' }
     ),
     null
   )
@@ -191,7 +191,7 @@ export async function getCourseSlugs(): Promise<Array<{ slug: { en: { current: s
         slug
       }`,
       {},
-      { next: { revalidate: 3600 } }
+      { cache: 'no-store' }
     ),
     []
   )
