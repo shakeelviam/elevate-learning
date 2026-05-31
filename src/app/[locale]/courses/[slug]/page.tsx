@@ -143,7 +143,7 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
 
       <div className="min-h-screen bg-white">
         {/* Header band */}
-        <div className="bg-brand-500 py-8">
+        <div className="bg-brand-600 py-8">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Link
               href="/courses"
