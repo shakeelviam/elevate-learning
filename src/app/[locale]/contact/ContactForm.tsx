@@ -1,12 +1,13 @@
 'use client'
 
-import { useActionState, useEffect } from 'react'
+import { useActionState, useEffect, useRef, useState, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { CheckCircle2, Send } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
+import { Turnstile } from '@/components/ui/Turnstile'
 import { toast } from '@/hooks/useToast'
 import { sendContactAction, type ContactActionState } from './actions'
 
@@ -19,23 +20,22 @@ const initialState: ContactActionState = { success: false }
 export function ContactForm({ locale }: ContactFormProps) {
   const t = useTranslations()
   const [state, formAction, isPending] = useActionState(sendContactAction, initialState)
+  const [turnstileToken, setTurnstileToken] = useState('')
+  const formRef = useRef<HTMLFormElement>(null)
 
   useEffect(() => {
     if (state.success) {
-      toast({
-        variant: 'success',
-        title: t('contact.successTitle'),
-        description: t('contact.successMessage'),
-      })
+      toast({ variant: 'success', title: t('contact.successTitle'), description: t('contact.successMessage') })
     }
     if (state.error) {
-      toast({
-        variant: 'destructive',
-        title: locale === 'ar' ? 'حدث خطأ' : 'Error',
-        description: state.error,
-      })
+      toast({ variant: 'destructive', title: locale === 'ar' ? 'حدث خطأ' : 'Error', description: state.error })
     }
   }, [state])
+
+  const handleVerify = useCallback((token: string) => setTurnstileToken(token), [])
+  const handleExpire = useCallback(() => setTurnstileToken(''), [])
+
+  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
 
   if (state.success) {
     return (
@@ -43,62 +43,49 @@ export function ContactForm({ locale }: ContactFormProps) {
         <div className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-green-100 mb-4">
           <CheckCircle2 className="h-10 w-10 text-green-600" />
         </div>
-        <h3 className="text-xl font-bold text-gray-900 mb-2">
-          {t('contact.successTitle')}
-        </h3>
+        <h3 className="text-xl font-bold text-gray-900 mb-2">{t('contact.successTitle')}</h3>
         <p className="text-gray-500">{t('contact.successMessage')}</p>
       </div>
     )
   }
 
   return (
-    <form action={formAction} className="space-y-5">
+    <form ref={formRef} action={formAction} className="space-y-5">
       <input type="hidden" name="locale" value={locale} />
+      <input type="hidden" name="turnstile_token" value={turnstileToken} />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-1.5">
           <Label htmlFor="name">{t('forms.name')} *</Label>
-          <Input
-            id="name"
-            name="name"
-            placeholder={t('forms.namePlaceholder')}
-            required
-          />
+          <Input id="name" name="name" placeholder={t('forms.namePlaceholder')} required />
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="email">{t('forms.email')} *</Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            placeholder={t('forms.emailPlaceholder')}
-            dir="ltr"
-            required
-          />
+          <Input id="email" name="email" type="email" placeholder={t('forms.emailPlaceholder')} dir="ltr" required />
         </div>
       </div>
 
       <div className="space-y-1.5">
         <Label htmlFor="subject">{t('forms.subject')}</Label>
-        <Input
-          id="subject"
-          name="subject"
-          placeholder={t('forms.subjectPlaceholder')}
-        />
+        <Input id="subject" name="subject" placeholder={t('forms.subjectPlaceholder')} />
       </div>
 
       <div className="space-y-1.5">
         <Label htmlFor="message">{t('forms.message')} *</Label>
-        <Textarea
-          id="message"
-          name="message"
-          placeholder={t('forms.messagePlaceholder')}
-          rows={5}
-          required
-        />
+        <Textarea id="message" name="message" placeholder={t('forms.messagePlaceholder')} rows={5} required />
       </div>
 
-      <Button type="submit" size="lg" className="w-full sm:w-auto" isLoading={isPending}>
+      {siteKey && (
+        <Turnstile onVerify={handleVerify} onExpire={handleExpire} />
+      )}
+
+      <Button
+        type="submit"
+        size="lg"
+        className="w-full sm:w-auto"
+        isLoading={isPending}
+        disabled={isPending || (!!siteKey && !turnstileToken)}
+      >
         <Send className="h-4 w-4" />
         {t('buttons.send')}
       </Button>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
@@ -26,6 +26,7 @@ import {
 } from '@/components/ui/select'
 import { registrationSchema, type RegistrationFormData } from '@/lib/validations'
 import { toast } from '@/hooks/useToast'
+import { Turnstile } from '@/components/ui/Turnstile'
 import type { SanitySchedule } from '@/types/sanity'
 import { formatDate, getLocationLabel } from '@/lib/utils'
 
@@ -49,7 +50,11 @@ export function RegistrationModal({
   const t = useTranslations()
   const [submitted, setSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [turnstileToken, setTurnstileToken] = useState('')
   const isRtl = locale === 'ar'
+  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
+  const handleVerify = useCallback((token: string) => setTurnstileToken(token), [])
+  const handleExpire = useCallback(() => setTurnstileToken(''), [])
 
   const {
     register,
@@ -71,7 +76,7 @@ export function RegistrationModal({
       const res = await fetch('/api/registration', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, turnstile_token: turnstileToken }),
       })
       const json = await res.json()
       if (!res.ok) throw new Error(json.error ?? 'Request failed')
@@ -218,16 +223,15 @@ export function RegistrationModal({
               <input type="hidden" {...register('courseId')} />
               <input type="hidden" {...register('locale')} />
 
+              {siteKey && (
+                <Turnstile onVerify={handleVerify} onExpire={handleExpire} />
+              )}
+
               <div className="flex justify-end gap-3 pt-2">
-                <Button
-                  type="button"
-                  variant="ghost"
-                  onClick={handleClose}
-                  disabled={isLoading}
-                >
+                <Button type="button" variant="ghost" onClick={handleClose} disabled={isLoading}>
                   {t('buttons.cancel')}
                 </Button>
-                <Button type="submit" isLoading={isLoading}>
+                <Button type="submit" isLoading={isLoading} disabled={isLoading || (!!siteKey && !turnstileToken)}>
                   {t('buttons.submitInterest')}
                 </Button>
               </div>

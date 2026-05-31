@@ -5,6 +5,7 @@ import { sanityClient } from '@/sanity/lib/client'
 import { sendRegistrationEmails } from '@/lib/email'
 import { getSiteSettings } from '@/sanity/lib/queries'
 import { groq } from 'next-sanity'
+import { verifyTurnstile } from '@/lib/turnstile'
 
 // ── In-memory rate limiter (per-IP, resets on process restart) ───────────────
 // For multi-instance deployments, replace with Redis-backed solution.
@@ -58,6 +59,14 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json()
+
+    // Verify Turnstile token
+    if (process.env.TURNSTILE_SECRET_KEY) {
+      const valid = await verifyTurnstile(body.turnstile_token ?? '')
+      if (!valid) {
+        return NextResponse.json({ success: false, error: 'Security check failed. Please try again.' }, { status: 400 })
+      }
+    }
 
     // Validate input
     const parsed = registrationSchema.safeParse(body)

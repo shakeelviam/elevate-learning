@@ -3,6 +3,7 @@
 import { contactSchema } from '@/lib/validations'
 import { sendContactEmail } from '@/lib/email'
 import { getSiteSettings } from '@/sanity/lib/queries'
+import { verifyTurnstile } from '@/lib/turnstile'
 
 export interface ContactActionState {
   success: boolean
@@ -28,6 +29,13 @@ export async function sendContactAction(
   _prev: ContactActionState,
   formData: FormData
 ): Promise<ContactActionState> {
+  // Verify Turnstile token if key is configured
+  const turnstileToken = formData.get('turnstile_token') as string
+  if (process.env.TURNSTILE_SECRET_KEY) {
+    const valid = await verifyTurnstile(turnstileToken ?? '')
+    if (!valid) return { success: false, error: 'Security check failed. Please try again.' }
+  }
+
   const raw = {
     name: formData.get('name'),
     email: formData.get('email'),
