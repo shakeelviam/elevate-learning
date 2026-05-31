@@ -128,7 +128,7 @@ export function StatsBanner({
   return (
     <section
       ref={ref}
-      className="bg-gradient-to-r from-brand-600 to-brand-800 py-14"
+      className="bg-brand-500 py-10"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">

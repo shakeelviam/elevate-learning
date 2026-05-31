@@ -9,7 +9,6 @@ import {
   ArrowLeft,
   Clock,
   TrendingUp,
-  MapPin,
   Calendar,
   Users,
   BookOpen,
@@ -143,49 +142,28 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
       />
 
       <div className="min-h-screen bg-white">
-        {/* Hero image */}
-        <div className="relative h-72 sm:h-96 bg-gradient-to-br from-brand-500 to-brand-700 overflow-hidden">
-          {imageUrl && (
-            <Image
-              src={imageUrl}
-              alt={title}
-              fill
-              sizes="100vw"
-              className="object-cover opacity-60"
-              priority
-            />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-700/70 via-brand-600/30 to-transparent" />
-
-          {/* Back link */}
-          <div className="absolute top-6 inset-x-0">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <Link
-                href="/courses"
-                locale={loc}
-                className="inline-flex items-center gap-2 text-white/80 hover:text-white text-sm transition-colors"
-              >
-                <ArrowLeft className={`h-4 w-4 ${isRtl ? 'flip-rtl' : ''}`} />
-                {t('buttons.backToCourses')}
-              </Link>
+        {/* Header band */}
+        <div className="bg-brand-500 py-8">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <Link
+              href="/courses"
+              locale={loc}
+              className="inline-flex items-center gap-2 text-white/80 hover:text-white text-sm transition-colors mb-5"
+            >
+              <ArrowLeft className={`h-4 w-4 ${isRtl ? 'flip-rtl' : ''}`} />
+              {t('buttons.backToCourses')}
+            </Link>
+            <div className="flex flex-wrap gap-2 mb-3">
+              <Badge variant={course.category === 'language' ? 'language' : 'exam'}>
+                {categoryLabel}
+              </Badge>
+              <Badge variant="secondary" className="bg-white/20 text-white border-0">
+                {levelLabel}
+              </Badge>
             </div>
-          </div>
-
-          {/* Title overlay */}
-          <div className="absolute bottom-0 inset-x-0 pb-8">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <div className="flex flex-wrap gap-2 mb-3">
-                <Badge variant={course.category === 'language' ? 'language' : 'exam'}>
-                  {categoryLabel}
-                </Badge>
-                <Badge variant="secondary" className="bg-white/20 text-white border-0">
-                  {levelLabel}
-                </Badge>
-              </div>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white">
-                {title}
-              </h1>
-            </div>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white">
+              {title}
+            </h1>
           </div>
         </div>
 

@@ -249,12 +249,8 @@ export default async function HomePage({
       </section>
 
       {/* ── CTA Banner ───────────────────────────────────────────────────── */}
-      <section className="py-20 bg-gradient-to-br from-brand-500 via-brand-400 to-brand-600 relative overflow-hidden">
-        {/* Decorative */}
-        <div className="absolute top-0 start-0 h-64 w-64 rounded-full bg-white/5 -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 end-0 h-80 w-80 rounded-full bg-white/5 translate-x-1/2 translate-y-1/2" />
-
-        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+      <section className="py-12 bg-brand-500">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4">
             {loc === 'ar'
               ? (settings?.ctaBanner?.titleAr ?? t('home.ctaTitle'))
