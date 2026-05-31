@@ -9,7 +9,7 @@ const token = 'skw48mvALVm53MR68hOTaAc08L9Cx8meubNRsiobUUy6FEs4nWUErcdHWkN6amvFy
 
 const client = createClient({
   projectId: '7vl4bc10',
-  dataset: 'development',
+  dataset: 'production',
   apiVersion: '2024-01-01',
   useCdn: false,
   token,
