@@ -67,14 +67,14 @@ export default async function AboutPage({
     : (settings?.aboutHero?.subtitleEn ?? t('about.subtitle'))
 
   return (
-    <div className="min-h-screen">
-      {/* Hero */}
-      <div className="hero-gradient border-b border-brand-100 py-20 text-center">
+    <div className="min-h-screen bg-brand-50">
+      {/* Header band */}
+      <div className="bg-brand-600 py-8 text-center">
         <div className="mx-auto max-w-3xl px-4">
-          <h1 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4">
+          <h1 className="text-4xl sm:text-5xl font-black text-white mb-3">
             {aboutHeroTitle}
           </h1>
-          <p className="text-xl text-gray-600">{aboutHeroSubtitle}</p>
+          <p className="text-lg text-white/80">{aboutHeroSubtitle}</p>
         </div>
       </div>
 
@@ -103,7 +103,7 @@ export default async function AboutPage({
       </div>
 
       {/* Values */}
-      <div className="bg-gray-50 py-16">
+      <div className="bg-white py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-black text-gray-900 text-center mb-10">
             {loc === 'ar' ? 'قيمنا' : 'Our Values'}
@@ -198,7 +198,7 @@ export default async function AboutPage({
       )}
 
       {/* CTA */}
-      <div className="py-16 text-center bg-gray-50 border-t border-gray-100">
+      <div className="py-16 text-center bg-brand-50 border-t border-brand-100">
         <div className="mx-auto max-w-xl px-4">
           <h2 className="text-3xl font-black text-gray-900 mb-4">
             {loc === 'ar' ? 'انضم إلى عائلة مركز إيليفيت' : 'Join the Elevate Family'}

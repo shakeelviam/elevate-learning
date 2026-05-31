@@ -61,14 +61,14 @@ export default async function ContactPage({
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="hero-gradient border-b border-brand-100 py-14">
+    <div className="min-h-screen bg-brand-50">
+      {/* Header band */}
+      <div className="bg-brand-600 py-8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4">
+          <h1 className="text-4xl sm:text-5xl font-black text-white mb-3">
             {t('contact.title')}
           </h1>
-          <p className="text-lg text-gray-600 max-w-xl mx-auto">
+          <p className="text-lg text-white/80 max-w-xl mx-auto">
             {t('contact.subtitle')}
           </p>
         </div>
