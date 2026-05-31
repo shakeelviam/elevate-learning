@@ -184,26 +184,38 @@ function FlyoutMenu({ items, locale, onClose, level = 0 }: FlyoutMenuProps) {
   return (
     <div
       className={cn(
-        'bg-white rounded-xl shadow-xl border border-gray-100 py-1.5 z-50',
-        level === 0 ? 'min-w-[180px]' : 'min-w-[220px]'
+        'bg-white rounded-md shadow-xl border border-gray-100 py-2 z-50 divide-y divide-gray-100',
+        level === 0 ? 'min-w-[190px]' : 'min-w-[230px]'
       )}
     >
-      {items.map((item) => (
+      {items.map((item, idx) => (
         <div
           key={item.href}
-          className="relative"
-          onMouseEnter={() => item.children ? handleEnter(item.href) : undefined}
+          className={cn('relative', idx > 0 && !items[idx - 1]?.children && 'first:pt-0')}
+          onMouseEnter={() => item.children ? handleEnter(item.href) : setActiveHref(null)}
           onMouseLeave={item.children ? handleLeave : undefined}
         >
           <Link
             href={item.href}
             locale={locale}
-            className="flex items-center justify-between gap-3 px-4 py-2 text-sm text-gray-700 hover:text-brand-600 transition-colors duration-100"
+            className={cn(
+              'flex items-center justify-between gap-4 px-4 py-2.5 text-sm transition-colors duration-100',
+              activeHref === item.href
+                ? 'bg-brand-50 text-brand-700'
+                : 'text-gray-700 hover:bg-gray-50 hover:text-brand-600',
+              item.children && 'font-semibold'
+            )}
             onClick={onClose}
           >
             <span>{item.label}</span>
             {item.children && (
-              <ChevronRight className={cn('h-3.5 w-3.5 text-gray-400 flex-shrink-0', locale === 'ar' && 'rotate-180')} />
+              <ChevronRight
+                className={cn(
+                  'h-3.5 w-3.5 flex-shrink-0 transition-colors duration-100',
+                  activeHref === item.href ? 'text-brand-500' : 'text-gray-400',
+                  locale === 'ar' && 'rotate-180'
+                )}
+              />
             )}
           </Link>
 
@@ -358,7 +370,7 @@ export function Header({ locale, settings }: HeaderProps) {
               {/* Language switcher */}
               <button
                 onClick={switchLocale}
-                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 text-sm font-medium text-gray-600 hover:border-brand-300 hover:text-brand-600 transition-colors"
+                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-gray-200 text-sm font-medium text-gray-600 hover:border-brand-300 hover:text-brand-600 transition-colors"
                 title={locale === 'en' ? 'Switch to Arabic' : 'Switch to English'}
               >
                 <Globe className="h-4 w-4" />
@@ -369,7 +381,7 @@ export function Header({ locale, settings }: HeaderProps) {
               <Link
                 href="/contact"
                 locale={locale}
-                className="hidden sm:inline-flex px-4 py-1.5 text-sm font-semibold text-brand-900 bg-gradient-to-r from-gold-400 to-gold-500 rounded-lg hover:opacity-90 transition-opacity shadow-sm"
+                className="hidden sm:inline-flex px-4 py-1.5 text-sm font-semibold text-brand-900 bg-gradient-to-r from-gold-400 to-gold-500 rounded-md hover:opacity-90 transition-opacity shadow-sm"
               >
                 {locale === 'ar' ? 'استفسر الآن' : 'Enquire Now'}
               </Link>
@@ -398,7 +410,7 @@ export function Header({ locale, settings }: HeaderProps) {
 
               {/* Mobile menu toggle */}
               <button
-                className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
                 onClick={() => setMobileOpen(!mobileOpen)}
                 aria-label="Toggle menu"
               >
@@ -435,7 +447,7 @@ export function Header({ locale, settings }: HeaderProps) {
               <Link
                 href="/contact"
                 locale={locale}
-                className="flex items-center justify-center px-4 py-3 rounded-xl text-sm font-semibold text-brand-900 bg-gradient-to-r from-gold-400 to-gold-500"
+                className="flex items-center justify-center px-4 py-3 rounded-md text-sm font-semibold text-brand-900 bg-gradient-to-r from-gold-400 to-gold-500"
                 onClick={() => setMobileOpen(false)}
               >
                 {locale === 'ar' ? 'استفسر الآن' : 'Enquire Now'}
@@ -443,7 +455,7 @@ export function Header({ locale, settings }: HeaderProps) {
 
               <button
                 onClick={() => { switchLocale(); setMobileOpen(false) }}
-                className="flex w-full items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50"
+                className="flex w-full items-center gap-3 px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
               >
                 <Globe className="h-4 w-4 text-gray-400" />
                 {locale === 'en' ? 'العربية' : 'English'}
@@ -453,7 +465,7 @@ export function Header({ locale, settings }: HeaderProps) {
                 <Link
                   href="/sign-in"
                   locale={locale}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50"
+                  className="flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
                   onClick={() => setMobileOpen(false)}
                 >
                   {t('signIn')}
@@ -461,7 +473,7 @@ export function Header({ locale, settings }: HeaderProps) {
                 <Link
                   href="/sign-up"
                   locale={locale}
-                  className="flex items-center justify-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-brand-500 to-brand-700"
+                  className="flex items-center justify-center gap-3 px-4 py-3 rounded-md text-sm font-semibold text-white bg-gradient-to-r from-brand-500 to-brand-700"
                   onClick={() => setMobileOpen(false)}
                 >
                   {t('signUp')}
@@ -471,7 +483,7 @@ export function Header({ locale, settings }: HeaderProps) {
                 <Link
                   href="/dashboard"
                   locale={locale}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50"
+                  className="flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
                   onClick={() => setMobileOpen(false)}
                 >
                   <LayoutDashboard className="h-4 w-4 text-gray-400" />

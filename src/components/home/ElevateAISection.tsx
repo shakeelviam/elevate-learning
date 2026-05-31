@@ -129,7 +129,7 @@ export function ElevateAISection({ locale, settings }: ElevateAISectionProps) {
               <p className="mb-4 text-sm leading-relaxed text-white/70">{contactDesc}</p>
               <a
                 href="mailto:info@elev8-edu.com"
-                className="inline-flex items-center gap-2 rounded-xl bg-gold-500 px-5 py-2.5 text-sm font-bold text-white shadow-[0_4px_16px_rgba(201,168,76,0.35)] hover:bg-gold-400 transition-colors"
+                className="inline-flex items-center gap-2 rounded-md bg-gold-500 px-5 py-2.5 text-sm font-bold text-white shadow-[0_4px_16px_rgba(201,168,76,0.35)] hover:bg-gold-400 transition-colors"
               >
                 {contactBtn}
                 <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} />

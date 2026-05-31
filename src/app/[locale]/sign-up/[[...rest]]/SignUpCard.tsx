@@ -34,11 +34,11 @@ export default function SignUpCard({ locale }: SignUpCardProps) {
           headerTitle: 'hidden',
           headerSubtitle: 'hidden',
           socialButtonsBlockButton:
-            'border border-gray-200 rounded-xl text-sm font-medium hover:bg-gray-50',
+            'border border-gray-200 rounded-md text-sm font-medium hover:bg-gray-50',
           formButtonPrimary:
-            'bg-gradient-to-r from-brand-500 to-brand-700 hover:opacity-90 rounded-xl text-sm font-semibold',
+            'bg-gradient-to-r from-brand-500 to-brand-700 hover:opacity-90 rounded-md text-sm font-semibold',
           formFieldInput:
-            'rounded-xl border-gray-200 text-sm focus:ring-2 focus:ring-brand-500',
+            'rounded-md border-gray-200 text-sm focus:ring-2 focus:ring-brand-500',
           footerActionLink: 'text-brand-600 hover:text-brand-800',
         },
       }}
