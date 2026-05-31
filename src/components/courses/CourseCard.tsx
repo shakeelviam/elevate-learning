@@ -9,7 +9,6 @@ import {
   getLocaleSlug,
   getCategoryLabel,
   getLevelLabel,
-  formatPrice,
 } from '@/lib/utils'
 import { urlFor } from '@/sanity/lib/imageUrl'
 
@@ -24,8 +23,6 @@ export function CourseCard({ course, locale, viewDetailsLabel }: CourseCardProps
   const slug = getLocaleSlug(course.slug, locale)
   const categoryLabel = getCategoryLabel(course.category, locale)
   const levelLabel = getLevelLabel(course.level, locale)
-  const price = course.price != null ? formatPrice(course.price, locale) : null
-
   const imageUrl = course.image
     ? urlFor(course.image).width(600).height(340).url()
     : null
@@ -103,17 +100,8 @@ export function CourseCard({ course, locale, viewDetailsLabel }: CourseCardProps
         {/* Spacer */}
         <div className="flex-1" />
 
-        {/* Price + CTA */}
-        <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-50">
-          {price ? (
-            <div>
-              <span className="text-lg font-bold text-gray-900">{price}</span>
-            </div>
-          ) : (
-            <span className="text-sm text-gray-400">
-              {locale === 'ar' ? 'تواصل للسعر' : 'Contact for price'}
-            </span>
-          )}
+        {/* CTA */}
+        <div className="flex items-center justify-end mt-4 pt-4 border-t border-gray-50">
           <Link href={`/courses/${slug}`} locale={locale}>
             <Button size="sm" variant="outline">
               {viewDetailsLabel ?? (locale === 'ar' ? 'عرض التفاصيل' : 'View Details')}

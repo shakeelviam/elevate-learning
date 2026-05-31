@@ -99,6 +99,46 @@ export const courseSchema = defineType({
           { title: 'GMAT', value: 'gmat' },
           { title: 'SAT', value: 'sat' },
           { title: 'PTE', value: 'pte' },
+          { title: 'GRE', value: 'gre' },
+          { title: 'ACT', value: 'act' },
+          { title: 'PSAT', value: 'psat' },
+        ],
+        layout: 'radio',
+      },
+    }),
+
+    defineField({
+      name: 'examSubType',
+      title: 'Exam Sub-Type',
+      type: 'string',
+      group: 'content',
+      description: 'Variant of the exam (e.g. IELTS Academic, TOEFL iBT)',
+      hidden: ({ document }) => !['ielts', 'toefl'].includes(document?.examType as string),
+      options: {
+        list: [
+          { title: 'IELTS Academic', value: 'academic' },
+          { title: 'IELTS General Training', value: 'general_training' },
+          { title: 'IELTS UKVI', value: 'ukvi' },
+          { title: 'TOEFL iBT', value: 'ibt' },
+          { title: 'TOEFL ITP', value: 'itp' },
+        ],
+        layout: 'radio',
+      },
+    }),
+
+    defineField({
+      name: 'languageSubType',
+      title: 'Language Sub-Type',
+      type: 'string',
+      group: 'content',
+      description: 'Variant of the language course (e.g. Spoken English, Business English)',
+      hidden: ({ document }) => document?.category !== 'language',
+      options: {
+        list: [
+          { title: 'Spoken English', value: 'spoken' },
+          { title: 'Business English', value: 'business' },
+          { title: 'Academic English', value: 'academic' },
+          { title: 'General / Conversational', value: 'general' },
         ],
         layout: 'radio',
       },

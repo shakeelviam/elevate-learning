@@ -11,6 +11,7 @@ import {
   X,
   Globe,
   ChevronDown,
+  ChevronRight,
   LayoutDashboard,
 } from 'lucide-react'
 import type { SanitySiteSettings, NavItem } from '@/types/sanity'
@@ -29,26 +30,57 @@ const DEFAULT_NAV_EN: NavItem[] = [
     href: '/courses',
     children: [
       {
-        label: 'Language Courses',
+        label: 'Languages',
         href: '/courses?category=language',
         children: [
-          { label: 'English',  href: '/courses?category=language&language=english' },
-          { label: 'Arabic',   href: '/courses?category=language&language=arabic'  },
-          { label: 'French',   href: '/courses?category=language&language=french'  },
-          { label: 'German',   href: '/courses?category=language&language=german'  },
-          { label: 'Spanish',  href: '/courses?category=language&language=spanish' },
+          {
+            label: 'English',
+            href: '/courses?category=language&language=english',
+            children: [
+              { label: 'Spoken English', href: '/courses/spoken-english' },
+              { label: 'Business English', href: '/courses/business-english-professional' },
+            ],
+          },
+          {
+            label: 'Arabic',
+            href: '/courses?category=language&language=arabic',
+            children: [
+              { label: 'Arabic for Non-Native Speakers', href: '/courses/arabic-non-native-speakers' },
+            ],
+          },
+          { label: 'French', href: '/courses/french-beginners' },
+          { label: 'German', href: '/courses?category=language&language=german' },
+          { label: 'Spanish', href: '/courses?category=language&language=spanish' },
         ],
       },
       {
         label: 'Test Prep',
         href: '/courses?category=exam',
         children: [
-          { label: 'IELTS', href: '/courses?category=exam&examType=ielts' },
-          { label: 'TOEFL', href: '/courses?category=exam&examType=toefl' },
-          { label: 'OET',   href: '/courses?category=exam&examType=oet'   },
-          { label: 'GMAT',  href: '/courses?category=exam&examType=gmat'  },
-          { label: 'SAT',   href: '/courses?category=exam&examType=sat'   },
-          { label: 'PTE',   href: '/courses?category=exam&examType=pte'   },
+          {
+            label: 'IELTS',
+            href: '/courses?category=exam&examType=ielts',
+            children: [
+              { label: 'IELTS Academic', href: '/courses/ielts-academic' },
+              { label: 'IELTS General Training', href: '/courses/ielts-general-training' },
+              { label: 'IELTS UKVI', href: '/courses/ielts-ukvi' },
+            ],
+          },
+          {
+            label: 'TOEFL',
+            href: '/courses?category=exam&examType=toefl',
+            children: [
+              { label: 'TOEFL iBT', href: '/courses/toefl-ibt-preparation' },
+              { label: 'TOEFL ITP', href: '/courses/toefl-itp' },
+            ],
+          },
+          { label: 'SAT', href: '/courses/sat-preparation' },
+          { label: 'GRE', href: '/courses/gre-preparation' },
+          { label: 'ACT', href: '/courses/act-preparation' },
+          { label: 'PSAT', href: '/courses/psat-preparation' },
+          { label: 'OET', href: '/courses?category=exam&examType=oet' },
+          { label: 'PTE', href: '/courses?category=exam&examType=pte' },
+          { label: 'GMAT', href: '/courses?category=exam&examType=gmat' },
         ],
       },
     ],
@@ -65,13 +97,26 @@ const DEFAULT_NAV_AR: NavItem[] = [
     href: '/courses',
     children: [
       {
-        label: 'دورات اللغات',
+        label: 'اللغات',
         href: '/courses?category=language',
         children: [
-          { label: 'الإنجليزية', href: '/courses?category=language&language=english' },
-          { label: 'العربية',    href: '/courses?category=language&language=arabic'  },
-          { label: 'الفرنسية',   href: '/courses?category=language&language=french'  },
-          { label: 'الألمانية',  href: '/courses?category=language&language=german'  },
+          {
+            label: 'الإنجليزية',
+            href: '/courses?category=language&language=english',
+            children: [
+              { label: 'الإنجليزية المحادثة', href: '/courses/spoken-english' },
+              { label: 'الإنجليزية للأعمال', href: '/courses/business-english-professional' },
+            ],
+          },
+          {
+            label: 'العربية',
+            href: '/courses?category=language&language=arabic',
+            children: [
+              { label: 'العربية لغير الناطقين بها', href: '/courses/arabic-non-native-speakers' },
+            ],
+          },
+          { label: 'الفرنسية', href: '/courses/french-beginners' },
+          { label: 'الألمانية', href: '/courses?category=language&language=german' },
           { label: 'الإسبانية', href: '/courses?category=language&language=spanish' },
         ],
       },
@@ -79,12 +124,30 @@ const DEFAULT_NAV_AR: NavItem[] = [
         label: 'تحضير الامتحانات',
         href: '/courses?category=exam',
         children: [
-          { label: 'IELTS', href: '/courses?category=exam&examType=ielts' },
-          { label: 'TOEFL', href: '/courses?category=exam&examType=toefl' },
-          { label: 'OET',   href: '/courses?category=exam&examType=oet'   },
-          { label: 'GMAT',  href: '/courses?category=exam&examType=gmat'  },
-          { label: 'SAT',   href: '/courses?category=exam&examType=sat'   },
-          { label: 'PTE',   href: '/courses?category=exam&examType=pte'   },
+          {
+            label: 'IELTS',
+            href: '/courses?category=exam&examType=ielts',
+            children: [
+              { label: 'IELTS Academic', href: '/courses/ielts-academic' },
+              { label: 'IELTS General Training', href: '/courses/ielts-general-training' },
+              { label: 'IELTS UKVI', href: '/courses/ielts-ukvi' },
+            ],
+          },
+          {
+            label: 'TOEFL',
+            href: '/courses?category=exam&examType=toefl',
+            children: [
+              { label: 'TOEFL iBT', href: '/courses/toefl-ibt-preparation' },
+              { label: 'TOEFL ITP', href: '/courses/toefl-itp' },
+            ],
+          },
+          { label: 'SAT', href: '/courses/sat-preparation' },
+          { label: 'GRE', href: '/courses/gre-preparation' },
+          { label: 'ACT', href: '/courses/act-preparation' },
+          { label: 'PSAT', href: '/courses/psat-preparation' },
+          { label: 'OET', href: '/courses?category=exam&examType=oet' },
+          { label: 'PTE', href: '/courses?category=exam&examType=pte' },
+          { label: 'GMAT', href: '/courses?category=exam&examType=gmat' },
         ],
       },
     ],
@@ -93,6 +156,81 @@ const DEFAULT_NAV_AR: NavItem[] = [
   { label: 'الأسئلة الشائعة', href: '/faq' },
   { label: 'تواصل معنا', href: '/contact' },
 ]
+
+// ── Cascading flyout menu ─────────────────────────────────────────────────────
+
+interface FlyoutMenuProps {
+  items: NavItem[]
+  locale: 'en' | 'ar'
+  onClose: () => void
+  level?: number
+}
+
+function FlyoutMenu({ items, locale, onClose, level = 0 }: FlyoutMenuProps) {
+  const [activeHref, setActiveHref] = useState<string | null>(null)
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const handleEnter = (href: string) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    setActiveHref(href)
+  }
+  const handleLeave = () => {
+    closeTimer.current = setTimeout(() => setActiveHref(null), 100)
+  }
+  const handlePanelEnter = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+  }
+
+  return (
+    <div
+      className={cn(
+        'bg-white rounded-xl shadow-xl border border-gray-100 py-1.5 z-50',
+        level === 0 ? 'min-w-[180px]' : 'min-w-[220px]'
+      )}
+    >
+      {items.map((item) => (
+        <div
+          key={item.href}
+          className="relative"
+          onMouseEnter={() => item.children ? handleEnter(item.href) : undefined}
+          onMouseLeave={item.children ? handleLeave : undefined}
+        >
+          <Link
+            href={item.href}
+            locale={locale}
+            className="flex items-center justify-between gap-3 px-4 py-2 text-sm text-gray-700 hover:text-brand-600 transition-colors duration-100"
+            onClick={onClose}
+          >
+            <span>{item.label}</span>
+            {item.children && (
+              <ChevronRight className={cn('h-3.5 w-3.5 text-gray-400 flex-shrink-0', locale === 'ar' && 'rotate-180')} />
+            )}
+          </Link>
+
+          {item.children && activeHref === item.href && (
+            <div
+              className={cn(
+                'absolute top-0 z-50',
+                locale === 'ar' ? 'right-full mr-1' : 'left-full ml-1'
+              )}
+              onMouseEnter={handlePanelEnter}
+              onMouseLeave={handleLeave}
+            >
+              <FlyoutMenu
+                items={item.children}
+                locale={locale}
+                onClose={onClose}
+                level={level + 1}
+              />
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+// ── Main Header ───────────────────────────────────────────────────────────────
 
 export function Header({ locale, settings }: HeaderProps) {
   const t = useTranslations('nav')
@@ -118,8 +256,7 @@ export function Header({ locale, settings }: HeaderProps) {
     router.replace(pathname, { locale: next })
   }
 
-  const siteName =
-    getLocaleText(settings?.siteName, locale) || 'Elevate Learning'
+  const siteName = getLocaleText(settings?.siteName, locale) || 'Elevate Learning'
 
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/'
@@ -175,10 +312,10 @@ export function Header({ locale, settings }: HeaderProps) {
                     href={item.href}
                     locale={locale}
                     className={cn(
-                      'relative flex items-center gap-1 px-3.5 py-2 text-sm font-bold rounded-lg transition-colors duration-150',
+                      'relative flex items-center gap-1 px-3.5 py-2 text-sm font-bold transition-colors duration-150',
                       isActive(item.href)
-                        ? 'text-brand-600 bg-brand-50'
-                        : 'text-gray-700 hover:text-brand-600 hover:bg-gray-50'
+                        ? 'text-brand-600'
+                        : 'text-gray-700 hover:text-brand-600'
                     )}
                   >
                     {item.label}
@@ -191,7 +328,7 @@ export function Header({ locale, settings }: HeaderProps) {
                       />
                     )}
                     {isActive(item.href) && (
-                      <span className="absolute bottom-1 inset-x-3 h-0.5 bg-brand-500 rounded-full" />
+                      <span className="absolute bottom-0 inset-x-3 h-0.5 bg-brand-500 rounded-full" />
                     )}
                   </Link>
 
@@ -199,63 +336,17 @@ export function Header({ locale, settings }: HeaderProps) {
                   {item.children && openMenu === item.href && (
                     <div
                       className={cn(
-                        'absolute top-full mt-1 bg-white rounded-2xl shadow-xl border border-gray-100 py-4 z-50',
-                        locale === 'ar' ? 'right-0' : 'left-0',
-                        item.children.some(c => c.children?.length)
-                          ? 'min-w-[360px]'
-                          : 'min-w-[200px]'
+                        'absolute top-full mt-1 z-50',
+                        locale === 'ar' ? 'right-0' : 'left-0'
                       )}
                       onMouseEnter={() => handleMenuEnter(item.href)}
                       onMouseLeave={handleMenuLeave}
                     >
-                      {item.children.some(c => c.children?.length) ? (
-                        /* Two-column mega panel */
-                        <div className="grid grid-cols-2 gap-0 px-2">
-                          {item.children.map((group) => (
-                            <div key={group.href} className="px-3">
-                              <Link
-                                href={group.href}
-                                locale={locale}
-                                className="block text-xs font-extrabold text-brand-600 uppercase tracking-wider mb-2 hover:text-brand-700"
-                                onClick={() => setOpenMenu(null)}
-                              >
-                                {group.label}
-                              </Link>
-                              <div className="space-y-0.5">
-                                {group.children?.map((child) => (
-                                  <Link
-                                    key={child.href}
-                                    href={child.href}
-                                    locale={locale}
-                                    className="flex items-center gap-2 px-2 py-1.5 text-sm text-gray-600 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition-colors"
-                                    onClick={() => setOpenMenu(null)}
-                                  >
-                                    <span className="h-1.5 w-1.5 rounded-full bg-brand-300 flex-shrink-0" />
-                                    {child.label}
-                                  </Link>
-                                ))}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        /* Single-column list */
-                        item.children.map((child, idx) => (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            locale={locale}
-                            className={cn(
-                              'flex items-center px-4 py-2.5 text-sm text-gray-600 hover:bg-brand-50 hover:text-brand-600 transition-colors',
-                              idx === item.children!.length - 1 &&
-                                'mt-1 border-t border-gray-100 text-brand-600 font-medium'
-                            )}
-                            onClick={() => setOpenMenu(null)}
-                          >
-                            {child.label}
-                          </Link>
-                        ))
-                      )}
+                      <FlyoutMenu
+                        items={item.children}
+                        locale={locale}
+                        onClose={() => setOpenMenu(null)}
+                      />
                     </div>
                   )}
                 </div>
@@ -274,7 +365,7 @@ export function Header({ locale, settings }: HeaderProps) {
                 <span>{locale === 'en' ? 'العربية' : 'English'}</span>
               </button>
 
-              {/* Enquire Now — always visible */}
+              {/* Enquire Now */}
               <Link
                 href="/contact"
                 locale={locale}
@@ -337,68 +428,10 @@ export function Header({ locale, settings }: HeaderProps) {
             onClick={(e) => e.stopPropagation()}
           >
             <nav className="p-4 space-y-1">
-              {navItems.map((item) => (
-                <div key={item.href}>
-                  <Link
-                    href={item.href}
-                    locale={locale}
-                    className={cn(
-                      'flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-colors',
-                      isActive(item.href)
-                        ? 'bg-brand-50 text-brand-600'
-                        : 'text-gray-700 hover:bg-gray-50'
-                    )}
-                    onClick={() => !item.children && setMobileOpen(false)}
-                  >
-                    {item.label}
-                    {item.children && (
-                      <ChevronDown className="h-4 w-4 text-gray-400" />
-                    )}
-                  </Link>
-                  {/* Mobile sub-items */}
-                  {item.children && (
-                    <div className="mt-1 ms-4 space-y-2 border-s-2 border-brand-100 ps-3">
-                      {item.children.map((group) =>
-                        group.children?.length ? (
-                          /* Group with children */
-                          <div key={group.href}>
-                            <p className="px-3 py-1 text-xs font-extrabold text-brand-600 uppercase tracking-wider">
-                              {group.label}
-                            </p>
-                            {group.children.map((child) => (
-                              <Link
-                                key={child.href}
-                                href={child.href}
-                                locale={locale}
-                                className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-gray-500 hover:text-brand-600 hover:bg-brand-50 transition-colors"
-                                onClick={() => setMobileOpen(false)}
-                              >
-                                <span className="h-1.5 w-1.5 rounded-full bg-brand-300 flex-shrink-0" />
-                                {child.label}
-                              </Link>
-                            ))}
-                          </div>
-                        ) : (
-                          /* Plain link */
-                          <Link
-                            key={group.href}
-                            href={group.href}
-                            locale={locale}
-                            className="block px-3 py-2 rounded-lg text-sm text-gray-500 hover:text-brand-600 hover:bg-brand-50 transition-colors"
-                            onClick={() => setMobileOpen(false)}
-                          >
-                            {group.label}
-                          </Link>
-                        )
-                      )}
-                    </div>
-                  )}
-                </div>
-              ))}
+              <MobileNav items={navItems} locale={locale} onClose={() => setMobileOpen(false)} />
 
               <hr className="my-4 border-gray-100" />
 
-              {/* Enquire Now mobile */}
               <Link
                 href="/contact"
                 locale={locale}
@@ -408,7 +441,6 @@ export function Header({ locale, settings }: HeaderProps) {
                 {locale === 'ar' ? 'استفسر الآن' : 'Enquire Now'}
               </Link>
 
-              {/* Mobile language switcher */}
               <button
                 onClick={() => { switchLocale(); setMobileOpen(false) }}
                 className="flex w-full items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50"
@@ -453,6 +485,63 @@ export function Header({ locale, settings }: HeaderProps) {
 
       {/* Spacer for fixed header */}
       <div className="h-20" />
+    </>
+  )
+}
+
+// ── Mobile nav — recursive collapsible tree ───────────────────────────────────
+
+function MobileNav({ items, locale, onClose, depth = 0 }: {
+  items: NavItem[]
+  locale: 'en' | 'ar'
+  onClose: () => void
+  depth?: number
+}) {
+  const [openHref, setOpenHref] = useState<string | null>(null)
+  const pathname = usePathname()
+
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/'
+    return pathname.startsWith(href.split('?')[0])
+  }
+
+  return (
+    <>
+      {items.map((item) => (
+        <div key={item.href}>
+          <div className="flex items-center">
+            <Link
+              href={item.href}
+              locale={locale}
+              className={cn(
+                'flex-1 flex items-center px-4 py-2.5 text-sm font-medium transition-colors',
+                depth > 0 && 'ps-' + (4 + depth * 4),
+                isActive(item.href) ? 'text-brand-600' : 'text-gray-700 hover:text-brand-600'
+              )}
+              onClick={() => !item.children && onClose()}
+            >
+              {item.label}
+            </Link>
+            {item.children && (
+              <button
+                className="px-3 py-2.5 text-gray-400 hover:text-brand-600 transition-colors"
+                onClick={() => setOpenHref(openHref === item.href ? null : item.href)}
+                aria-label={openHref === item.href ? 'Collapse' : 'Expand'}
+              >
+                <ChevronDown
+                  className={cn('h-4 w-4 transition-transform duration-200', openHref === item.href && 'rotate-180')}
+                />
+              </button>
+            )}
+          </div>
+
+          {item.children && openHref === item.href && (
+            <div className="ms-4 border-s-2 border-brand-100 ps-2 mt-0.5 mb-1">
+              <MobileNav items={item.children} locale={locale} onClose={onClose} depth={depth + 1} />
+            </div>
+          )}
+        </div>
+      ))}
     </>
   )
 }

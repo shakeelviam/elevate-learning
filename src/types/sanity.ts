@@ -58,7 +58,9 @@ export interface SanitySchedule {
 }
 
 export type CourseLanguage = 'english' | 'arabic' | 'french' | 'german' | 'spanish'
-export type ExamType = 'ielts' | 'toefl' | 'oet' | 'gmat' | 'sat' | 'pte'
+export type ExamType = 'ielts' | 'toefl' | 'oet' | 'gmat' | 'sat' | 'pte' | 'gre' | 'act' | 'psat'
+export type ExamSubType = 'academic' | 'general_training' | 'ukvi' | 'ibt' | 'itp'
+export type LanguageSubType = 'spoken' | 'business' | 'academic' | 'general'
 
 export interface SanityCourseSummary {
   _id: string
@@ -68,6 +70,8 @@ export interface SanityCourseSummary {
   level: 'beginner' | 'intermediate' | 'advanced' | 'all'
   language?: CourseLanguage
   examType?: ExamType
+  examSubType?: ExamSubType
+  languageSubType?: LanguageSubType
   duration?: string
   price?: number
   featured?: boolean
