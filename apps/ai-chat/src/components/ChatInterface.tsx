@@ -16,7 +16,7 @@ function cn(...classes: (string | boolean | undefined)[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export function ChatInterface({ userName }: { userName: string }) {
+export function ChatInterface({ userName, roleLabel = 'Staff' }: { userName: string; roleLabel?: string }) {
   const [conversations, setConversations] = useState<Conversation[]>(() => {
     if (typeof window === 'undefined') return [newConvo()]
     try {
@@ -176,7 +176,7 @@ export function ChatInterface({ userName }: { userName: string }) {
           <UserButton afterSignOutUrl="/sign-in" />
           <div className="flex-1 min-w-0">
             <p className="text-white text-sm font-medium truncate">{userName}</p>
-            <p className="text-white/50 text-xs">Staff</p>
+            <p className="text-white/50 text-xs">{roleLabel}</p>
           </div>
         </div>
       </aside>

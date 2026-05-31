@@ -1,4 +1,4 @@
-import { auth } from '@clerk/nextjs/server'
+import { auth, clerkClient } from '@clerk/nextjs/server'
 import { NextRequest } from 'next/server'
 
 const OLLAMA_URL = process.env.OLLAMA_BASE_URL ?? 'http://localhost:11434'
@@ -18,8 +18,12 @@ You assist staff and management with:
 Be professional, concise, and helpful. When relevant, reference Elevate Learning's offerings.`
 
 export async function POST(req: NextRequest) {
-  const { sessionClaims } = await auth()
-  const role = (sessionClaims?.publicMetadata as Record<string, string> | undefined)?.role
+  const { userId } = await auth()
+  if (!userId) return new Response('Unauthorized', { status: 401 })
+
+  const client = await clerkClient()
+  const user = await client.users.getUser(userId)
+  const role = (user.publicMetadata as Record<string, string>)?.role
   if (!ALLOWED_ROLES.includes(role ?? '')) {
     return new Response('Forbidden', { status: 403 })
   }
