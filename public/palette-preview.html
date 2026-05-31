@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Palette Preview — Elevate Learning</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Space Grotesk', sans-serif; background: #f1f5f9; }
+
+    /* ── Shared layout ── */
+    .palette-section { margin-bottom: 80px; }
+    .palette-label {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: 18px 0 10px;
+      color: #64748b;
+    }
+    .palette-label span {
+      display: inline-block;
+      padding: 6px 20px;
+      border-radius: 4px;
+      background: #fff;
+      border: 1.5px solid #e2e8f0;
+    }
+
+    /* ════════════════════════════════════
+       OPTION A — Sky & Gold
+    ════════════════════════════════════ */
+    :root {
+      --a-blue:       #3D8EE8;
+      --a-blue-light: #EBF4FF;
+      --a-blue-mid:   #6AAFF2;
+      --a-gold:       #D4A03A;
+      --a-gold-light: #FEF6E4;
+      --a-text:       #4A5568;
+      --a-bg:         #F8FBFF;
+
+      --b-blue:       #5B87D9;
+      --b-blue-light: #EDF2FF;
+      --b-blue-mid:   #7BA7E8;
+      --b-gold:       #C9973A;
+      --b-gold-light: #FFF8E8;
+      --b-text:       #556070;
+      --b-bg:         #FFFFFF;
+
+      --c-blue:       #2E86DE;
+      --c-blue-light: #E8F4FD;
+      --c-blue-mid:   #5EA3E8;
+      --c-gold:       #E0A82E;
+      --c-gold-light: #FFF4D6;
+      --c-text:       #5A6475;
+      --c-bg:         #FAFBFF;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 68px;
+      background: #fff;
+      border-bottom: 1.5px solid #e9edf3;
+    }
+    .nav-logo { font-size: 22px; font-weight: 800; letter-spacing: -.5px; }
+    .nav-links { display: flex; gap: 28px; font-size: 14px; font-weight: 600; }
+    .nav-link { text-decoration: none; }
+    .nav-link.active { padding-bottom: 2px; }
+    .nav-cta {
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 72px 40px 80px;
+      display: flex;
+      align-items: center;
+      gap: 60px;
+    }
+    .hero-content { flex: 1; }
+    .hero-pill {
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero h1 { font-size: 42px; font-weight: 800; line-height: 1.15; margin-bottom: 18px; }
+    .hero p { font-size: 16px; line-height: 1.7; margin-bottom: 32px; }
+    .hero-btns { display: flex; gap: 12px; }
+    .btn-primary {
+      padding: 12px 28px; border-radius: 6px; font-size: 15px;
+      font-weight: 700; border: none; cursor: pointer;
+    }
+    .btn-outline {
+      padding: 12px 28px; border-radius: 6px; font-size: 15px;
+      font-weight: 700; cursor: pointer; background: transparent;
+    }
+    .hero-image {
+      flex: 0 0 340px; height: 260px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 48px; font-weight: 800; letter-spacing: -1px;
+    }
+
+    /* ── Stats bar ── */
+    .stats-bar {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      padding: 40px; gap: 16px;
+    }
+    .stat { text-align: center; }
+    .stat-num { font-size: 36px; font-weight: 800; margin-bottom: 4px; }
+    .stat-label { font-size: 13px; font-weight: 500; opacity: .75; }
+
+    /* ── Cards ── */
+    .cards-section { padding: 60px 40px; }
+    .cards-section h2 { font-size: 28px; font-weight: 800; margin-bottom: 32px; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .card {
+      background: #fff; border-radius: 10px; overflow: hidden;
+      border: 1.5px solid #e9edf3;
+      box-shadow: 0 2px 12px rgba(0,0,0,.05);
+    }
+    .card-thumb {
+      height: 140px; display: flex; align-items: center;
+      justify-content: center; font-size: 28px; font-weight: 800; color: #fff;
+    }
+    .card-body { padding: 18px; }
+    .card-badge {
+      display: inline-block; padding: 3px 10px; border-radius: 4px;
+      font-size: 11px; font-weight: 700; margin-bottom: 10px;
+      text-transform: uppercase; letter-spacing: .08em;
+    }
+    .card-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .card-meta { font-size: 13px; margin-bottom: 14px; }
+    .card-footer {
+      display: flex; justify-content: flex-end;
+      padding-top: 12px; border-top: 1px solid #f1f5f9;
+    }
+    .card-btn {
+      padding: 7px 18px; border-radius: 5px; font-size: 13px;
+      font-weight: 600; cursor: pointer; background: transparent;
+    }
+
+    /* ── CTA Banner ── */
+    .cta-banner {
+      margin: 0 40px 60px; border-radius: 12px;
+      padding: 48px 56px; display: flex;
+      align-items: center; justify-content: space-between; gap: 32px;
+    }
+    .cta-banner h2 { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
+    .cta-banner p { font-size: 15px; opacity: .8; }
+    .cta-btns { display: flex; gap: 12px; flex-shrink: 0; }
+    .cta-btn-white {
+      padding: 12px 26px; border-radius: 6px; font-size: 15px;
+      font-weight: 700; border: none; cursor: pointer; background: #fff;
+    }
+    .cta-btn-outline {
+      padding: 12px 26px; border-radius: 6px; font-size: 15px;
+      font-weight: 700; cursor: pointer; background: transparent;
+      border: 2px solid rgba(255,255,255,.5); color: #fff;
+    }
+
+    /* ── Swatch row ── */
+    .swatches { display: flex; gap: 10px; padding: 20px 40px 40px; flex-wrap: wrap; }
+    .swatch {
+      width: 60px; height: 60px; border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.1);
+      display: flex; align-items: flex-end; justify-content: center;
+      padding-bottom: 5px;
+    }
+    .swatch span { font-size: 9px; font-weight: 700; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.4); }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     OPTION A — Sky & Gold
+═══════════════════════════════════════════════════════ -->
+<div class="palette-section">
+  <div class="palette-label"><span>Option A &mdash; Sky &amp; Gold</span></div>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-logo" style="color: var(--a-blue);">ELEV<span style="color: var(--a-gold);">8</span></div>
+    <div class="nav-links">
+      <a class="nav-link" style="color: var(--a-text);" href="#">Home</a>
+      <a class="nav-link active" style="color: var(--a-blue); border-bottom: 2px solid var(--a-blue);" href="#">We Offer</a>
+      <a class="nav-link" style="color: var(--a-text);" href="#">About</a>
+      <a class="nav-link" style="color: var(--a-text);" href="#">Contact</a>
+    </div>
+    <button class="nav-cta" style="background: linear-gradient(135deg, var(--a-gold), #E8B84B); color: #fff;">Enquire Now</button>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero" style="background: var(--a-bg);">
+    <div class="hero-content">
+      <div class="hero-pill" style="background: var(--a-blue-light); color: var(--a-blue);">Elevate Your Future</div>
+      <h1 style="color: var(--a-blue);">Expert Language &amp; <span style="color: var(--a-gold);">Test Prep</span> Coaching</h1>
+      <p style="color: var(--a-text);">Led by Ms. Preeti Devadiga with 15+ years of experience. IELTS, TOEFL, SAT, and more — all in one place.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" style="background: var(--a-blue); color: #fff;">Explore Courses</button>
+        <button class="btn-outline" style="border: 2px solid var(--a-gold); color: var(--a-gold);">Enquire Now</button>
+      </div>
+    </div>
+    <div class="hero-image" style="background: linear-gradient(135deg, var(--a-blue-light), var(--a-blue-mid) 80%); color: var(--a-blue);">ELEV<span style="color: var(--a-gold);">8</span></div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-bar" style="background: linear-gradient(90deg, var(--a-blue), var(--a-blue-mid));">
+    <div class="stat"><div class="stat-num" style="color:#fff;">500+</div><div class="stat-label" style="color:#fff;">Students Trained</div></div>
+    <div class="stat"><div class="stat-num" style="color:#fff;">15+</div><div class="stat-label" style="color:#fff;">Years Experience</div></div>
+    <div class="stat"><div class="stat-num" style="color:#fff;">12</div><div class="stat-label" style="color:#fff;">Courses Offered</div></div>
+    <div class="stat"><div class="stat-num" style="color: var(--a-gold);">98%</div><div class="stat-label" style="color:#fff;">Success Rate</div></div>
+  </div>
+
+  <!-- Cards -->
+  <div class="cards-section" style="background: var(--a-bg);">
+    <h2 style="color: var(--a-blue);">Our Courses</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-thumb" style="background: linear-gradient(135deg, var(--a-blue), var(--a-blue-mid));">IELTS</div>
+        <div class="card-body">
+          <div class="card-badge" style="background: var(--a-blue-light); color: var(--a-blue);">Test Prep</div>
+          <div class="card-title" style="color: var(--a-blue);">IELTS Academic</div>
+          <div class="card-meta" style="color: var(--a-text);">For university admissions &amp; professional licensing</div>
+          <div class="card-footer">
+            <button class="card-btn" style="border: 1.5px solid var(--a-blue); color: var(--a-blue);">View Details</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb" style="background: linear-gradient(135deg, var(--a-gold), #E8B84B);">SAT</div>
+        <div class="card-body">
+          <div class="card-badge" style="background: var(--a-gold-light); color: var(--a-gold);">Test Prep</div>
+          <div class="card-title" style="color: var(--a-blue);">SAT Preparation</div>
+          <div class="card-meta" style="color: var(--a-text);">Digital SAT coaching for global university admissions</div>
+          <div class="card-footer">
+            <button class="card-btn" style="border: 1.5px solid var(--a-blue); color: var(--a-blue);">View Details</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb" style="background: linear-gradient(135deg, var(--a-blue-mid), var(--a-blue));">English</div>
+        <div class="card-body">
+          <div class="card-badge" style="background: var(--a-blue-light); color: var(--a-blue);">Language</div>
+          <div class="card-title" style="color: var(--a-blue);">Spoken English</div>
+          <div class="card-meta" style="color: var(--a-text);">Build fluency and confidence for everyday communication</div>
+          <div class="card-footer">
+            <button class="card-btn" style="border: 1.5px solid var(--a-blue); color: var(--a-blue);">View Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Banner -->
+  <div class="cta-banner" style="background: linear-gradient(135deg, var(--a-blue), var(--a-blue-mid)); color: #fff;">
+    <div>
+      <h2>Ready to Begin Your Journey?</h2>
+      <p>Book a free trial class with Ms. Preeti Devadiga today.</p>
+    </div>
+    <div class="cta-btns">
+      <button class="cta-btn-white" style="color: var(--a-blue);">Book Free Trial</button>
+      <button class="cta-btn-outline">Contact Us</button>
+    </div>
+  </div>
+
+  <!-- Swatches -->
+  <div class="swatches" style="background: var(--a-bg);">
+    <div class="swatch" style="background: var(--a-blue);"><span>#3D8EE8</span></div>
+    <div class="swatch" style="background: var(--a-blue-mid);"><span>#6AAFF2</span></div>
+    <div class="swatch" style="background: var(--a-blue-light); border: 1px solid #ddd;"><span style="color:#3D8EE8;">#EBF4FF</span></div>
+    <div class="swatch" style="background: var(--a-gold);"><span>#D4A03A</span></div>
+    <div class="swatch" style="background: var(--a-gold-light); border: 1px solid #ddd;"><span style="color:#D4A03A;">#FEF6E4</span></div>
+    <div class="swatch" style="background: var(--a-text);"><span>#4A5568</span></div>
+    <div class="swatch" style="background: var(--a-bg); border: 1px solid #ddd;"><span style="color:#4A5568;">#F8FBFF</span></div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     OPTION B — Periwinkle & Honey
+═══════════════════════════════════════════════════════ -->
+<div class="palette-section">
+  <div class="palette-label"><span>Option B &mdash; Periwinkle &amp; Honey</span></div>
+
+  <nav class="nav">
+    <div class="nav-logo" style="color: var(--b-blue);">ELEV<span style="color: var(--b-gold);">8</span></div>
+    <div class="nav-links">
+      <a class="nav-link" style="color: var(--b-text);" href="#">Home</a>
+      <a class="nav-link active" style="color: var(--b-blue); border-bottom: 2px solid var(--b-blue);" href="#">We Offer</a>
+      <a class="nav-link" style="color: var(--b-text);" href="#">About</a>
+      <a class="nav-link" style="color: var(--b-text);" href="#">Contact</a>
+    </div>
+    <button class="nav-cta" style="background: linear-gradient(135deg, var(--b-gold), #DDB04E); color: #fff;">Enquire Now</button>
+  </nav>
+
+  <div class="hero" style="background: var(--b-bg);">
+    <div class="hero-content">
+      <div class="hero-pill" style="background: var(--b-blue-light); color: var(--b-blue);">Elevate Your Future</div>
+      <h1 style="color: var(--b-blue);">Expert Language &amp; <span style="color: var(--b-gold);">Test Prep</span> Coaching</h1>
+      <p style="color: var(--b-text);">Led by Ms. Preeti Devadiga with 15+ years of experience. IELTS, TOEFL, SAT, and more — all in one place.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" style="background: var(--b-blue); color: #fff;">Explore Courses</button>
+        <button class="btn-outline" style="border: 2px solid var(--b-gold); color: var(--b-gold);">Enquire Now</button>
+      </div>
+    </div>
+    <div class="hero-image" style="background: linear-gradient(135deg, var(--b-blue-light), var(--b-blue-mid) 80%); color: var(--b-blue);">ELEV<span style="color: var(--b-gold);">8</span></div>
+  </div>
+
+  <div class="stats-bar" style="background: linear-gradient(90deg, var(--b-blue), var(--b-blue-mid));">
+    <div class="stat"><div class="stat-num" style="color:#fff;">500+</div><div class="stat-label" style="color:#fff;">Students Trained</div></div>
+    <div class="stat"><div class="stat-num" style="color:#fff;">15+</div><div class="stat-label" style="color:#fff;">Years Experience</div></div>
+    <div class="stat"><div class="stat-num" style="color:#fff;">12</div><div class="stat-label" style="color:#fff;">Courses Offered</div></div>
+    <div class="stat"><div class="stat-num" style="color: var(--b-gold);">98%</div><div class="stat-label" style="color:#fff;">Success Rate</div></div>
+  </div>
+
+  <div class="cards-section" style="background: var(--b-bg);">
+    <h2 style="color: var(--b-blue);">Our Courses</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-thumb" style="background: linear-gradient(135deg, var(--b-blue), var(--b-blue-mid));">IELTS</div>
+        <div class="card-body">
+          <div class="card-badge" style="background: var(--b-blue-light); color: var(--b-blue);">Test Prep</div>
+          <div class="card-title" style="color: var(--b-blue);">IELTS Academic</div>
+          <div class="card-meta" style="color: var(--b-text);">For university admissions &amp; professional licensing</div>
+          <div class="card-footer">
+            <button class="card-btn" style="border: 1.5px solid var(--b-blue); color: var(--b-blue);">View Details</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb" style="background: linear-gradient(135deg, var(--b-gold), #DDB04E);">SAT</div>
+        <div class="card-body">
+          <div class="card-badge" style="background: var(--b-gold-light); color: var(--b-gold);">Test Prep</div>
+          <div class="card-title" style="color: var(--b-blue);">SAT Preparation</div>
+          <div class="card-meta" style="color: var(--b-text);">Digital SAT coaching for global university admissions</div>
+          <div class="card-footer">
+            <button class="card-btn" style="border: 1.5px solid var(--b-blue); color: var(--b-blue);">View Details</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb" style="background: linear-gradient(135deg, var(--b-blue-mid), var(--b-blue));">English</div>
+        <div class="card-body">
+          <div class="card-badge" style="background: var(--b-blue-light); color: var(--b-blue);">Language</div>
+          <div class="card-title" style="color: var(--b-blue);">Spoken English</div>
+          <div class="card-meta" style="color: var(--b-text);">Build fluency and confidence for everyday communication</div>
+          <div class="card-footer">
+            <button class="card-btn" style="border: 1.5px solid var(--b-blue); color: var(--b-blue);">View Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-banner" style="background: linear-gradient(135deg, var(--b-blue), var(--b-blue-mid)); color: #fff;">
+    <div>
+      <h2>Ready to Begin Your Journey?</h2>
+      <p>Book a free trial class with Ms. Preeti Devadiga today.</p>
+    </div>
+    <div class="cta-btns">
+      <button class="cta-btn-white" style="color: var(--b-blue);">Book Free Trial</button>
+      <button class="cta-btn-outline">Contact Us</button>
+    </div>
+  </div>
+
+  <div class="swatches" style="background: var(--b-bg);">
+    <div class="swatch" style="background: var(--b-blue);"><span>#5B87D9</span></div>
+    <div class="swatch" style="background: var(--b-blue-mid);"><span>#7BA7E8</span></div>
+    <div class="swatch" style="background: var(--b-blue-light); border: 1px solid #ddd;"><span style="color:#5B87D9;">#EDF2FF</span></div>
+    <div class="swatch" style="background: var(--b-gold);"><span>#C9973A</span></div>
+    <div class="swatch" style="background: var(--b-gold-light); border: 1px solid #ddd;"><span style="color:#C9973A;">#FFF8E8</span></div>
+    <div class="swatch" style="background: var(--b-text);"><span>#556070</span></div>
+    <div class="swatch" style="background: var(--b-bg); border: 1px solid #ddd;"><span style="color:#556070;">#FFFFFF</span></div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     OPTION C — Azure & Amber
+═══════════════════════════════════════════════════════ -->
+<div class="palette-section">
+  <div class="palette-label"><span>Option C &mdash; Azure &amp; Amber</span></div>
+
+  <nav class="nav">
+    <div class="nav-logo" style="color: var(--c-blue);">ELEV<span style="color: var(--c-gold);">8</span></div>
+    <div class="nav-links">
+      <a class="nav-link" style="color: var(--c-text);" href="#">Home</a>
+      <a class="nav-link active" style="color: var(--c-blue); border-bottom: 2px solid var(--c-blue);" href="#">We Offer</a>
+      <a class="nav-link" style="color: var(--c-text);" href="#">About</a>
+      <a class="nav-link" style="color: var(--c-text);" href="#">Contact</a>
+    </div>
+    <button class="nav-cta" style="background: linear-gradient(135deg, var(--c-gold), #F0BC40); color: #fff;">Enquire Now</button>
+  </nav>
+
+  <div class="hero" style="background: var(--c-bg);">
+    <div class="hero-content">
+      <div class="hero-pill" style="background: var(--c-blue-light); color: var(--c-blue);">Elevate Your Future</div>
+      <h1 style="color: var(--c-blue);">Expert Language &amp; <span style="color: var(--c-gold);">Test Prep</span> Coaching</h1>
+      <p style="color: var(--c-text);">Led by Ms. Preeti Devadiga with 15+ years of experience. IELTS, TOEFL, SAT, and more — all in one place.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" style="background: var(--c-blue); color: #fff;">Explore Courses</button>
+        <button class="btn-outline" style="border: 2px solid var(--c-gold); color: var(--c-gold);">Enquire Now</button>
+      </div>
+    </div>
+    <div class="hero-image" style="background: linear-gradient(135deg, var(--c-blue-light), var(--c-blue-mid) 80%); color: var(--c-blue);">ELEV<span style="color: var(--c-gold);">8</span></div>
+  </div>
+
+  <div class="stats-bar" style="background: linear-gradient(90deg, var(--c-blue), var(--c-blue-mid));">
+    <div class="stat"><div class="stat-num" style="color:#fff;">500+</div><div class="stat-label" style="color:#fff;">Students Trained</div></div>
+    <div class="stat"><div class="stat-num" style="color:#fff;">15+</div><div class="stat-label" style="color:#fff;">Years Experience</div></div>
+    <div class="stat"><div class="stat-num" style="color:#fff;">12</div><div class="stat-label" style="color:#fff;">Courses Offered</div></div>
+    <div class="stat"><div class="stat-num" style="color: var(--c-gold);">98%</div><div class="stat-label" style="color:#fff;">Success Rate</div></div>
+  </div>
+
+  <div class="cards-section" style="background: var(--c-bg);">
+    <h2 style="color: var(--c-blue);">Our Courses</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-thumb" style="background: linear-gradient(135deg, var(--c-blue), var(--c-blue-mid));">IELTS</div>
+        <div class="card-body">
+          <div class="card-badge" style="background: var(--c-blue-light); color: var(--c-blue);">Test Prep</div>
+          <div class="card-title" style="color: var(--c-blue);">IELTS Academic</div>
+          <div class="card-meta" style="color: var(--c-text);">For university admissions &amp; professional licensing</div>
+          <div class="card-footer">
+            <button class="card-btn" style="border: 1.5px solid var(--c-blue); color: var(--c-blue);">View Details</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb" style="background: linear-gradient(135deg, var(--c-gold), #F0BC40);">SAT</div>
+        <div class="card-body">
+          <div class="card-badge" style="background: var(--c-gold-light); color: var(--c-gold);">Test Prep</div>
+          <div class="card-title" style="color: var(--c-blue);">SAT Preparation</div>
+          <div class="card-meta" style="color: var(--c-text);">Digital SAT coaching for global university admissions</div>
+          <div class="card-footer">
+            <button class="card-btn" style="border: 1.5px solid var(--c-blue); color: var(--c-blue);">View Details</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb" style="background: linear-gradient(135deg, var(--c-blue-mid), var(--c-blue));">English</div>
+        <div class="card-body">
+          <div class="card-badge" style="background: var(--c-blue-light); color: var(--c-blue);">Language</div>
+          <div class="card-title" style="color: var(--c-blue);">Spoken English</div>
+          <div class="card-meta" style="color: var(--c-text);">Build fluency and confidence for everyday communication</div>
+          <div class="card-footer">
+            <button class="card-btn" style="border: 1.5px solid var(--c-blue); color: var(--c-blue);">View Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-banner" style="background: linear-gradient(135deg, var(--c-blue), var(--c-blue-mid)); color: #fff;">
+    <div>
+      <h2>Ready to Begin Your Journey?</h2>
+      <p>Book a free trial class with Ms. Preeti Devadiga today.</p>
+    </div>
+    <div class="cta-btns">
+      <button class="cta-btn-white" style="color: var(--c-blue);">Book Free Trial</button>
+      <button class="cta-btn-outline">Contact Us</button>
+    </div>
+  </div>
+
+  <div class="swatches" style="background: var(--c-bg);">
+    <div class="swatch" style="background: var(--c-blue);"><span>#2E86DE</span></div>
+    <div class="swatch" style="background: var(--c-blue-mid);"><span>#5EA3E8</span></div>
+    <div class="swatch" style="background: var(--c-blue-light); border: 1px solid #ddd;"><span style="color:#2E86DE;">#E8F4FD</span></div>
+    <div class="swatch" style="background: var(--c-gold);"><span>#E0A82E</span></div>
+    <div class="swatch" style="background: var(--c-gold-light); border: 1px solid #ddd;"><span style="color:#E0A82E;">#FFF4D6</span></div>
+    <div class="swatch" style="background: var(--c-text);"><span>#5A6475</span></div>
+    <div class="swatch" style="background: var(--c-bg); border: 1px solid #ddd;"><span style="color:#5A6475;">#FAFBFF</span></div>
+  </div>
+</div>
+
+</body>
+</html>
