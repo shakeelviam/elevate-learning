@@ -1,4 +1,4 @@
-import { clerkMiddleware } from '@clerk/nextjs/server'
+import { clerkMiddleware, clerkClient } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 
 const ALLOWED_ROLES = ['staff', 'admin', 'management']
@@ -11,7 +11,7 @@ export default clerkMiddleware(async (auth, req) => {
     return NextResponse.next()
   }
 
-  const { userId, sessionClaims } = await auth()
+  const { userId } = await auth()
 
   if (!userId) {
     const signIn = new URL('/sign-in', req.url)
@@ -19,14 +19,16 @@ export default clerkMiddleware(async (auth, req) => {
     return NextResponse.redirect(signIn)
   }
 
-  const meta = sessionClaims?.publicMetadata as Record<string, string> | undefined
-  const role = meta?.role
-  if (!ALLOWED_ROLES.includes(role ?? '')) {
+  // Fetch metadata directly from Clerk API — reliable regardless of JWT template config
+  const client = await clerkClient()
+  const user = await client.users.getUser(userId)
+  const meta = user.publicMetadata as Record<string, string>
+
+  if (!ALLOWED_ROLES.includes(meta?.role ?? '')) {
     return NextResponse.redirect(new URL('/unauthorized', req.url))
   }
 
-  // Force password change on first login
-  if (meta?.must_change_password === 'true' && pathname !== '/change-password') {
+  if (meta?.must_change_password === 'true') {
     return NextResponse.redirect(new URL('/change-password', req.url))
   }
 
