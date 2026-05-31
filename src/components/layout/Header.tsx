@@ -199,10 +199,7 @@ function FlyoutMenu({ items, locale, onClose, level = 0 }: FlyoutMenuProps) {
             href={item.href}
             locale={locale}
             className={cn(
-              'flex items-center justify-between gap-4 px-4 py-2.5 text-sm transition-colors duration-100',
-              activeHref === item.href
-                ? 'bg-brand-50 text-brand-700'
-                : 'text-gray-700 hover:bg-gray-50 hover:text-brand-600',
+              'flex items-center justify-between gap-4 px-4 py-2.5 text-sm text-gray-700 transition-colors duration-100 hover:bg-brand-500 hover:text-gold-400',
               item.children && 'font-semibold'
             )}
             onClick={onClose}
@@ -211,8 +208,7 @@ function FlyoutMenu({ items, locale, onClose, level = 0 }: FlyoutMenuProps) {
             {item.children && (
               <ChevronRight
                 className={cn(
-                  'h-3.5 w-3.5 flex-shrink-0 transition-colors duration-100',
-                  activeHref === item.href ? 'text-brand-500' : 'text-gray-400',
+                  'h-3.5 w-3.5 flex-shrink-0 text-gray-400 transition-colors duration-100',
                   locale === 'ar' && 'rotate-180'
                 )}
               />
@@ -323,12 +319,7 @@ export function Header({ locale, settings }: HeaderProps) {
                   <Link
                     href={item.href}
                     locale={locale}
-                    className={cn(
-                      'relative flex items-center gap-1 px-3.5 py-2 text-sm font-bold transition-colors duration-150',
-                      isActive(item.href)
-                        ? 'text-brand-600'
-                        : 'text-gray-700 hover:text-brand-600'
-                    )}
+                    className="flex items-center gap-1 px-3.5 py-2 text-sm font-bold text-gray-700 rounded-md transition-colors duration-150 hover:bg-brand-500 hover:text-gold-400"
                   >
                     {item.label}
                     {item.children && (
@@ -338,9 +329,6 @@ export function Header({ locale, settings }: HeaderProps) {
                           openMenu === item.href && 'rotate-180'
                         )}
                       />
-                    )}
-                    {isActive(item.href) && (
-                      <span className="absolute bottom-0 inset-x-3 h-0.5 bg-brand-500 rounded-full" />
                     )}
                   </Link>
 
@@ -510,12 +498,6 @@ function MobileNav({ items, locale, onClose, depth = 0 }: {
   depth?: number
 }) {
   const [openHref, setOpenHref] = useState<string | null>(null)
-  const pathname = usePathname()
-
-  const isActive = (href: string) => {
-    if (href === '/') return pathname === '/'
-    return pathname.startsWith(href.split('?')[0])
-  }
 
   return (
     <>
@@ -526,9 +508,8 @@ function MobileNav({ items, locale, onClose, depth = 0 }: {
               href={item.href}
               locale={locale}
               className={cn(
-                'flex-1 flex items-center px-4 py-2.5 text-sm font-medium transition-colors',
+                'flex-1 flex items-center px-4 py-2.5 text-sm font-medium text-gray-700 rounded-md transition-colors hover:bg-brand-500 hover:text-gold-400',
                 depth > 0 && 'ps-' + (4 + depth * 4),
-                isActive(item.href) ? 'text-brand-600' : 'text-gray-700 hover:text-brand-600'
               )}
               onClick={() => !item.children && onClose()}
             >
@@ -536,7 +517,7 @@ function MobileNav({ items, locale, onClose, depth = 0 }: {
             </Link>
             {item.children && (
               <button
-                className="px-3 py-2.5 text-gray-400 hover:text-brand-600 transition-colors"
+                className="px-3 py-2.5 text-gray-400 hover:text-brand-500 transition-colors"
                 onClick={() => setOpenHref(openHref === item.href ? null : item.href)}
                 aria-label={openHref === item.href ? 'Collapse' : 'Expand'}
               >
