@@ -249,7 +249,7 @@ export default async function HomePage({
       </section>
 
       {/* ── CTA Banner ───────────────────────────────────────────────────── */}
-      <section className="py-20 bg-gradient-to-br from-brand-700 via-brand-600 to-brand-800 relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-br from-brand-500 via-brand-400 to-brand-600 relative overflow-hidden">
         {/* Decorative */}
         <div className="absolute top-0 start-0 h-64 w-64 rounded-full bg-white/5 -translate-x-1/2 -translate-y-1/2" />
         <div className="absolute bottom-0 end-0 h-80 w-80 rounded-full bg-white/5 translate-x-1/2 translate-y-1/2" />

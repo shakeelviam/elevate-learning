@@ -65,7 +65,7 @@ export function ElevateAISection({ locale, settings }: ElevateAISectionProps) {
   return (
     <section
       dir={isRtl ? 'rtl' : 'ltr'}
-      className="relative overflow-hidden bg-brand-950 py-24"
+      className="relative overflow-hidden bg-brand-50 py-24"
     >
       {/* ── Background texture ──────────────────────────────────────────────── */}
       <div
@@ -86,25 +86,25 @@ export function ElevateAISection({ locale, settings }: ElevateAISectionProps) {
           {/* ── Left: copy ──────────────────────────────────────────────────── */}
           <div className={isRtl ? 'lg:order-2' : ''}>
             {/* Pill badge */}
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold-500/30 bg-gold-500/10 px-4 py-1.5 text-sm font-semibold text-gold-300">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold-400/50 bg-gold-100 px-4 py-1.5 text-sm font-semibold text-gold-600">
               <Sparkles className="h-3.5 w-3.5 text-gold-400" />
               {pill}
             </div>
 
-            <h2 className="mb-4 text-4xl font-black leading-[1.1] text-white sm:text-5xl">
-              <span className="text-gold-400">{titleColored}</span>
+            <h2 className="mb-4 text-4xl font-black leading-[1.1] text-brand-700 sm:text-5xl">
+              <span className="text-gold-500">{titleColored}</span>
               <br />
               {titleSuffix}
             </h2>
 
-            <p className="mb-8 text-lg leading-relaxed text-white/80">{desc}</p>
+            <p className="mb-8 text-lg leading-relaxed text-gray-600">{desc}</p>
 
             {/* Feature list */}
             <ul className="mb-10 space-y-3">
               {features.map(({ icon: Icon, label }) => (
-                <li key={label} className="flex items-center gap-3 text-sm text-white/90">
-                  <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-brand-800">
-                    <Icon className="h-3.5 w-3.5 text-gold-400" />
+                <li key={label} className="flex items-center gap-3 text-sm text-gray-700">
+                  <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-brand-100">
+                    <Icon className="h-3.5 w-3.5 text-brand-500" />
                   </span>
                   {label}
                 </li>
@@ -116,7 +116,7 @@ export function ElevateAISection({ locale, settings }: ElevateAISectionProps) {
               {examBadges.map((badge) => (
                 <span
                   key={badge}
-                  className="rounded-lg border border-gold-700/40 bg-brand-900 px-3 py-1 text-xs font-bold tracking-widest text-gold-300"
+                  className="rounded-lg border border-gold-400/40 bg-gold-50 px-3 py-1 text-xs font-bold tracking-widest text-gold-600"
                 >
                   {badge}
                 </span>
@@ -124,9 +124,9 @@ export function ElevateAISection({ locale, settings }: ElevateAISectionProps) {
             </div>
 
             {/* Contact prompt */}
-            <div className="rounded-2xl border border-brand-700 bg-brand-900/60 px-6 py-5">
-              <p className="mb-3 text-sm font-semibold text-white">{contactTitle}</p>
-              <p className="mb-4 text-sm leading-relaxed text-white/70">{contactDesc}</p>
+            <div className="rounded-2xl border border-brand-200 bg-white px-6 py-5 shadow-sm">
+              <p className="mb-3 text-sm font-semibold text-brand-700">{contactTitle}</p>
+              <p className="mb-4 text-sm leading-relaxed text-gray-500">{contactDesc}</p>
               <a
                 href="mailto:info@elev8-edu.com"
                 className="inline-flex items-center gap-2 rounded-md bg-gold-500 px-5 py-2.5 text-sm font-bold text-white shadow-[0_4px_16px_rgba(201,168,76,0.35)] hover:bg-gold-400 transition-colors"
@@ -144,25 +144,25 @@ export function ElevateAISection({ locale, settings }: ElevateAISectionProps) {
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-brand-500/30 to-gold-500/20 blur-2xl" />
 
               {/* Card */}
-              <div className="relative rounded-3xl border border-white/10 bg-white/[0.06] p-6 shadow-2xl backdrop-blur-sm">
+              <div className="relative rounded-3xl border border-brand-100 bg-white p-6 shadow-xl">
                 {/* Card header */}
                 <div className="mb-5 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="rounded-lg bg-brand-700 px-2.5 py-1 text-xs font-bold text-brand-200">
+                    <span className="rounded-lg bg-brand-100 px-2.5 py-1 text-xs font-bold text-brand-600">
                       IELTS Reading
                     </span>
-                    <span className="text-xs text-brand-400">
+                    <span className="text-xs text-gray-400">
                       {isRtl ? 'السؤال 3 من 20' : 'Question 3 of 20'}
                     </span>
                   </div>
-                  <div className="flex items-center gap-1.5 rounded-lg border border-brand-700 px-2.5 py-1 text-xs font-semibold text-gold-400">
+                  <div className="flex items-center gap-1.5 rounded-lg border border-brand-200 px-2.5 py-1 text-xs font-semibold text-gold-500">
                     <Clock className="h-3 w-3" />
                     14:23
                   </div>
                 </div>
 
                 {/* Question text */}
-                <p className="mb-5 text-sm leading-relaxed text-white/90">
+                <p className="mb-5 text-sm leading-relaxed text-gray-700">
                   {isRtl
                     ? 'يشير النص إلى أن اعتماد الطاقة المتجددة يعتمد بشكل أساسي على...'
                     : 'The passage implies that the adoption of renewable energy depends primarily on which of the following factors?'}
@@ -180,15 +180,15 @@ export function ElevateAISection({ locale, settings }: ElevateAISectionProps) {
                       key={opt.label}
                       className={`flex items-center gap-3 rounded-xl border px-3.5 py-2.5 text-xs transition-all ${
                         opt.selected
-                          ? 'border-brand-400 bg-brand-500/20 text-white'
-                          : 'border-white/10 bg-white/[0.04] text-white/60'
+                          ? 'border-brand-400 bg-brand-50 text-brand-700'
+                          : 'border-gray-200 bg-gray-50 text-gray-500'
                       }`}
                     >
                       <span
                         className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border text-[10px] font-bold ${
                           opt.selected
                             ? 'border-brand-400 bg-brand-500 text-white'
-                            : 'border-white/20 text-white/40'
+                            : 'border-gray-300 text-gray-400'
                         }`}
                       >
                         {opt.label}
@@ -200,7 +200,7 @@ export function ElevateAISection({ locale, settings }: ElevateAISectionProps) {
 
                 {/* Card footer */}
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 text-xs text-brand-400">
+                  <div className="flex items-center gap-1.5 text-xs text-brand-500">
                     <CheckCircle2 className="h-3.5 w-3.5 text-green-400" />
                     {isRtl ? 'أسئلة جديدة · لا تكرار أبداً' : 'Fresh questions · Never repeated'}
                   </div>

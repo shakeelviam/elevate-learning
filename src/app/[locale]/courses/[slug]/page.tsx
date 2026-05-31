@@ -144,7 +144,7 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
 
       <div className="min-h-screen bg-white">
         {/* Hero image */}
-        <div className="relative h-72 sm:h-96 bg-gradient-to-br from-brand-700 to-brand-900 overflow-hidden">
+        <div className="relative h-72 sm:h-96 bg-gradient-to-br from-brand-500 to-brand-700 overflow-hidden">
           {imageUrl && (
             <Image
               src={imageUrl}
@@ -155,7 +155,7 @@ export default async function CourseDetailPage({ params }: CourseDetailProps) {
               priority
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-brand-900/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-700/70 via-brand-600/30 to-transparent" />
 
           {/* Back link */}
           <div className="absolute top-6 inset-x-0">
