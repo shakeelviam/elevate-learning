@@ -75,6 +75,12 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
               />
             </div>
           ))}
+          <div className={cn(
+            'absolute inset-0',
+            isRtl
+              ? 'bg-gradient-to-l from-black/40 via-black/20 to-transparent'
+              : 'bg-gradient-to-r from-black/40 via-black/20 to-transparent'
+          )} />
         </>
       ) : (
         <>
