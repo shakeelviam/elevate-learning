@@ -54,3 +54,6 @@ backend/chroma_db/
 
 # Sanity
 .sanity/
+apps/ai-chat/.env.local
+apps/ai-chat/.next/
+apps/ai-chat/node_modules/
