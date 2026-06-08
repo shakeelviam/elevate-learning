@@ -75,14 +75,6 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
               />
             </div>
           ))}
-          <div
-            className={cn(
-              'absolute inset-0',
-              isRtl
-                ? 'bg-gradient-to-l from-black/65 via-black/45 to-black/20'
-                : 'bg-gradient-to-r from-black/65 via-black/45 to-black/20'
-            )}
-          />
         </>
       ) : (
         <>
@@ -94,7 +86,11 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
 
       {/* Content */}
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 w-full">
-        <div className={cn('max-w-2xl', isRtl && 'ms-auto text-right')}>
+        <div className={cn(
+          'max-w-2xl',
+          isRtl && 'ms-auto text-right',
+          hasImages && 'bg-brand-900/60 backdrop-blur-sm rounded-2xl p-8'
+        )}>
 
           {/* Pill */}
           {pill && (
@@ -114,7 +110,7 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
           {headline && (
             <h1 className={cn(
               'text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-[1.1] animate-fade-up',
-              hasImages ? 'text-gold-300' : 'text-brand-900'
+              hasImages ? 'text-white' : 'text-brand-900'
             )}>
               {headline}
             </h1>
