@@ -135,19 +135,7 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
             'text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-[1.1] animate-fade-up',
             hasImages ? 'text-white' : 'text-gray-900'
           )}>
-            {isRtl ? (
-              <>
-                <span className="gradient-text">{headline.split(' ')[0]} {headline.split(' ')[1]}</span>
-                <br />
-                {headline.split(' ').slice(2).join(' ')}
-              </>
-            ) : (
-              <>
-                <span className="gradient-text">Elevate</span> Your
-                <br />
-                Language Skills
-              </>
-            )}
+            {headline}
           </h1>
 
           {/* Sub-headline */}
