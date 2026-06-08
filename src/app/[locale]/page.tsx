@@ -54,17 +54,19 @@ export default async function HomePage({
       />
 
       {/* ── Stats ────────────────────────────────────────────────────────── */}
-      {stats && (
+      {stats &&
+        stats.stat1En && stats.stat2En && stats.stat3En && stats.stat4En &&
+        stats.stat1LabelEn && stats.stat2LabelEn && stats.stat3LabelEn && stats.stat4LabelEn && (
         <StatsBanner
           locale={loc}
-          stat1Value={loc === 'ar' ? stats.stat1Ar : stats.stat1En}
-          stat2Value={loc === 'ar' ? stats.stat2Ar : stats.stat2En}
-          stat3Value={loc === 'ar' ? stats.stat3Ar : stats.stat3En}
-          stat4Value={loc === 'ar' ? stats.stat4Ar : stats.stat4En}
-          stat1Label={loc === 'ar' ? stats.stat1LabelAr : stats.stat1LabelEn}
-          stat2Label={loc === 'ar' ? stats.stat2LabelAr : stats.stat2LabelEn}
-          stat3Label={loc === 'ar' ? stats.stat3LabelAr : stats.stat3LabelEn}
-          stat4Label={loc === 'ar' ? stats.stat4LabelAr : stats.stat4LabelEn}
+          stat1Value={(loc === 'ar' ? stats.stat1Ar : stats.stat1En) as string}
+          stat2Value={(loc === 'ar' ? stats.stat2Ar : stats.stat2En) as string}
+          stat3Value={(loc === 'ar' ? stats.stat3Ar : stats.stat3En) as string}
+          stat4Value={(loc === 'ar' ? stats.stat4Ar : stats.stat4En) as string}
+          stat1Label={(loc === 'ar' ? stats.stat1LabelAr : stats.stat1LabelEn) as string}
+          stat2Label={(loc === 'ar' ? stats.stat2LabelAr : stats.stat2LabelEn) as string}
+          stat3Label={(loc === 'ar' ? stats.stat3LabelAr : stats.stat3LabelEn) as string}
+          stat4Label={(loc === 'ar' ? stats.stat4LabelAr : stats.stat4LabelEn) as string}
         />
       )}
 
