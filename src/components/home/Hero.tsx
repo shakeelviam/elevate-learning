@@ -17,37 +17,21 @@ interface HeroProps {
   ctaSecondaryLabel: string
 }
 
-const TRUST_BADGES_EN = ['IELTS Certified', '12+ Years Experience', 'Kuwait-Based']
-const TRUST_BADGES_AR = ['شهادة IELTS', '+12 سنة خبرة', 'مقيم في الكويت']
-
 export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProps) {
   const isRtl = locale === 'ar'
 
-  const headline =
-    getLocaleText(settings?.heroHeadline, locale) ||
-    (isRtl ? 'ارتقِ بمهاراتك اللغوية' : 'Elevate Your Language Skills')
-  const subheadline =
-    getLocaleText(settings?.heroSubheadline, locale) ||
-    (isRtl
-      ? 'المعهد الرائد في الكويت لتعلم اللغات والتحضير للامتحانات.'
-      : "Kuwait's leading institute for language learning and exam preparation.")
-  const pill =
-    getLocaleText(settings?.heroPill, locale) ||
-    (isRtl ? 'الكويت — التميز في تعليم اللغات' : 'Kuwait — Excellence in Language Education')
+  const headline = getLocaleText(settings?.heroHeadline, locale)
+  const subheadline = getLocaleText(settings?.heroSubheadline, locale)
+  const pill = getLocaleText(settings?.heroPill, locale)
 
-  const rawBadges = settings?.heroBadges ?? []
-  const badges =
-    rawBadges.length > 0
-      ? rawBadges.map((b) => getLocaleText(b, locale) ?? '').filter(Boolean)
-      : isRtl ? TRUST_BADGES_AR : TRUST_BADGES_EN
+  const badges = (settings?.heroBadges ?? [])
+    .map((b) => getLocaleText(b, locale) ?? '')
+    .filter(Boolean)
 
   const carouselImages = (settings?.heroImages ?? []).filter(Boolean)
-  const images =
-    carouselImages.length > 0
-      ? carouselImages
-      : settings?.heroImage
-      ? [settings.heroImage]
-      : []
+  const images = carouselImages.length > 0
+    ? carouselImages
+    : settings?.heroImage ? [settings.heroImage] : []
 
   const hasImages = images.length > 0
 
@@ -60,16 +44,10 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
   }, [images.length])
 
   const floatingStats = settings?.heroFloatingStats
-  const graduatesLabel = isRtl
-    ? floatingStats?.graduatesCountAr
-    : floatingStats?.graduatesCount
-  const graduatesDesc = isRtl
-    ? floatingStats?.graduatesLabelAr
-    : floatingStats?.graduatesLabelEn
+  const graduatesLabel = isRtl ? floatingStats?.graduatesCountAr : floatingStats?.graduatesCount
+  const graduatesDesc = isRtl ? floatingStats?.graduatesLabelAr : floatingStats?.graduatesLabelEn
   const rating = floatingStats?.rating
-  const ratingLabel = isRtl
-    ? floatingStats?.ratingLabelAr
-    : floatingStats?.ratingLabelEn
+  const ratingLabel = isRtl ? floatingStats?.ratingLabelAr : floatingStats?.ratingLabelEn
 
   const showEnrollingCard = !!(graduatesLabel || graduatesDesc)
   const showRatingCard = !!(rating || ratingLabel)
@@ -119,48 +97,56 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
         <div className={cn('max-w-2xl', isRtl && 'ms-auto text-right')}>
 
           {/* Pill */}
-          <div className={cn(
-            'inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold mb-6 animate-fade-in',
-            hasImages
-              ? 'bg-white/15 backdrop-blur-sm text-white border border-white/20'
-              : 'bg-brand-100 text-brand-700'
-          )}>
-            <span className={cn('h-2 w-2 rounded-full animate-pulse', hasImages ? 'bg-gold-400' : 'bg-brand-500')} />
-            <MapPin className="h-3.5 w-3.5" />
-            {pill}
-          </div>
+          {pill && (
+            <div className={cn(
+              'inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold mb-6 animate-fade-in',
+              hasImages
+                ? 'bg-white/15 backdrop-blur-sm text-white border border-white/20'
+                : 'bg-brand-100 text-brand-700'
+            )}>
+              <span className={cn('h-2 w-2 rounded-full animate-pulse', hasImages ? 'bg-gold-400' : 'bg-brand-500')} />
+              <MapPin className="h-3.5 w-3.5" />
+              {pill}
+            </div>
+          )}
 
           {/* Headline */}
-          <h1 className={cn(
-            'text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-[1.1] animate-fade-up',
-            hasImages ? 'text-white' : 'text-gray-900'
-          )}>
-            {headline}
-          </h1>
+          {headline && (
+            <h1 className={cn(
+              'text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-[1.1] animate-fade-up',
+              hasImages ? 'text-white' : 'text-gray-900'
+            )}>
+              {headline}
+            </h1>
+          )}
 
           {/* Sub-headline */}
-          <p
-            className={cn(
-              'text-lg mb-8 leading-relaxed animate-fade-up',
-              hasImages ? 'text-white/85' : 'text-gray-600'
-            )}
-            style={{ animationDelay: '0.1s' }}
-          >
-            {subheadline}
-          </p>
+          {subheadline && (
+            <p
+              className={cn(
+                'text-lg mb-8 leading-relaxed animate-fade-up',
+                hasImages ? 'text-white/85' : 'text-gray-600'
+              )}
+              style={{ animationDelay: '0.1s' }}
+            >
+              {subheadline}
+            </p>
+          )}
 
           {/* Trust badges */}
-          <div className="flex flex-wrap gap-3 mb-8">
-            {badges.map((badge) => (
-              <div key={badge} className={cn(
-                'flex items-center gap-1.5 text-sm',
-                hasImages ? 'text-white/90' : 'text-gray-700'
-              )}>
-                <CheckCircle2 className={cn('h-4 w-4 flex-shrink-0', hasImages ? 'text-gold-400' : 'text-brand-500')} />
-                {badge}
-              </div>
-            ))}
-          </div>
+          {badges.length > 0 && (
+            <div className="flex flex-wrap gap-3 mb-8">
+              {badges.map((badge) => (
+                <div key={badge} className={cn(
+                  'flex items-center gap-1.5 text-sm',
+                  hasImages ? 'text-white/90' : 'text-gray-700'
+                )}>
+                  <CheckCircle2 className={cn('h-4 w-4 flex-shrink-0', hasImages ? 'text-gold-400' : 'text-brand-500')} />
+                  {badge}
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* CTAs */}
           <div className="flex flex-wrap gap-3 animate-fade-up" style={{ animationDelay: '0.2s' }}>
@@ -195,13 +181,12 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
                     <GraduationCap className="h-5 w-5 text-brand-500" />
                   </div>
                   <div>
-                    <p className="text-lg font-black text-gray-900">{graduatesLabel}</p>
-                    <p className="text-xs text-gray-500">{graduatesDesc}</p>
+                    {graduatesLabel && <p className="text-lg font-black text-gray-900">{graduatesLabel}</p>}
+                    {graduatesDesc && <p className="text-xs text-gray-500">{graduatesDesc}</p>}
                   </div>
                 </div>
               </div>
             )}
-
             {showRatingCard && (
               <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl p-4 border border-gray-100">
                 <div className="flex items-center gap-2">
@@ -211,8 +196,8 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
                     ))}
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-gray-900">{rating}</p>
-                    <p className="text-xs text-gray-500">{ratingLabel}</p>
+                    {rating && <p className="text-sm font-bold text-gray-900">{rating}</p>}
+                    {ratingLabel && <p className="text-xs text-gray-500">{ratingLabel}</p>}
                   </div>
                 </div>
               </div>

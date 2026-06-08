@@ -20,10 +20,6 @@ export async function generateMetadata({
   const { locale } = await params
   return {
     title: locale === 'ar' ? 'الرئيسية' : 'Home',
-    description:
-      locale === 'ar'
-        ? 'المعهد الرائد في الكويت لتعلم اللغات والتحضير للامتحانات'
-        : "Kuwait's leading institute for language learning and exam preparation",
   }
 }
 
@@ -43,6 +39,10 @@ export default async function HomePage({
     getFaqs(true),
   ])
 
+  const stats = settings?.stats
+  const path = settings?.pathSection
+  const cta = settings?.ctaBanner
+
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
@@ -54,87 +54,91 @@ export default async function HomePage({
       />
 
       {/* ── Stats ────────────────────────────────────────────────────────── */}
-      <StatsBanner
-        locale={loc}
-        stat1Value={loc === 'ar' ? (settings?.stats?.stat1Ar ?? t('home.stat1ValueAr')) : (settings?.stats?.stat1En ?? t('home.stat1Value'))}
-        stat2Value={loc === 'ar' ? (settings?.stats?.stat2Ar ?? t('home.stat2ValueAr')) : (settings?.stats?.stat2En ?? t('home.stat2Value'))}
-        stat3Value={loc === 'ar' ? (settings?.stats?.stat3Ar ?? t('home.stat3ValueAr')) : (settings?.stats?.stat3En ?? t('home.stat3Value'))}
-        stat4Value={loc === 'ar' ? (settings?.stats?.stat4Ar ?? t('home.stat4ValueAr')) : (settings?.stats?.stat4En ?? t('home.stat4Value'))}
-        stat1Label={loc === 'ar' ? (settings?.stats?.stat1LabelAr ?? t('home.stat1LabelAr')) : (settings?.stats?.stat1LabelEn ?? t('home.stat1Label'))}
-        stat2Label={loc === 'ar' ? (settings?.stats?.stat2LabelAr ?? t('home.stat2LabelAr')) : (settings?.stats?.stat2LabelEn ?? t('home.stat2Label'))}
-        stat3Label={loc === 'ar' ? (settings?.stats?.stat3LabelAr ?? t('home.stat3LabelAr')) : (settings?.stats?.stat3LabelEn ?? t('home.stat3Label'))}
-        stat4Label={loc === 'ar' ? (settings?.stats?.stat4LabelAr ?? t('home.stat4LabelAr')) : (settings?.stats?.stat4LabelEn ?? t('home.stat4Label'))}
-      />
+      {stats && (
+        <StatsBanner
+          locale={loc}
+          stat1Value={loc === 'ar' ? stats.stat1Ar : stats.stat1En}
+          stat2Value={loc === 'ar' ? stats.stat2Ar : stats.stat2En}
+          stat3Value={loc === 'ar' ? stats.stat3Ar : stats.stat3En}
+          stat4Value={loc === 'ar' ? stats.stat4Ar : stats.stat4En}
+          stat1Label={loc === 'ar' ? stats.stat1LabelAr : stats.stat1LabelEn}
+          stat2Label={loc === 'ar' ? stats.stat2LabelAr : stats.stat2LabelEn}
+          stat3Label={loc === 'ar' ? stats.stat3LabelAr : stats.stat3LabelEn}
+          stat4Label={loc === 'ar' ? stats.stat4LabelAr : stats.stat4LabelEn}
+        />
+      )}
 
       {/* ── Elevate AI ───────────────────────────────────────────────────── */}
       <ElevateAISection locale={loc} settings={settings} />
 
       {/* ── Segmentation ─────────────────────────────────────────────────── */}
-      <section className="py-16 bg-white">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-sm font-semibold text-brand-600 uppercase tracking-widest mb-3">
-            {loc === 'ar'
-              ? (settings?.pathSection?.labelAr ?? 'ما الذي تبحث عنه؟')
-              : (settings?.pathSection?.labelEn ?? 'What are you looking for?')}
-          </p>
-          <h2 className="text-center text-3xl sm:text-4xl font-black text-gray-900 mb-10">
-            {loc === 'ar'
-              ? (settings?.pathSection?.titleAr ?? 'اختر مسارك')
-              : (settings?.pathSection?.titleEn ?? 'Choose your path')}
-          </h2>
-          <div className="grid sm:grid-cols-2 gap-6">
-            {/* Track 1 — Exam Prep */}
-            <Link href="/courses?category=exam" locale={loc} className="flex">
-              <div className="group flex flex-col w-full rounded-2xl border-2 border-brand-100 bg-gradient-to-br from-brand-50 to-white p-8 hover:border-brand-400 hover:shadow-lg transition-all duration-200 cursor-pointer">
-                <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-gold-400 to-gold-600 shadow-md">
-                  <GraduationCap className="h-7 w-7 text-brand-900" />
+      {path && (
+        <section className="py-16 bg-white">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            {(loc === 'ar' ? path.labelAr : path.labelEn) && (
+              <p className="text-center text-sm font-semibold text-brand-600 uppercase tracking-widest mb-3">
+                {loc === 'ar' ? path.labelAr : path.labelEn}
+              </p>
+            )}
+            {(loc === 'ar' ? path.titleAr : path.titleEn) && (
+              <h2 className="text-center text-3xl sm:text-4xl font-black text-gray-900 mb-10">
+                {loc === 'ar' ? path.titleAr : path.titleEn}
+              </h2>
+            )}
+            <div className="grid sm:grid-cols-2 gap-6">
+              {/* Track 1 — Exam Prep */}
+              <Link href="/courses?category=exam" locale={loc} className="flex">
+                <div className="group flex flex-col w-full rounded-2xl border-2 border-brand-100 bg-gradient-to-br from-brand-50 to-white p-8 hover:border-brand-400 hover:shadow-lg transition-all duration-200 cursor-pointer">
+                  <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-gold-400 to-gold-600 shadow-md">
+                    <GraduationCap className="h-7 w-7 text-brand-900" />
+                  </div>
+                  {(loc === 'ar' ? path.examTitleAr : path.examTitleEn) && (
+                    <h3 className="text-xl font-black text-gray-900 mb-2">
+                      {loc === 'ar' ? path.examTitleAr : path.examTitleEn}
+                    </h3>
+                  )}
+                  {(loc === 'ar' ? path.examDescAr : path.examDescEn) && (
+                    <p className="text-sm text-gray-500 leading-relaxed mb-5 flex-1">
+                      {loc === 'ar' ? path.examDescAr : path.examDescEn}
+                    </p>
+                  )}
+                  {(loc === 'ar' ? path.browseLabelAr : path.browseLabelEn) && (
+                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 group-hover:gap-2.5 transition-all">
+                      {loc === 'ar' ? path.browseLabelAr : path.browseLabelEn}
+                      <ArrowRight className={`h-4 w-4 ${loc === 'ar' ? 'rotate-180' : ''}`} />
+                    </span>
+                  )}
                 </div>
-                <h3 className="text-xl font-black text-gray-900 mb-2">
-                  {loc === 'ar'
-                    ? (settings?.pathSection?.examTitleAr ?? 'التحضير للامتحانات')
-                    : (settings?.pathSection?.examTitleEn ?? 'Exam Preparation')}
-                </h3>
-                <p className="text-sm text-gray-500 leading-relaxed mb-5 flex-1">
-                  {loc === 'ar'
-                    ? (settings?.pathSection?.examDescAr ?? 'IELTS · TOEFL · OET · GMAT · SAT — احصل على الدرجة التي تحتاجها.')
-                    : (settings?.pathSection?.examDescEn ?? 'IELTS · TOEFL · OET · GMAT · SAT — get the score you need.')}
-                </p>
-                <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 group-hover:gap-2.5 transition-all">
-                  {loc === 'ar'
-                    ? (settings?.pathSection?.browseLabelAr ?? 'استعرض الدورات')
-                    : (settings?.pathSection?.browseLabelEn ?? 'Browse courses')}
-                  <ArrowRight className={`h-4 w-4 ${loc === 'ar' ? 'rotate-180' : ''}`} />
-                </span>
-              </div>
-            </Link>
+              </Link>
 
-            {/* Track 2 — Language Learning */}
-            <Link href="/courses?category=language" locale={loc} className="flex">
-              <div className="group flex flex-col w-full rounded-2xl border-2 border-brand-100 bg-gradient-to-br from-brand-50 to-white p-8 hover:border-brand-400 hover:shadow-lg transition-all duration-200 cursor-pointer">
-                <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gold-500 shadow-md">
-                  <BookOpen className="h-7 w-7 text-white" />
+              {/* Track 2 — Language Learning */}
+              <Link href="/courses?category=language" locale={loc} className="flex">
+                <div className="group flex flex-col w-full rounded-2xl border-2 border-brand-100 bg-gradient-to-br from-brand-50 to-white p-8 hover:border-brand-400 hover:shadow-lg transition-all duration-200 cursor-pointer">
+                  <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gold-500 shadow-md">
+                    <BookOpen className="h-7 w-7 text-white" />
+                  </div>
+                  {(loc === 'ar' ? path.langTitleAr : path.langTitleEn) && (
+                    <h3 className="text-xl font-black text-gray-900 mb-2">
+                      {loc === 'ar' ? path.langTitleAr : path.langTitleEn}
+                    </h3>
+                  )}
+                  {(loc === 'ar' ? path.langDescAr : path.langDescEn) && (
+                    <p className="text-sm text-gray-500 leading-relaxed mb-5 flex-1">
+                      {loc === 'ar' ? path.langDescAr : path.langDescEn}
+                    </p>
+                  )}
+                  {(loc === 'ar' ? path.browseLabelAr : path.browseLabelEn) && (
+                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 group-hover:gap-2.5 transition-all">
+                      {loc === 'ar' ? path.browseLabelAr : path.browseLabelEn}
+                      <ArrowRight className={`h-4 w-4 ${loc === 'ar' ? 'rotate-180' : ''}`} />
+                    </span>
+                  )}
                 </div>
-                <h3 className="text-xl font-black text-gray-900 mb-2">
-                  {loc === 'ar'
-                    ? (settings?.pathSection?.langTitleAr ?? 'تعلّم لغة جديدة')
-                    : (settings?.pathSection?.langTitleEn ?? 'Language Learning')}
-                </h3>
-                <p className="text-sm text-gray-500 leading-relaxed mb-5 flex-1">
-                  {loc === 'ar'
-                    ? (settings?.pathSection?.langDescAr ?? 'الإنجليزية · العربية · الفرنسية · الألمانية — تحدّث بثقة من اليوم الأول.')
-                    : (settings?.pathSection?.langDescEn ?? 'English · Arabic · French · German — speak confidently from day one.')}
-                </p>
-                <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 group-hover:gap-2.5 transition-all">
-                  {loc === 'ar'
-                    ? (settings?.pathSection?.browseLabelAr ?? 'استعرض الدورات')
-                    : (settings?.pathSection?.browseLabelEn ?? 'Browse courses')}
-                  <ArrowRight className={`h-4 w-4 ${loc === 'ar' ? 'rotate-180' : ''}`} />
-                </span>
-              </div>
-            </Link>
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ── Featured Courses ─────────────────────────────────────────────── */}
       <section className="py-20 bg-gray-50">
@@ -166,7 +170,6 @@ export default async function HomePage({
               ))}
             </div>
           ) : (
-            /* Placeholder cards when Sanity is not yet populated */
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {Array.from({ length: 6 }).map((_, i) => (
                 <div key={i} className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
@@ -182,7 +185,6 @@ export default async function HomePage({
             </div>
           )}
 
-          {/* Mobile "View All" */}
           <div className="mt-8 text-center sm:hidden">
             <Link href="/courses" locale={loc}>
               <Button variant="outline">
@@ -195,85 +197,57 @@ export default async function HomePage({
       </section>
 
       {/* ── Testimonials ─────────────────────────────────────────────────── */}
-      <section className="py-20 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            title={t('home.testimonialsTitle')}
-            subtitle={t('home.testimonialsSubtitle')}
-          />
-
-          {/* Trust bar */}
-          <div className="flex flex-wrap items-center justify-center gap-8 mb-12 py-5 px-6 rounded-2xl bg-brand-50 border border-brand-100">
-            <div className="flex items-center gap-2.5">
-              <div className="flex">
-                {[1,2,3,4,5].map((s) => (
-                  <svg key={s} className="h-5 w-5 text-gold-400 fill-gold-400" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
-              <span className="text-sm font-semibold text-gray-900">4.9 / 5</span>
-              <span className="text-sm text-gray-500">
-                {loc === 'ar' ? 'متوسط التقييم' : 'Average rating'}
-              </span>
-            </div>
-            <div className="h-5 w-px bg-gray-200 hidden sm:block" />
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-semibold text-gray-900">8,000+</span>
-              <span className="text-sm text-gray-500">
-                {loc === 'ar' ? 'طالب تخرج' : 'Graduates'}
-              </span>
-            </div>
-            <div className="h-5 w-px bg-gray-200 hidden sm:block" />
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-semibold text-gray-900">12+</span>
-              <span className="text-sm text-gray-500">
-                {loc === 'ar' ? 'سنوات من الخبرة' : 'Years of experience'}
-              </span>
-            </div>
+      {testimonials.length > 0 && (
+        <section className="py-20 bg-white">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <SectionHeader
+              title={t('home.testimonialsTitle')}
+              subtitle={t('home.testimonialsSubtitle')}
+            />
+            <TestimonialsSlider testimonials={testimonials} locale={loc} />
           </div>
-
-          <TestimonialsSlider testimonials={testimonials} locale={loc} />
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ── FAQ ──────────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-gray-50 section-pattern">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            title={t('home.faqTitle')}
-            subtitle={t('home.faqSubtitle')}
-          />
-          <HomeFAQ locale={loc} faqs={faqs} />
-        </div>
-      </section>
+      {faqs.length > 0 && (
+        <section className="py-20 bg-gray-50 section-pattern">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <SectionHeader
+              title={t('home.faqTitle')}
+              subtitle={t('home.faqSubtitle')}
+            />
+            <HomeFAQ locale={loc} faqs={faqs} />
+          </div>
+        </section>
+      )}
 
       {/* ── CTA Banner ───────────────────────────────────────────────────── */}
-      <section className="py-12 bg-brand-600">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4">
-            {loc === 'ar'
-              ? (settings?.ctaBanner?.titleAr ?? t('home.ctaTitle'))
-              : (settings?.ctaBanner?.titleEn ?? t('home.ctaTitle'))}
-          </h2>
-          <p className="text-lg text-brand-100 mb-8 max-w-2xl mx-auto">
-            {loc === 'ar'
-              ? (settings?.ctaBanner?.subtitleAr ?? t('home.ctaSubtitle'))
-              : (settings?.ctaBanner?.subtitleEn ?? t('home.ctaSubtitle'))}
-          </p>
-          <Link href="/courses" locale={loc}>
-            <Button
-              size="xl"
-              className="bg-gradient-to-r from-gold-400 to-gold-500 text-brand-900 hover:opacity-90 shadow-xl"
-            >
-              {loc === 'ar'
-                ? (settings?.ctaBanner?.buttonAr ?? t('home.ctaButton'))
-                : (settings?.ctaBanner?.buttonEn ?? t('home.ctaButton'))}
-              <ArrowRight className={`h-5 w-5 ${loc === 'ar' ? 'flip-rtl' : ''}`} />
-            </Button>
-          </Link>
-        </div>
-      </section>
+      {cta && (
+        <section className="py-12 bg-brand-600">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+            {(loc === 'ar' ? cta.titleAr : cta.titleEn) && (
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4">
+                {loc === 'ar' ? cta.titleAr : cta.titleEn}
+              </h2>
+            )}
+            {(loc === 'ar' ? cta.subtitleAr : cta.subtitleEn) && (
+              <p className="text-lg text-brand-100 mb-8 max-w-2xl mx-auto">
+                {loc === 'ar' ? cta.subtitleAr : cta.subtitleEn}
+              </p>
+            )}
+            <Link href="/courses" locale={loc}>
+              <Button
+                size="xl"
+                className="bg-gradient-to-r from-gold-400 to-gold-500 text-brand-900 hover:opacity-90 shadow-xl"
+              >
+                {(loc === 'ar' ? cta.buttonAr : cta.buttonEn) || t('home.ctaButton')}
+                <ArrowRight className={`h-5 w-5 ${loc === 'ar' ? 'flip-rtl' : ''}`} />
+              </Button>
+            </Link>
+          </div>
+        </section>
+      )}
     </>
   )
 }
