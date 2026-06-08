@@ -61,15 +61,18 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
 
   const floatingStats = settings?.heroFloatingStats
   const graduatesLabel = isRtl
-    ? (floatingStats?.graduatesCountAr ?? 'NEW')
-    : (floatingStats?.graduatesCount ?? 'NEW')
+    ? floatingStats?.graduatesCountAr
+    : floatingStats?.graduatesCount
   const graduatesDesc = isRtl
-    ? (floatingStats?.graduatesLabelAr ?? 'التسجيل مفتوح')
-    : (floatingStats?.graduatesLabelEn ?? 'Now Enrolling')
-  const rating = floatingStats?.rating ?? '4.9/5'
+    ? floatingStats?.graduatesLabelAr
+    : floatingStats?.graduatesLabelEn
+  const rating = floatingStats?.rating
   const ratingLabel = isRtl
-    ? (floatingStats?.ratingLabelAr ?? 'تقييم الطلاب')
-    : (floatingStats?.ratingLabelEn ?? 'Student Rating')
+    ? floatingStats?.ratingLabelAr
+    : floatingStats?.ratingLabelEn
+
+  const showEnrollingCard = !!(graduatesLabel || graduatesDesc)
+  const showRatingCard = !!(rating || ratingLabel)
 
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden">
@@ -192,36 +195,42 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
         </div>
 
         {/* Floating cards */}
-        <div className={cn(
-          'absolute bottom-12 flex flex-col sm:flex-row gap-3',
-          isRtl ? 'right-4 sm:right-8' : 'left-4 sm:left-8'
-        )}>
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl p-4 border border-gray-100">
-            <div className="flex items-center gap-3">
-              <div className="h-11 w-11 rounded-xl bg-brand-50 flex items-center justify-center flex-shrink-0">
-                <GraduationCap className="h-5 w-5 text-brand-500" />
+        {(showEnrollingCard || showRatingCard) && (
+          <div className={cn(
+            'absolute bottom-12 flex flex-col sm:flex-row gap-3',
+            isRtl ? 'right-4 sm:right-8' : 'left-4 sm:left-8'
+          )}>
+            {showEnrollingCard && (
+              <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl p-4 border border-gray-100">
+                <div className="flex items-center gap-3">
+                  <div className="h-11 w-11 rounded-xl bg-brand-50 flex items-center justify-center flex-shrink-0">
+                    <GraduationCap className="h-5 w-5 text-brand-500" />
+                  </div>
+                  <div>
+                    <p className="text-lg font-black text-gray-900">{graduatesLabel}</p>
+                    <p className="text-xs text-gray-500">{graduatesDesc}</p>
+                  </div>
+                </div>
               </div>
-              <div>
-                <p className="text-lg font-black text-gray-900">{graduatesLabel}</p>
-                <p className="text-xs text-gray-500">{graduatesDesc}</p>
-              </div>
-            </div>
-          </div>
+            )}
 
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl p-4 border border-gray-100">
-            <div className="flex items-center gap-2">
-              <div className="flex">
-                {[1,2,3,4,5].map((s) => (
-                  <Star key={s} className="h-4 w-4 text-gold-400 fill-gold-400" />
-                ))}
+            {showRatingCard && (
+              <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl p-4 border border-gray-100">
+                <div className="flex items-center gap-2">
+                  <div className="flex">
+                    {[1,2,3,4,5].map((s) => (
+                      <Star key={s} className="h-4 w-4 text-gold-400 fill-gold-400" />
+                    ))}
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-gray-900">{rating}</p>
+                    <p className="text-xs text-gray-500">{ratingLabel}</p>
+                  </div>
+                </div>
               </div>
-              <div>
-                <p className="text-sm font-bold text-gray-900">{rating}</p>
-                <p className="text-xs text-gray-500">{ratingLabel}</p>
-              </div>
-            </div>
+            )}
           </div>
-        </div>
+        )}
 
         {/* Carousel dots */}
         {images.length > 1 && (
