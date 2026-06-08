@@ -2,18 +2,18 @@
 
 /* ── Tailwind v4 Theme: Custom Colors ────────────────────────────────────────── */
 @theme {
-  /* Royal blue scale — primary brand */
-  --color-brand-50:  #EEF3FC;
-  --color-brand-100: #CCDAF8;
-  --color-brand-200: #99B5F0;
-  --color-brand-300: #6691E6;
-  --color-brand-400: #3D70D6;
-  --color-brand-500: #2C5FC4;
-  --color-brand-600: #1D4BA5;
-  --color-brand-700: #163A85;
-  --color-brand-800: #102D6B;
-  --color-brand-900: #0C2255;
-  --color-brand-950: #081744;
+  /* Deep navy scale — primary brand */
+  --color-brand-50:  #EBF1F7;
+  --color-brand-100: #C3D4E8;
+  --color-brand-200: #87AACF;
+  --color-brand-300: #5382B3;
+  --color-brand-400: #2D5F97;
+  --color-brand-500: #1E4D82;
+  --color-brand-600: #163C6B;
+  --color-brand-700: #102D53;
+  --color-brand-800: #0C2140;
+  --color-brand-900: #07152A;
+  --color-brand-950: #040D1A;
 
   /* Gold scale — accent only (CTAs, highlights, gradients) */
   --color-gold-50:  #FBF6E8;
@@ -28,9 +28,9 @@
   --color-gold-900: #4A3610;
 
   /* Neutral surface tokens */
-  --color-off-white:  #FAFAF8;
-  --color-gray-soft:  #F0EDE6;
-  --color-gray-mid:   #C2BFB8;
+  --color-off-white:  #F8F4EE;
+  --color-gray-soft:  #EDE7DA;
+  --color-gray-mid:   #C8BEB2;
 
   --font-family-sans: var(--font-body);
   --font-family-display: var(--font-display);
@@ -39,27 +39,27 @@
 
 /* ── Font Variables ─────────────────────────────────────────────────────────── */
 :root {
-  --font-display: 'Space Grotesk', sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
   --font-body: 'Plus Jakarta Sans', sans-serif;
   --font-arabic: 'Noto Kufi Arabic', sans-serif;
 }
 
 /* ── Brand Tokens ────────────────────────────────────────────────────────────── */
 :root {
-  --brand-primary: #163A85;
-  --brand-primary-dark: #102D6B;
+  --brand-primary: #102D53;
+  --brand-primary-dark: #0C2140;
   --brand-gold: #C9A84C;
   --brand-gold-light: #E8C96B;
 
   --surface-1: #ffffff;
-  --surface-2: #FAFAF8;
-  --surface-3: #F0EDE6;
+  --surface-2: #F8F4EE;
+  --surface-3: #EDE7DA;
 
-  --text-primary: #163A85;
-  --text-secondary: #6B7080;
-  --text-muted: #C2BFB8;
+  --text-primary: #102D53;
+  --text-secondary: #5C6070;
+  --text-muted: #C0B8A8;
 
-  --border: #C2BFB8;
+  --border: #C8BEB2;
   --border-focus: #C9A84C;
 
   --radius: 12px;
@@ -69,7 +69,7 @@
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
   --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.06);
-  --shadow-brand: 0 8px 32px rgba(22, 58, 133, 0.24);
+  --shadow-brand: 0 8px 32px rgba(16, 45, 83, 0.24);
 }
 
 /* ── Base Typography ─────────────────────────────────────────────────────────── */
@@ -103,8 +103,8 @@ html[lang="ar"] button {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: 0;
+  line-height: 1.15;
   color: var(--text-primary);
 }
 
@@ -277,9 +277,9 @@ html[lang="ar"] h3 {
 
 .hero-gradient {
   background:
-    radial-gradient(ellipse 80% 80% at 20% 40%, rgba(22, 58, 133, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 80% at 20% 40%, rgba(16, 45, 83, 0.07) 0%, transparent 60%),
     radial-gradient(ellipse 60% 60% at 80% 80%, rgba(201, 168, 76, 0.08) 0%, transparent 60%),
-    linear-gradient(135deg, #FFFFFF 0%, #FAFAF8 50%, #EEF3FC 100%);
+    linear-gradient(135deg, #FFFFFF 0%, #F8F4EE 50%, #EBF1F7 100%);
 }
 
 /* ── Card hover effects ──────────────────────────────────────────────────────── */
@@ -311,6 +311,6 @@ html[lang="ar"] h3 {
 /* ── Section patterns ────────────────────────────────────────────────────────── */
 
 .section-pattern {
-  background-image: radial-gradient(circle, rgba(22, 58, 133, 0.06) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(16, 45, 83, 0.06) 1px, transparent 1px);
   background-size: 32px 32px;
 }

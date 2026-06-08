@@ -6,6 +6,7 @@ interface SectionHeaderProps {
   centered?: boolean
   className?: string
   accentWord?: string
+  darkMode?: boolean
 }
 
 export function SectionHeader({
@@ -14,8 +15,8 @@ export function SectionHeader({
   centered = true,
   className,
   accentWord,
+  darkMode = false,
 }: SectionHeaderProps) {
-  // If accentWord is provided, wrap it in a gradient span
   const renderedTitle = accentWord
     ? title.replace(
         accentWord,
@@ -26,11 +27,17 @@ export function SectionHeader({
   return (
     <div className={cn(centered && 'text-center', 'mb-12', className)}>
       <h2
-        className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4"
+        className={cn(
+          'text-3xl sm:text-4xl font-bold mb-4',
+          darkMode ? 'text-gold-300' : 'text-brand-900'
+        )}
         dangerouslySetInnerHTML={{ __html: renderedTitle }}
       />
       {subtitle && (
-        <p className="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
+        <p className={cn(
+          'text-lg max-w-2xl mx-auto leading-relaxed',
+          darkMode ? 'text-brand-200' : 'text-gray-500'
+        )}>
           {subtitle}
         </p>
       )}

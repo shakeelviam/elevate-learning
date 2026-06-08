@@ -98,12 +98,12 @@ export function TestimonialsSlider({ testimonials, locale }: TestimonialsSliderP
     >
       <div className="mx-auto max-w-3xl text-center px-4">
         {/* Quote mark */}
-        <div className="text-8xl font-serif text-brand-200 leading-none mb-4 select-none">
+        <div className="text-8xl font-serif text-gold-400/40 leading-none mb-4 select-none">
           {isRtl ? '„' : '"'}
         </div>
 
         {/* Quote */}
-        <blockquote className="text-xl sm:text-2xl font-medium text-gray-800 leading-relaxed mb-8 min-h-[80px]">
+        <blockquote className="text-xl sm:text-2xl font-medium text-white/90 leading-relaxed mb-8 min-h-[80px]">
           {quote}
         </blockquote>
 
@@ -117,7 +117,7 @@ export function TestimonialsSlider({ testimonials, locale }: TestimonialsSliderP
         {/* Author */}
         <div className="flex items-center justify-center gap-4">
           {testimonial.avatar ? (
-            <div className="relative h-14 w-14 rounded-full overflow-hidden ring-2 ring-brand-200">
+            <div className="relative h-14 w-14 rounded-full overflow-hidden ring-2 ring-gold-400/50">
               <Image
                 src={urlFor(testimonial.avatar).width(112).height(112).url()}
                 alt={testimonial.name}
@@ -126,14 +126,14 @@ export function TestimonialsSlider({ testimonials, locale }: TestimonialsSliderP
               />
             </div>
           ) : (
-            <div className="h-14 w-14 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
+            <div className="h-14 w-14 rounded-full bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-gold-300 font-bold text-lg flex-shrink-0 ring-2 ring-gold-400/30">
               {testimonial.name.charAt(0)}
             </div>
           )}
           <div className="text-start">
-            <p className="font-bold text-gray-900">{testimonial.name}</p>
+            <p className="font-bold text-white">{testimonial.name}</p>
             {testimonial.course && (
-              <p className="text-sm text-gray-500">{testimonial.course}</p>
+              <p className="text-sm text-brand-300">{testimonial.course}</p>
             )}
           </div>
         </div>
@@ -143,7 +143,7 @@ export function TestimonialsSlider({ testimonials, locale }: TestimonialsSliderP
       <div className="flex items-center justify-center gap-4 mt-10">
         <button
           onClick={isRtl ? next : prev}
-          className="p-2.5 rounded-full border border-gray-200 text-gray-500 hover:border-brand-300 hover:text-brand-600 transition-colors"
+          className="p-2.5 rounded-full border border-white/20 text-white/60 hover:border-gold-400/60 hover:text-gold-300 transition-colors"
           aria-label="Previous"
         >
           <ChevronLeft className="h-5 w-5" />
@@ -158,7 +158,7 @@ export function TestimonialsSlider({ testimonials, locale }: TestimonialsSliderP
               className={cn(
                 'rounded-full transition-all duration-300',
                 i === current
-                  ? 'w-6 h-2.5 bg-brand-500'
+                  ? 'w-6 h-2.5 bg-gold-400'
                   : 'w-2.5 h-2.5 bg-gray-200 hover:bg-gray-300'
               )}
               aria-label={`Go to testimonial ${i + 1}`}
@@ -168,7 +168,7 @@ export function TestimonialsSlider({ testimonials, locale }: TestimonialsSliderP
 
         <button
           onClick={isRtl ? prev : next}
-          className="p-2.5 rounded-full border border-gray-200 text-gray-500 hover:border-brand-300 hover:text-brand-600 transition-colors"
+          className="p-2.5 rounded-full border border-white/20 text-white/60 hover:border-gold-400/60 hover:text-gold-300 transition-colors"
           aria-label="Next"
         >
           <ChevronRight className="h-5 w-5" />

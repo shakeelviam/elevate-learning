@@ -75,7 +75,7 @@ export default async function HomePage({
 
       {/* ── Segmentation ─────────────────────────────────────────────────── */}
       {path && (
-        <section className="py-16 bg-white">
+        <section className="py-16 bg-off-white">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             {(loc === 'ar' ? path.labelAr : path.labelEn) && (
               <p className="text-center text-sm font-semibold text-brand-600 uppercase tracking-widest mb-3">
@@ -143,7 +143,7 @@ export default async function HomePage({
       )}
 
       {/* ── Featured Courses ─────────────────────────────────────────────── */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gray-soft">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between mb-12">
             <SectionHeader
@@ -200,11 +200,12 @@ export default async function HomePage({
 
       {/* ── Testimonials ─────────────────────────────────────────────────── */}
       {testimonials.length > 0 && (
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-brand-800">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <SectionHeader
               title={t('home.testimonialsTitle')}
               subtitle={t('home.testimonialsSubtitle')}
+              darkMode
             />
             <TestimonialsSlider testimonials={testimonials} locale={loc} />
           </div>
@@ -213,7 +214,7 @@ export default async function HomePage({
 
       {/* ── FAQ ──────────────────────────────────────────────────────────── */}
       {faqs.length > 0 && (
-        <section className="py-20 bg-gray-50 section-pattern">
+        <section className="py-20 bg-off-white section-pattern">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
             <SectionHeader
               title={t('home.faqTitle')}

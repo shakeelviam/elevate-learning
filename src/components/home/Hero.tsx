@@ -114,7 +114,7 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
           {headline && (
             <h1 className={cn(
               'text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-[1.1] animate-fade-up',
-              hasImages ? 'text-white' : 'text-gray-900'
+              hasImages ? 'text-gold-300' : 'text-brand-900'
             )}>
               {headline}
             </h1>
@@ -151,7 +151,16 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
           {/* CTAs */}
           <div className="flex flex-wrap gap-3 animate-fade-up" style={{ animationDelay: '0.2s' }}>
             <Link href="/courses" locale={locale}>
-              <Button size="xl" className="group">
+              <Button
+                size="xl"
+                variant="outline"
+                className={cn(
+                  'group font-bold tracking-wide',
+                  hasImages
+                    ? 'border-gold-400 text-gold-300 bg-transparent hover:bg-gold-400/10 hover:border-gold-300'
+                    : 'border-gold-500 text-gold-600 bg-transparent hover:bg-gold-50 hover:border-gold-600'
+                )}
+              >
                 {ctaLabel}
                 <ArrowRight className={cn('h-5 w-5 transition-transform group-hover:translate-x-1', isRtl && 'flip-rtl')} />
               </Button>
@@ -226,7 +235,7 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
       </div>
 
       {/* Bottom fade */}
-      <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-white to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-off-white to-transparent pointer-events-none" />
     </section>
   )
 }
