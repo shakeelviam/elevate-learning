@@ -86,18 +86,14 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
 
       {/* Content */}
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 w-full">
-        <div className={cn(
-          'max-w-2xl',
-          isRtl && 'ms-auto text-right',
-          hasImages && 'bg-brand-900/60 backdrop-blur-sm rounded-2xl p-8'
-        )}>
+        <div className={cn('max-w-2xl', isRtl && 'ms-auto text-right')}>
 
           {/* Pill */}
           {pill && (
             <div className={cn(
               'inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold mb-6 animate-fade-in',
               hasImages
-                ? 'bg-white/15 backdrop-blur-sm text-white border border-white/20'
+                ? 'bg-black/30 backdrop-blur-sm text-white border border-white/30'
                 : 'bg-brand-100 text-brand-700'
             )}>
               <span className={cn('h-2 w-2 rounded-full animate-pulse', hasImages ? 'bg-gold-400' : 'bg-brand-500')} />
@@ -108,10 +104,13 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
 
           {/* Headline */}
           {headline && (
-            <h1 className={cn(
-              'text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-[1.1] animate-fade-up',
-              hasImages ? 'text-white' : 'text-brand-900'
-            )}>
+            <h1
+              className={cn(
+                'text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-[1.1] animate-fade-up',
+                hasImages ? 'text-white' : 'text-brand-900'
+              )}
+              style={hasImages ? { textShadow: '0 2px 12px rgba(0,0,0,0.85), 0 0 32px rgba(0,0,0,0.5)' } : undefined}
+            >
               {headline}
             </h1>
           )}
@@ -121,9 +120,9 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
             <p
               className={cn(
                 'text-lg mb-8 leading-relaxed animate-fade-up',
-                hasImages ? 'text-white/85' : 'text-gray-600'
+                hasImages ? 'text-white' : 'text-gray-600'
               )}
-              style={{ animationDelay: '0.1s' }}
+              style={hasImages ? { textShadow: '0 1px 8px rgba(0,0,0,0.9), 0 0 20px rgba(0,0,0,0.6)' } : undefined}
             >
               {subheadline}
             </p>
@@ -133,10 +132,11 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
           {badges.length > 0 && (
             <div className="flex flex-wrap gap-3 mb-8">
               {badges.map((badge) => (
-                <div key={badge} className={cn(
-                  'flex items-center gap-1.5 text-sm',
-                  hasImages ? 'text-white/90' : 'text-gray-700'
-                )}>
+                <div
+                  key={badge}
+                  className={cn('flex items-center gap-1.5 text-sm font-semibold', hasImages ? 'text-white' : 'text-gray-700')}
+                  style={hasImages ? { textShadow: '0 1px 6px rgba(0,0,0,0.9)' } : undefined}
+                >
                   <CheckCircle2 className={cn('h-4 w-4 flex-shrink-0', hasImages ? 'text-gold-400' : 'text-brand-500')} />
                   {badge}
                 </div>
