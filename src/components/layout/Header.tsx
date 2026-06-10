@@ -41,7 +41,7 @@ function FlyoutMenu({ items, locale, onClose, level = 0 }: FlyoutMenuProps) {
     setActiveHref(href)
   }
   const handleLeave = () => {
-    closeTimer.current = setTimeout(() => setActiveHref(null), 200)
+    closeTimer.current = setTimeout(() => setActiveHref(null), 150)
   }
   const handlePanelEnter = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current)
@@ -144,7 +144,7 @@ export function Header({ locale, settings }: HeaderProps) {
   }
 
   const handleMenuLeave = () => {
-    closeTimer.current = setTimeout(() => setOpenMenu(null), 200)
+    closeTimer.current = setTimeout(() => setOpenMenu(null), 150)
   }
 
   return (
