@@ -70,10 +70,10 @@ export default async function FAQPage({
       {/* Header band */}
       <div className="bg-brand-600 py-8">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
-          <h1 className="text-4xl sm:text-5xl font-black text-white mb-3">
+          <h1 className="text-4xl sm:text-5xl font-black mb-3" style={{ color: 'var(--coral)' }}>
             {t('faq.title')}
           </h1>
-          <p className="text-lg text-white/80">{t('faq.subtitle')}</p>
+          <p className="text-lg" style={{ color: 'var(--coral)' }}>{t('faq.subtitle')}</p>
         </div>
       </div>
 

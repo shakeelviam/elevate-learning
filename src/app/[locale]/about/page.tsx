@@ -71,10 +71,10 @@ export default async function AboutPage({
       {/* Header band */}
       <div className="bg-brand-600 py-8 text-center">
         <div className="mx-auto max-w-3xl px-4">
-          <h1 className="text-4xl sm:text-5xl font-black text-white mb-3">
+          <h1 className="text-4xl sm:text-5xl font-black mb-3" style={{ color: 'var(--coral)' }}>
             {aboutHeroTitle}
           </h1>
-          <p className="text-lg text-white/80">{aboutHeroSubtitle}</p>
+          <p className="text-lg" style={{ color: 'var(--coral)' }}>{aboutHeroSubtitle}</p>
         </div>
       </div>
 
