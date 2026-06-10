@@ -1,89 +1,73 @@
 @import "tailwindcss";
 
-/* ── Tailwind v4 Theme: Custom Colors ────────────────────────────────────────── */
+/* ── Tailwind v4 Theme ───────────────────────────────────────────────────────── */
 @theme {
-  /* Deep navy scale — primary brand */
-  --color-brand-50:  #EBF1F7;
-  --color-brand-100: #C3D4E8;
-  --color-brand-200: #87AACF;
-  --color-brand-300: #5382B3;
-  --color-brand-400: #2D5F97;
-  --color-brand-500: #1E4D82;
-  --color-brand-600: #163C6B;
-  --color-brand-700: #102D53;
-  --color-brand-800: #0C2140;
-  --color-brand-900: #07152A;
-  --color-brand-950: #040D1A;
+  /* Forest — primary dark base */
+  --color-forest:      #1A3A2A;
+  --color-forest-mid:  #224D38;
+  --color-forest-light:#2D6349;
 
-  /* Gold scale — accent only (CTAs, highlights, gradients) */
-  --color-gold-50:  #FBF6E8;
-  --color-gold-100: #F5E9C4;
-  --color-gold-200: #EDCE87;
-  --color-gold-300: #E8C96B;
-  --color-gold-400: #D4B558;
-  --color-gold-500: #C9A84C;
-  --color-gold-600: #B08A38;
-  --color-gold-700: #8C6C28;
-  --color-gold-800: #6B5018;
-  --color-gold-900: #4A3610;
+  /* Coral — primary accent */
+  --color-coral:       #E8593A;
+  --color-coral-light: #F4866A;
+  --color-coral-pale:  #FDF0EC;
 
-  /* Neutral surface tokens */
-  --color-off-white:  #F8F4EE;
-  --color-gray-soft:  #EDE7DA;
-  --color-gray-mid:   #C8BEB2;
+  /* Rose — secondary accent */
+  --color-rose:        #F43F5E;
+  --color-rose-light:  #FDA4AF;
+  --color-rose-pale:   #FFF0F3;
 
-  --font-family-sans: var(--font-body);
-  --font-family-display: var(--font-display);
-  --font-family-arabic: var(--font-arabic);
+  /* Neutrals */
+  --color-cream:       #F7F4EE;
+  --color-text:        #1A1A1A;
+  --color-muted:       #6B7280;
+  --color-border:      #E5E0D8;
+
+  /* Keep off-white for any legacy usage */
+  --color-off-white:   #F7F4EE;
+
+  --font-family-sans:    var(--font-body);
+  --font-family-display: var(--font-body);
+  --font-family-arabic:  var(--font-arabic);
 }
 
-/* ── Font Variables ─────────────────────────────────────────────────────────── */
+/* ── CSS Variables ───────────────────────────────────────────────────────────── */
 :root {
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body: 'Plus Jakarta Sans', sans-serif;
-  --font-arabic: 'Noto Kufi Arabic', sans-serif;
-}
+  --forest:      #1A3A2A;
+  --forest-mid:  #224D38;
+  --coral:       #E8593A;
+  --coral-light: #F4866A;
+  --rose:        #F43F5E;
+  --rose-light:  #FDA4AF;
+  --rose-pale:   #FFF0F3;
+  --cream:       #F7F4EE;
+  --white:       #FFFFFF;
+  --text:        #1A1A1A;
+  --muted:       #6B7280;
 
-/* ── Brand Tokens ────────────────────────────────────────────────────────────── */
-:root {
-  --brand-primary: #102D53;
-  --brand-primary-dark: #0C2140;
-  --brand-gold: #C9A84C;
-  --brand-gold-light: #E8C96B;
+  --font-body:    'Jost', sans-serif;
+  --font-arabic:  'Noto Kufi Arabic', sans-serif;
 
-  --surface-1: #ffffff;
-  --surface-2: #F8F4EE;
-  --surface-3: #EDE7DA;
-
-  --text-primary: #102D53;
-  --text-secondary: #5C6070;
-  --text-muted: #C0B8A8;
-
-  --border: #C8BEB2;
-  --border-focus: #C9A84C;
-
-  --radius: 12px;
+  --radius:    12px;
   --radius-sm: 8px;
   --radius-lg: 16px;
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.06);
-  --shadow-brand: 0 8px 32px rgba(16, 45, 83, 0.24);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow:    0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 16px 40px rgba(0,0,0,0.10), 0 4px 16px rgba(0,0,0,0.06);
 }
 
-/* ── Base Typography ─────────────────────────────────────────────────────────── */
-
-html {
-  scroll-behavior: smooth;
-}
+/* ── Base ────────────────────────────────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
-  color: var(--text-primary);
-  background: var(--surface-2);
+  color: var(--text);
+  background: var(--cream);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 html[lang="ar"] body,
@@ -102,104 +86,60 @@ html[lang="ar"] button {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
-  letter-spacing: 0;
-  line-height: 1.15;
-  color: var(--text-primary);
-}
-
-html[lang="ar"] h1,
-html[lang="ar"] h2,
-html[lang="ar"] h3 {
-  font-family: var(--font-arabic);
-  letter-spacing: 0;
-  line-height: 1.4;
+  font-family: var(--font-body);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--text);
 }
 
 /* ── Scrollbar ───────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: #c8beb2; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #a09890; }
 
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--surface-2);
-}
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-
-/* ── Focus rings ─────────────────────────────────────────────────────────────── */
-
+/* ── Focus ───────────────────────────────────────────────────────────────────── */
 *:focus-visible {
-  outline: 2px solid var(--brand-primary);
+  outline: 2px solid var(--coral);
   outline-offset: 2px;
   border-radius: 4px;
 }
 
 /* ── Animations ──────────────────────────────────────────────────────────────── */
-
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes fadeIn {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
-
 @keyframes shimmer {
   from { background-position: -200% 0; }
-  to { background-position: 200% 0; }
+  to   { background-position: 200% 0; }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+@keyframes ripple {
+  0%   { transform: scale(0); opacity: 0.6; }
+  100% { transform: scale(3); opacity: 0; }
+}
+@keyframes boardShake {
+  0%, 100% { transform: rotate(0deg); }
+  25%       { transform: rotate(-1.5deg); }
+  75%       { transform: rotate(1.5deg); }
 }
 
-/* ── Flip-book page animations ───────────────────────────────────────────────
-   Pages flip from the top-right corner toward the bottom-left (diagonal axis).
-   rotate3d(1,-1,0) = axis running from top-left to bottom-right of the element.
-   transform-origin: top right = pivot locked to the top-right corner.
-   flip-out: current page rotates away (0 → 90deg, then invisible).
-   flip-in:  next page arrives from behind (-90deg → 0deg).
-*/
-@keyframes flip-out {
-  0%   { transform: perspective(900px) rotate3d(1, -1, 0,   0deg); opacity: 1; }
-  100% { transform: perspective(900px) rotate3d(1, -1, 0,  90deg); opacity: 0; }
-}
-
-@keyframes flip-in {
-  0%   { transform: perspective(900px) rotate3d(1, -1, 0, -90deg); opacity: 0; }
-  100% { transform: perspective(900px) rotate3d(1, -1, 0,   0deg); opacity: 1; }
-}
-
-.page-flip-out {
-  animation: flip-out 380ms ease-in forwards;
-  transform-origin: top right;
-  will-change: transform;
-}
-
-.page-flip-in {
-  animation: flip-in 380ms ease-out forwards;
-  transform-origin: top right;
-  will-change: transform;
-}
-
-.animate-fade-up {
-  animation: fadeUp 0.6s ease-out forwards;
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.4s ease-out forwards;
-}
+.animate-fade-up   { animation: fadeUp 0.6s ease-out forwards; }
+.animate-fade-in   { animation: fadeIn 0.4s ease-out forwards; }
+.animate-blink     { animation: blink 1s step-end infinite; }
 
 .animate-stagger > * {
   opacity: 0;
   animation: fadeUp 0.6s ease-out forwards;
 }
-
 .animate-stagger > *:nth-child(1) { animation-delay: 0.0s; }
 .animate-stagger > *:nth-child(2) { animation-delay: 0.1s; }
 .animate-stagger > *:nth-child(3) { animation-delay: 0.2s; }
@@ -207,110 +147,79 @@ html[lang="ar"] h3 {
 .animate-stagger > *:nth-child(5) { animation-delay: 0.4s; }
 .animate-stagger > *:nth-child(6) { animation-delay: 0.5s; }
 
-/* ── Skeleton loading ────────────────────────────────────────────────────────── */
-
+/* ── Skeleton ────────────────────────────────────────────────────────────────── */
 .skeleton {
-  background: linear-gradient(
-    90deg,
-    var(--surface-3) 25%,
-    var(--surface-2) 50%,
-    var(--surface-3) 75%
-  );
+  background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
 
-/* ── Prose (rich text from Sanity) ──────────────────────────────────────────── */
-
-.prose-elevate {
-  color: var(--text-secondary);
-  line-height: 1.8;
-  font-size: 1rem;
-}
-
-.prose-elevate h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 2rem 0 0.75rem;
-  color: var(--text-primary);
-}
-
-.prose-elevate h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin: 1.5rem 0 0.5rem;
-  color: var(--text-primary);
-}
-
-.prose-elevate p {
-  margin: 0 0 1rem;
-}
-
-.prose-elevate ul, .prose-elevate ol {
-  padding-inline-start: 1.5rem;
-  margin: 0 0 1rem;
-}
-
-.prose-elevate li {
-  margin-bottom: 0.4rem;
-}
-
-.prose-elevate blockquote {
-  border-inline-start: 4px solid var(--brand-primary);
-  padding-inline-start: 1.25rem;
-  color: var(--text-secondary);
-  font-style: italic;
-  margin: 1.5rem 0;
-}
-
-.prose-elevate a {
-  color: var(--brand-primary);
-  text-decoration: underline;
-}
-
-.prose-elevate strong {
-  color: var(--text-primary);
-  font-weight: 700;
-}
-
-/* ── Hero gradient mesh ──────────────────────────────────────────────────────── */
-
-.hero-gradient {
-  background:
-    radial-gradient(ellipse 80% 80% at 20% 40%, rgba(16, 45, 83, 0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 60% at 80% 80%, rgba(201, 168, 76, 0.08) 0%, transparent 60%),
-    linear-gradient(135deg, #FFFFFF 0%, #F8F4EE 50%, #EBF1F7 100%);
-}
-
-/* ── Card hover effects ──────────────────────────────────────────────────────── */
-
+/* ── Card hover ──────────────────────────────────────────────────────────────── */
 .card-hover {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 .card-hover:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
 }
 
-/* ── RTL utilities ───────────────────────────────────────────────────────────── */
+/* ── RTL ─────────────────────────────────────────────────────────────────────── */
+[dir="rtl"] .flip-rtl { transform: scaleX(-1); }
 
-[dir="rtl"] .flip-rtl {
-  transform: scaleX(-1);
+/* ── Section eyebrow line ────────────────────────────────────────────────────── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--coral);
+}
+.eyebrow::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--coral);
+  flex-shrink: 0;
 }
 
-/* ── Gradient text ───────────────────────────────────────────────────────────── */
-
-.gradient-text {
-  background: linear-gradient(135deg, #C9A84C 0%, #E8C96B 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* ── Prose ───────────────────────────────────────────────────────────────────── */
+.prose-elevate {
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 1rem;
 }
+.prose-elevate h2 { font-size: 1.5rem; font-weight: 700; margin: 2rem 0 0.75rem; color: var(--text); }
+.prose-elevate h3 { font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 0.5rem; color: var(--text); }
+.prose-elevate p  { margin: 0 0 1rem; }
+.prose-elevate ul, .prose-elevate ol { padding-inline-start: 1.5rem; margin: 0 0 1rem; }
+.prose-elevate li { margin-bottom: 0.4rem; }
+.prose-elevate blockquote { border-inline-start: 4px solid var(--coral); padding-inline-start: 1.25rem; font-style: italic; margin: 1.5rem 0; }
+.prose-elevate a  { color: var(--coral); text-decoration: underline; }
+.prose-elevate strong { color: var(--text); font-weight: 700; }
 
-/* ── Section patterns ────────────────────────────────────────────────────────── */
-
+/* ── Section pattern ─────────────────────────────────────────────────────────── */
 .section-pattern {
-  background-image: radial-gradient(circle, rgba(16, 45, 83, 0.06) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(26,58,42,0.05) 1px, transparent 1px);
   background-size: 32px 32px;
+}
+
+/* ── Hero animation helpers ──────────────────────────────────────────────────── */
+.hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+}
+
+.cursor-blink {
+  display: inline-block;
+  width: 4px;
+  height: 1.1em;
+  background: var(--coral);
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
 }

@@ -16,9 +16,12 @@ interface CourseCardProps {
   course: SanityCourseSummary
   locale: 'en' | 'ar'
   viewDetailsLabel?: string
+  index?: number
 }
 
-export function CourseCard({ course, locale, viewDetailsLabel }: CourseCardProps) {
+const STRIPES = ['var(--coral)', 'var(--rose)', 'var(--forest)']
+
+export function CourseCard({ course, locale, viewDetailsLabel, index = 0 }: CourseCardProps) {
   const title = getLocaleText(course.title, locale, 'Untitled Course')
   const slug = getLocaleSlug(course.slug, locale)
   const categoryLabel = getCategoryLabel(course.category, locale)
@@ -26,9 +29,13 @@ export function CourseCard({ course, locale, viewDetailsLabel }: CourseCardProps
   const imageUrl = course.image
     ? urlFor(course.image).width(600).height(340).url()
     : null
+  const stripe = STRIPES[index % 3]
 
   return (
-    <article className="group flex flex-col bg-white rounded-2xl border border-gray-100 overflow-hidden card-hover shadow-sm">
+    <article
+      className="group flex flex-col bg-white rounded-2xl overflow-hidden card-hover shadow-sm"
+      style={{ borderTop: `4px solid ${stripe}` }}
+    >
       {/* Image */}
       <div className="relative aspect-[16/9] bg-gradient-to-br from-brand-100 to-brand-200 overflow-hidden">
         {imageUrl ? (
@@ -77,7 +84,7 @@ export function CourseCard({ course, locale, viewDetailsLabel }: CourseCardProps
         </div>
 
         {/* Title */}
-        <h3 className="text-base font-bold text-gray-900 mb-2 line-clamp-2 leading-snug group-hover:text-brand-600 transition-colors">
+        <h3 className="text-base font-bold mb-2 line-clamp-2 leading-snug transition-colors" style={{ color: 'var(--text)' }}>
           {title}
         </h3>
 
@@ -102,10 +109,13 @@ export function CourseCard({ course, locale, viewDetailsLabel }: CourseCardProps
 
         {/* CTA */}
         <div className="flex items-center justify-end mt-4 pt-4 border-t border-gray-50">
-          <Link href={`/courses/${slug}`} locale={locale}>
-            <Button size="sm" variant="outline">
-              {viewDetailsLabel ?? (locale === 'ar' ? 'عرض التفاصيل' : 'View Details')}
-            </Button>
+          <Link
+            href={`/courses/${slug}`}
+            locale={locale}
+            className="inline-flex items-center px-4 py-1.5 rounded-md text-sm font-semibold transition-opacity hover:opacity-80"
+            style={{ background: stripe, color: '#fff' }}
+          >
+            {viewDetailsLabel ?? (locale === 'ar' ? 'عرض التفاصيل' : 'View Details')}
           </Link>
         </div>
       </div>

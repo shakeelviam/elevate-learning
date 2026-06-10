@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Users, LayoutGrid, Languages, UserCheck, type LucideIcon } from 'lucide-react'
 
 interface StatsBannerProps {
   locale: 'en' | 'ar'
@@ -28,15 +27,15 @@ function parseValue(val: string): { num: number; prefix: string; suffix: string 
 function AnimatedStat({
   value,
   label,
-  Icon,
   triggered,
   delay,
+  showDivider,
 }: {
   value: string
   label: string
-  Icon: LucideIcon
   triggered: boolean
   delay: number
+  showDivider: boolean
 }) {
   const { num, prefix, suffix } = parseValue(value)
   const [count, setCount] = useState(0)
@@ -73,16 +72,25 @@ function AnimatedStat({
   const display = num > 0 ? `${prefix}${count.toLocaleString()}${suffix}` : value
 
   return (
-    <div className="text-center">
-      <div className="flex justify-center mb-3">
-        <div className="h-12 w-12 rounded-xl bg-white/10 flex items-center justify-center">
-          <Icon className="h-6 w-6 text-white/80" />
-        </div>
-      </div>
-      <div className="text-3xl sm:text-4xl font-black text-white mb-1 tabular-nums">
+    <div className="relative flex flex-col items-center text-center py-6 px-4">
+      {showDivider && (
+        <div
+          className="absolute inset-y-6 start-0 w-px hidden lg:block"
+          style={{ background: 'rgba(255,255,255,0.12)' }}
+        />
+      )}
+      <div
+        className="text-4xl sm:text-5xl font-bold mb-2 tabular-nums"
+        style={{ color: 'var(--coral)', letterSpacing: '-0.02em' }}
+      >
         {display}
       </div>
-      <div className="text-sm text-brand-200 font-medium">{label}</div>
+      <div
+        className="text-xs font-medium uppercase tracking-widest"
+        style={{ color: 'rgba(255,255,255,0.5)' }}
+      >
+        {label}
+      </div>
     </div>
   )
 }
@@ -103,43 +111,35 @@ export function StatsBanner({
   useEffect(() => {
     const el = ref.current
     if (!el) return
-
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setTriggered(true)
-          observer.disconnect()
-        }
+        if (entry.isIntersecting) { setTriggered(true); observer.disconnect() }
       },
       { threshold: 0.3 }
     )
-
     observer.observe(el)
     return () => observer.disconnect()
   }, [])
 
-  const stats: { value: string; label: string; Icon: LucideIcon; delay: number }[] = [
-    { value: stat1Value, label: stat1Label, Icon: Users,      delay: 0   },
-    { value: stat2Value, label: stat2Label, Icon: LayoutGrid, delay: 120 },
-    { value: stat3Value, label: stat3Label, Icon: Languages,  delay: 240 },
-    { value: stat4Value, label: stat4Label, Icon: UserCheck,  delay: 360 },
+  const stats = [
+    { value: stat1Value, label: stat1Label, delay: 0 },
+    { value: stat2Value, label: stat2Label, delay: 120 },
+    { value: stat3Value, label: stat3Label, delay: 240 },
+    { value: stat4Value, label: stat4Label, delay: 360 },
   ]
 
   return (
-    <section
-      ref={ref}
-      className="bg-brand-600 py-10"
-    >
+    <section ref={ref} style={{ background: 'var(--forest-mid)' }}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-          {stats.map((stat) => (
+        <div className="grid grid-cols-2 lg:grid-cols-4">
+          {stats.map((stat, i) => (
             <AnimatedStat
               key={stat.label}
               value={stat.value}
               label={stat.label}
-              Icon={stat.Icon}
               triggered={triggered}
               delay={stat.delay}
+              showDivider={i > 0}
             />
           ))}
         </div>

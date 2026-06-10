@@ -98,26 +98,35 @@ export function TestimonialsSlider({ testimonials, locale }: TestimonialsSliderP
     >
       <div className="mx-auto max-w-3xl text-center px-4">
         {/* Quote mark */}
-        <div className="text-8xl font-serif text-gold-400/40 leading-none mb-4 select-none">
+        <div
+          className="text-8xl font-serif leading-none mb-4 select-none"
+          style={{ color: 'var(--coral)', opacity: 0.3 }}
+        >
           {isRtl ? '„' : '"'}
         </div>
 
         {/* Quote */}
-        <blockquote className="text-xl sm:text-2xl font-medium text-white/90 leading-relaxed mb-8 min-h-[80px]">
+        <blockquote
+          className="text-xl sm:text-2xl font-light italic leading-relaxed mb-8 min-h-[80px]"
+          style={{ color: 'var(--forest)' }}
+        >
           {quote}
         </blockquote>
 
         {/* Stars */}
         <div className="flex justify-center gap-1 mb-6">
           {Array.from({ length: testimonial.rating ?? 5 }).map((_, i) => (
-            <Star key={i} className="h-5 w-5 fill-gold-400 text-gold-400" />
+            <Star key={i} className="h-5 w-5" style={{ fill: 'var(--coral)', color: 'var(--coral)' }} />
           ))}
         </div>
 
         {/* Author */}
         <div className="flex items-center justify-center gap-4">
           {testimonial.avatar ? (
-            <div className="relative h-14 w-14 rounded-full overflow-hidden ring-2 ring-gold-400/50">
+            <div
+              className="relative h-14 w-14 rounded-full overflow-hidden"
+              style={{ border: '2px solid var(--coral)' }}
+            >
               <Image
                 src={urlFor(testimonial.avatar).width(112).height(112).url()}
                 alt={testimonial.name}
@@ -126,14 +135,17 @@ export function TestimonialsSlider({ testimonials, locale }: TestimonialsSliderP
               />
             </div>
           ) : (
-            <div className="h-14 w-14 rounded-full bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-gold-300 font-bold text-lg flex-shrink-0 ring-2 ring-gold-400/30">
+            <div
+              className="h-14 w-14 rounded-full flex items-center justify-center font-bold text-lg flex-shrink-0"
+              style={{ background: 'var(--forest)', color: 'var(--cream)' }}
+            >
               {testimonial.name.charAt(0)}
             </div>
           )}
           <div className="text-start">
-            <p className="font-bold text-white">{testimonial.name}</p>
+            <p className="font-semibold" style={{ color: 'var(--forest)' }}>{testimonial.name}</p>
             {testimonial.course && (
-              <p className="text-sm text-brand-300">{testimonial.course}</p>
+              <p className="text-sm" style={{ color: 'var(--coral)' }}>{testimonial.course}</p>
             )}
           </div>
         </div>
@@ -143,7 +155,10 @@ export function TestimonialsSlider({ testimonials, locale }: TestimonialsSliderP
       <div className="flex items-center justify-center gap-4 mt-10">
         <button
           onClick={isRtl ? next : prev}
-          className="p-2.5 rounded-full border border-white/20 text-white/60 hover:border-gold-400/60 hover:text-gold-300 transition-colors"
+          className="p-2.5 rounded-full border transition-colors"
+          style={{ borderColor: 'rgba(26,58,42,0.2)', color: 'rgba(26,58,42,0.5)' }}
+          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--coral)'; (e.currentTarget as HTMLElement).style.color = 'var(--coral)' }}
+          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(26,58,42,0.2)'; (e.currentTarget as HTMLElement).style.color = 'rgba(26,58,42,0.5)' }}
           aria-label="Previous"
         >
           <ChevronLeft className="h-5 w-5" />
@@ -155,12 +170,12 @@ export function TestimonialsSlider({ testimonials, locale }: TestimonialsSliderP
             <button
               key={i}
               onClick={() => setCurrent(i)}
-              className={cn(
-                'rounded-full transition-all duration-300',
-                i === current
-                  ? 'w-6 h-2.5 bg-gold-400'
-                  : 'w-2.5 h-2.5 bg-gray-200 hover:bg-gray-300'
-              )}
+              className="rounded-full transition-all duration-300"
+              style={{
+                width: i === current ? 24 : 10,
+                height: 10,
+                background: i === current ? 'var(--coral)' : 'rgba(26,58,42,0.15)',
+              }}
               aria-label={`Go to testimonial ${i + 1}`}
             />
           ))}
@@ -168,7 +183,10 @@ export function TestimonialsSlider({ testimonials, locale }: TestimonialsSliderP
 
         <button
           onClick={isRtl ? prev : next}
-          className="p-2.5 rounded-full border border-white/20 text-white/60 hover:border-gold-400/60 hover:text-gold-300 transition-colors"
+          className="p-2.5 rounded-full border transition-colors"
+          style={{ borderColor: 'rgba(26,58,42,0.2)', color: 'rgba(26,58,42,0.5)' }}
+          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--coral)'; (e.currentTarget as HTMLElement).style.color = 'var(--coral)' }}
+          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(26,58,42,0.2)'; (e.currentTarget as HTMLElement).style.color = 'rgba(26,58,42,0.5)' }}
           aria-label="Next"
         >
           <ChevronRight className="h-5 w-5" />
