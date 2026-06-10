@@ -8,11 +8,10 @@ import { Hero } from '@/components/home/Hero'
 import { StatsBanner } from '@/components/home/StatsBanner'
 import { ElevateAISection } from '@/components/home/ElevateAISection'
 import { TestimonialsSlider } from '@/components/home/TestimonialsSlider'
-import { HomeFAQ } from '@/components/home/HomeFAQ'
 import { SectionHeader } from '@/components/shared/SectionHeader'
 import { CourseCard } from '@/components/courses/CourseCard'
 import { Button } from '@/components/ui/button'
-import { getSiteSettings, getFeaturedCourses, getTestimonials, getFaqs } from '@/sanity/lib/queries'
+import { getSiteSettings, getFeaturedCourses, getTestimonials } from '@/sanity/lib/queries'
 
 export async function generateMetadata({
   params,
@@ -34,11 +33,10 @@ export default async function HomePage({
   const loc = locale as 'en' | 'ar'
   const t = await getTranslations({ locale: loc })
 
-  const [settings, featuredCourses, testimonials, faqs] = await Promise.all([
+  const [settings, featuredCourses, testimonials] = await Promise.all([
     getSiteSettings(),
     getFeaturedCourses(6),
     getTestimonials(),
-    getFaqs(true),
   ])
 
   const stats = settings?.stats
@@ -234,22 +232,6 @@ export default async function HomePage({
               {t('home.testimonialsTitle')}
             </h2>
             <TestimonialsSlider testimonials={testimonials} locale={loc} />
-          </div>
-        </section>
-      )}
-
-      {/* ── FAQ ──────────────────────────────────────────────────────────── */}
-      {faqs.length > 0 && (
-        <section className="py-20 section-pattern" style={{ background: 'var(--cream)' }}>
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <p className="eyebrow mb-4">{loc === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'}</p>
-            <h2
-              className="text-3xl sm:text-4xl font-bold mb-12"
-              style={{ color: 'var(--forest)', letterSpacing: '-0.02em' }}
-            >
-              {t('home.faqTitle')}
-            </h2>
-            <HomeFAQ locale={loc} faqs={faqs} />
           </div>
         </section>
       )}
