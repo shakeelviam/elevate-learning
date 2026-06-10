@@ -95,24 +95,7 @@ export default async function HomePage({
             <div className="grid sm:grid-cols-2 gap-6">
               {/* Track 1 — Exam Prep */}
               <Link href="/courses?category=exam" locale={loc} className="flex">
-                <div
-                  className="group flex flex-col w-full rounded-2xl p-8 transition-all duration-200 cursor-pointer"
-                  style={{
-                    background: 'var(--white)',
-                    border: '2px solid var(--border)',
-                    boxShadow: 'var(--shadow-sm)',
-                  }}
-                  onMouseEnter={e => {
-                    const el = e.currentTarget as HTMLElement
-                    el.style.borderColor = 'var(--coral)'
-                    el.style.boxShadow = 'var(--shadow)'
-                  }}
-                  onMouseLeave={e => {
-                    const el = e.currentTarget as HTMLElement
-                    el.style.borderColor = 'var(--border)'
-                    el.style.boxShadow = 'var(--shadow-sm)'
-                  }}
-                >
+                <div className="group flex flex-col w-full rounded-2xl p-8 transition-all duration-200 cursor-pointer bg-white border-2 border-border hover:border-coral shadow-sm hover:shadow-md">
                   <div
                     className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl"
                     style={{ background: 'var(--forest)', boxShadow: 'var(--shadow-sm)' }}
@@ -143,24 +126,7 @@ export default async function HomePage({
 
               {/* Track 2 — Language Learning */}
               <Link href="/courses?category=language" locale={loc} className="flex">
-                <div
-                  className="group flex flex-col w-full rounded-2xl p-8 transition-all duration-200 cursor-pointer"
-                  style={{
-                    background: 'var(--white)',
-                    border: '2px solid var(--border)',
-                    boxShadow: 'var(--shadow-sm)',
-                  }}
-                  onMouseEnter={e => {
-                    const el = e.currentTarget as HTMLElement
-                    el.style.borderColor = 'var(--rose)'
-                    el.style.boxShadow = 'var(--shadow)'
-                  }}
-                  onMouseLeave={e => {
-                    const el = e.currentTarget as HTMLElement
-                    el.style.borderColor = 'var(--border)'
-                    el.style.boxShadow = 'var(--shadow-sm)'
-                  }}
-                >
+                <div className="group flex flex-col w-full rounded-2xl p-8 transition-all duration-200 cursor-pointer bg-white border-2 border-border hover:border-rose shadow-sm hover:shadow-md">
                   <div
                     className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl"
                     style={{ background: 'var(--forest)', boxShadow: 'var(--shadow-sm)' }}
