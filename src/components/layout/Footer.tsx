@@ -70,7 +70,7 @@ export function Footer({ locale, settings }: FooterProps) {
           <div className="lg:col-span-1">
             <div className="mb-5">
               <span className="text-2xl font-bold" style={{ color: 'var(--white)' }}>
-                elev8<span style={{ color: 'var(--coral)' }}>.</span>
+                elev8<span style={{ color: 'var(--gold)' }}>.</span>
               </span>
               <p className="mt-1 text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>
                 {locale === 'ar' ? 'مركز إيليفيت للتعليم' : "Kuwait's Premier Language Institute"}
@@ -88,7 +88,7 @@ export function Footer({ locale, settings }: FooterProps) {
                     className="h-[34px] w-[34px] flex items-center justify-center rounded-md transition-colors duration-150"
                     style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.7)' }}
                     onMouseEnter={e => {
-                      ;(e.currentTarget as HTMLElement).style.background = 'var(--coral)'
+                      ;(e.currentTarget as HTMLElement).style.background = 'var(--gold)'
                       ;(e.currentTarget as HTMLElement).style.color = 'white'
                     }}
                     onMouseLeave={e => {
@@ -116,7 +116,7 @@ export function Footer({ locale, settings }: FooterProps) {
                     locale={locale}
                     className="text-sm transition-colors duration-100"
                     style={{ color: 'rgba(255,255,255,0.55)' }}
-                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--coral-light)')}
+                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--gold-light)')}
                     onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.55)')}
                   >
                     {link.label}
@@ -139,7 +139,7 @@ export function Footer({ locale, settings }: FooterProps) {
                     locale={locale}
                     className="text-sm transition-colors duration-100"
                     style={{ color: 'rgba(255,255,255,0.55)' }}
-                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--coral-light)')}
+                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--gold-light)')}
                     onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.55)')}
                   >
                     {p.label}
@@ -157,15 +157,15 @@ export function Footer({ locale, settings }: FooterProps) {
             <ul className="space-y-3">
               {address && (
                 <li className="flex items-start gap-3">
-                  <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--coral)' }} />
+                  <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--gold)' }} />
                   <span className="text-sm">{address}</span>
                 </li>
               )}
               {phone && (
                 <li className="flex items-center gap-3">
-                  <Phone className="h-4 w-4 flex-shrink-0" style={{ color: 'var(--coral)' }} />
+                  <Phone className="h-4 w-4 flex-shrink-0" style={{ color: 'var(--gold)' }} />
                   <a href={`tel:${phone}`} className="text-sm transition-colors"
-                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--coral-light)')}
+                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--gold-light)')}
                     onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.55)')}>
                     {phone}
                   </a>
@@ -173,9 +173,9 @@ export function Footer({ locale, settings }: FooterProps) {
               )}
               {email && (
                 <li className="flex items-center gap-3">
-                  <Mail className="h-4 w-4 flex-shrink-0" style={{ color: 'var(--coral)' }} />
+                  <Mail className="h-4 w-4 flex-shrink-0" style={{ color: 'var(--gold)' }} />
                   <a href={`mailto:${email}`} className="text-sm transition-colors"
-                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--coral-light)')}
+                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--gold-light)')}
                     onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.55)')}>
                     {email}
                   </a>
@@ -192,7 +192,7 @@ export function Footer({ locale, settings }: FooterProps) {
         >
           <p>© {year} Elevate Learning Center. All rights reserved.</p>
           <p>
-            Made with <span style={{ color: 'var(--coral-light)' }}>♥</span> in Kuwait
+            Made with <span style={{ color: 'var(--gold-light)' }}>♥</span> in Kuwait
           </p>
         </div>
       </div>

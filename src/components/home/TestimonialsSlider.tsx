@@ -100,7 +100,7 @@ export function TestimonialsSlider({ testimonials, locale }: TestimonialsSliderP
         {/* Quote mark */}
         <div
           className="text-8xl font-serif leading-none mb-4 select-none"
-          style={{ color: 'var(--coral)', opacity: 0.3 }}
+          style={{ color: 'var(--gold)', opacity: 0.3 }}
         >
           {isRtl ? '„' : '"'}
         </div>
@@ -116,7 +116,7 @@ export function TestimonialsSlider({ testimonials, locale }: TestimonialsSliderP
         {/* Stars */}
         <div className="flex justify-center gap-1 mb-6">
           {Array.from({ length: testimonial.rating ?? 5 }).map((_, i) => (
-            <Star key={i} className="h-5 w-5" style={{ fill: 'var(--coral)', color: 'var(--coral)' }} />
+            <Star key={i} className="h-5 w-5" style={{ fill: 'var(--gold)', color: 'var(--gold)' }} />
           ))}
         </div>
 
@@ -125,7 +125,7 @@ export function TestimonialsSlider({ testimonials, locale }: TestimonialsSliderP
           {testimonial.avatar ? (
             <div
               className="relative h-14 w-14 rounded-full overflow-hidden"
-              style={{ border: '2px solid var(--coral)' }}
+              style={{ border: '2px solid var(--gold)' }}
             >
               <Image
                 src={urlFor(testimonial.avatar).width(112).height(112).url()}
@@ -145,7 +145,7 @@ export function TestimonialsSlider({ testimonials, locale }: TestimonialsSliderP
           <div className="text-start">
             <p className="font-semibold" style={{ color: 'var(--forest)' }}>{testimonial.name}</p>
             {testimonial.course && (
-              <p className="text-sm" style={{ color: 'var(--coral)' }}>{testimonial.course}</p>
+              <p className="text-sm" style={{ color: 'var(--gold)' }}>{testimonial.course}</p>
             )}
           </div>
         </div>
@@ -157,7 +157,7 @@ export function TestimonialsSlider({ testimonials, locale }: TestimonialsSliderP
           onClick={isRtl ? next : prev}
           className="p-2.5 rounded-full border transition-colors"
           style={{ borderColor: 'rgba(26,58,42,0.2)', color: 'rgba(26,58,42,0.5)' }}
-          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--coral)'; (e.currentTarget as HTMLElement).style.color = 'var(--coral)' }}
+          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--gold)'; (e.currentTarget as HTMLElement).style.color = 'var(--gold)' }}
           onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(26,58,42,0.2)'; (e.currentTarget as HTMLElement).style.color = 'rgba(26,58,42,0.5)' }}
           aria-label="Previous"
         >
@@ -174,7 +174,7 @@ export function TestimonialsSlider({ testimonials, locale }: TestimonialsSliderP
               style={{
                 width: i === current ? 24 : 10,
                 height: 10,
-                background: i === current ? 'var(--coral)' : 'rgba(26,58,42,0.15)',
+                background: i === current ? 'var(--gold)' : 'rgba(26,58,42,0.15)',
               }}
               aria-label={`Go to testimonial ${i + 1}`}
             />
@@ -185,7 +185,7 @@ export function TestimonialsSlider({ testimonials, locale }: TestimonialsSliderP
           onClick={isRtl ? prev : next}
           className="p-2.5 rounded-full border transition-colors"
           style={{ borderColor: 'rgba(26,58,42,0.2)', color: 'rgba(26,58,42,0.5)' }}
-          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--coral)'; (e.currentTarget as HTMLElement).style.color = 'var(--coral)' }}
+          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--gold)'; (e.currentTarget as HTMLElement).style.color = 'var(--gold)' }}
           onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(26,58,42,0.2)'; (e.currentTarget as HTMLElement).style.color = 'rgba(26,58,42,0.5)' }}
           aria-label="Next"
         >

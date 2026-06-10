@@ -115,7 +115,7 @@ export function Hero({ locale, settings, ctaLabel, ctaSecondaryLabel }: HeroProp
                 'text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-[1.1] animate-fade-up',
                 !hasImages && 'text-brand-900'
               )}
-              style={hasImages ? { color: 'var(--coral)', textShadow: '0 2px 12px rgba(0,0,0,0.85), 0 0 32px rgba(0,0,0,0.5)' } : undefined}
+              style={hasImages ? { color: 'var(--gold)', textShadow: '0 2px 12px rgba(0,0,0,0.85), 0 0 32px rgba(0,0,0,0.5)' } : undefined}
             >
               {headline}
             </h1>

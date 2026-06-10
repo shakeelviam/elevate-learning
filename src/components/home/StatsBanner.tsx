@@ -81,7 +81,7 @@ function AnimatedStat({
       )}
       <div
         className="text-4xl sm:text-5xl font-bold mb-2 tabular-nums"
-        style={{ color: 'var(--coral)', letterSpacing: '-0.02em' }}
+        style={{ color: 'var(--gold)', letterSpacing: '-0.02em' }}
       >
         {display}
       </div>

@@ -72,7 +72,7 @@ function FlyoutMenu({ items, locale, onClose, level = 0 }: FlyoutMenuProps) {
             style={{ color: 'var(--text)' }}
             onMouseEnter={e => {
               e.currentTarget.style.background = 'var(--forest)'
-              e.currentTarget.style.color = 'var(--coral-light)'
+              e.currentTarget.style.color = 'var(--gold)'
             }}
             onMouseLeave={e => {
               e.currentTarget.style.background = 'transparent'
@@ -165,7 +165,7 @@ export function Header({ locale, settings }: HeaderProps) {
               />
               <span
                 className="text-[11px] font-medium tracking-[0.22em] leading-none mt-1"
-                style={{ color: 'var(--coral)' }}
+                style={{ color: 'var(--gold)' }}
               >
                 {locale === 'ar' ? 'مركز إيليفيت للتعليم' : 'LEARNING CENTER'}
               </span>
@@ -238,7 +238,7 @@ export function Header({ locale, settings }: HeaderProps) {
                 href="/contact"
                 locale={locale}
                 className="hidden sm:inline-flex px-4 py-1.5 text-sm font-semibold rounded-md transition-opacity hover:opacity-90"
-                style={{ background: 'var(--coral)', color: 'var(--white)' }}
+                style={{ background: 'var(--gold)', color: 'var(--forest)' }}
               >
                 {locale === 'ar' ? 'استفسر الآن' : 'Enquire Now'}
               </Link>
@@ -307,7 +307,7 @@ export function Header({ locale, settings }: HeaderProps) {
                 href="/contact"
                 locale={locale}
                 className="block w-full text-center px-4 py-3 rounded-md font-semibold"
-                style={{ background: 'var(--coral)', color: 'var(--white)' }}
+                style={{ background: 'var(--gold)', color: 'var(--forest)' }}
                 onClick={() => setMobileOpen(false)}
               >
                 {locale === 'ar' ? 'استفسر الآن' : 'Enquire Now'}

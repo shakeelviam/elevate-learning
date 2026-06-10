@@ -93,12 +93,12 @@ export default async function HomePage({
             <div className="grid sm:grid-cols-2 gap-6">
               {/* Track 1 — Exam Prep */}
               <Link href="/courses?category=exam" locale={loc} className="flex">
-                <div className="group flex flex-col w-full rounded-2xl p-8 transition-all duration-200 cursor-pointer bg-white border-2 border-border hover:border-coral shadow-sm hover:shadow-md">
+                <div className="group flex flex-col w-full rounded-2xl p-8 transition-all duration-200 cursor-pointer bg-white border-2 border-border hover:border-gold shadow-sm hover:shadow-md">
                   <div
                     className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl"
                     style={{ background: 'var(--forest)', boxShadow: 'var(--shadow-sm)' }}
                   >
-                    <GraduationCap className="h-7 w-7" style={{ color: 'var(--coral)' }} />
+                    <GraduationCap className="h-7 w-7" style={{ color: 'var(--gold)' }} />
                   </div>
                   {(loc === 'ar' ? path.examTitleAr : path.examTitleEn) && (
                     <h3 className="text-xl font-bold mb-2" style={{ color: 'var(--forest)' }}>
@@ -113,7 +113,7 @@ export default async function HomePage({
                   {(loc === 'ar' ? path.browseLabelAr : path.browseLabelEn) && (
                     <span
                       className="inline-flex items-center gap-1.5 text-sm font-semibold group-hover:gap-2.5 transition-all"
-                      style={{ color: 'var(--coral)' }}
+                      style={{ color: 'var(--gold)' }}
                     >
                       {loc === 'ar' ? path.browseLabelAr : path.browseLabelEn}
                       <ArrowRight className={`h-4 w-4 ${loc === 'ar' ? 'rotate-180' : ''}`} />
@@ -124,12 +124,12 @@ export default async function HomePage({
 
               {/* Track 2 — Language Learning */}
               <Link href="/courses?category=language" locale={loc} className="flex">
-                <div className="group flex flex-col w-full rounded-2xl p-8 transition-all duration-200 cursor-pointer bg-white border-2 border-border hover:border-rose shadow-sm hover:shadow-md">
+                <div className="group flex flex-col w-full rounded-2xl p-8 transition-all duration-200 cursor-pointer bg-white border-2 border-border hover:border-link-green shadow-sm hover:shadow-md">
                   <div
                     className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl"
                     style={{ background: 'var(--forest)', boxShadow: 'var(--shadow-sm)' }}
                   >
-                    <BookOpen className="h-7 w-7" style={{ color: 'var(--rose-light)' }} />
+                    <BookOpen className="h-7 w-7" style={{ color: 'var(--gold-light)' }} />
                   </div>
                   {(loc === 'ar' ? path.langTitleAr : path.langTitleEn) && (
                     <h3 className="text-xl font-bold mb-2" style={{ color: 'var(--forest)' }}>
@@ -144,7 +144,7 @@ export default async function HomePage({
                   {(loc === 'ar' ? path.browseLabelAr : path.browseLabelEn) && (
                     <span
                       className="inline-flex items-center gap-1.5 text-sm font-semibold group-hover:gap-2.5 transition-all"
-                      style={{ color: 'var(--rose)' }}
+                      style={{ color: 'var(--link-green)' }}
                     >
                       {loc === 'ar' ? path.browseLabelAr : path.browseLabelEn}
                       <ArrowRight className={`h-4 w-4 ${loc === 'ar' ? 'rotate-180' : ''}`} />
@@ -222,7 +222,7 @@ export default async function HomePage({
 
       {/* ── Testimonials ─────────────────────────────────────────────────── */}
       {testimonials.length > 0 && (
-        <section className="py-20" style={{ background: 'var(--rose-pale)' }}>
+        <section className="py-20" style={{ background: 'var(--gold-pale)' }}>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <p className="eyebrow mb-4">{loc === 'ar' ? 'قصص النجاح' : 'Success Stories'}</p>
             <h2
@@ -238,18 +238,18 @@ export default async function HomePage({
 
       {/* ── CTA Banner ───────────────────────────────────────────────────── */}
       {cta && (
-        <section className="py-16" style={{ background: 'var(--coral)' }}>
+        <section className="py-16" style={{ background: 'var(--gold)' }}>
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
             {(loc === 'ar' ? cta.titleAr : cta.titleEn) && (
               <h2
                 className="text-3xl sm:text-4xl font-bold mb-4"
-                style={{ color: 'var(--white)', letterSpacing: '-0.02em' }}
+                style={{ color: 'var(--forest)', letterSpacing: '-0.02em' }}
               >
                 {loc === 'ar' ? cta.titleAr : cta.titleEn}
               </h2>
             )}
             {(loc === 'ar' ? cta.subtitleAr : cta.subtitleEn) && (
-              <p className="text-lg mb-8 max-w-2xl mx-auto" style={{ color: 'rgba(255,255,255,0.8)' }}>
+              <p className="text-lg mb-8 max-w-2xl mx-auto" style={{ color: 'rgba(21,71,52,0.75)' }}>
                 {loc === 'ar' ? cta.subtitleAr : cta.subtitleEn}
               </p>
             )}
@@ -257,7 +257,7 @@ export default async function HomePage({
               href="/courses"
               locale={loc}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-md font-semibold transition-opacity hover:opacity-90"
-              style={{ background: 'var(--white)', color: 'var(--coral)' }}
+              style={{ background: 'var(--forest)', color: 'var(--white)' }}
             >
               {(loc === 'ar' ? cta.buttonAr : cta.buttonEn) || t('home.ctaButton')}
               <ArrowRight className={`h-5 w-5 ${loc === 'ar' ? 'rotate-180' : ''}`} />

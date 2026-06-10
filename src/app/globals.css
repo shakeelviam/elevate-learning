@@ -2,29 +2,25 @@
 
 /* ── Tailwind v4 Theme ───────────────────────────────────────────────────────── */
 @theme {
-  /* Forest — primary dark base */
-  --color-forest:      #1A3A2A;
-  --color-forest-mid:  #224D38;
-  --color-forest-light:#2D6349;
+  /* Forest — primary dark base (Baylor Green) */
+  --color-forest:      #154734;
+  --color-forest-mid:  #1c5944;
+  --color-forest-light:#006A52;
 
-  /* Coral — primary accent */
-  --color-coral:       #E8593A;
-  --color-coral-light: #F4866A;
-  --color-coral-pale:  #FDF0EC;
+  /* Gold — primary accent (University Gold) */
+  --color-gold:        #FFB81C;
+  --color-gold-light:  #FFC94D;
+  --color-gold-pale:   #FFF8E7;
 
-  /* Rose — secondary accent */
-  --color-rose:        #F43F5E;
-  --color-rose-light:  #FDA4AF;
-  --color-rose-pale:   #FFF0F3;
+  /* Link Green — secondary accent */
+  --color-link-green:  #006A52;
 
   /* Neutrals */
   --color-cream:       #F7F4EE;
-  --color-text:        #1A1A1A;
+  --color-text:        #383838;
   --color-muted:       #6B7280;
   --color-border:      #E5E0D8;
-
-  /* Keep off-white for any legacy usage */
-  --color-off-white:   #F7F4EE;
+  --color-charcoal:    #53565a;
 
   --font-family-sans:    var(--font-body);
   --font-family-display: var(--font-body);
@@ -33,17 +29,18 @@
 
 /* ── CSS Variables ───────────────────────────────────────────────────────────── */
 :root {
-  --forest:      #1A3A2A;
-  --forest-mid:  #224D38;
-  --coral:       #E8593A;
-  --coral-light: #F4866A;
-  --rose:        #F43F5E;
-  --rose-light:  #FDA4AF;
-  --rose-pale:   #FFF0F3;
-  --cream:       #F7F4EE;
-  --white:       #FFFFFF;
-  --text:        #1A1A1A;
-  --muted:       #6B7280;
+  --forest:       #154734;
+  --forest-mid:   #1c5944;
+  --forest-light: #006A52;
+  --gold:         #FFB81C;
+  --gold-light:   #FFC94D;
+  --gold-pale:    #FFF8E7;
+  --link-green:   #006A52;
+  --cream:        #F7F4EE;
+  --white:        #FFFFFF;
+  --text:         #383838;
+  --muted:        #6B7280;
+  --charcoal:     #53565a;
 
   --font-body:    'Jost', sans-serif;
   --font-arabic:  'Noto Kufi Arabic', sans-serif;
@@ -100,7 +97,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ── Focus ───────────────────────────────────────────────────────────────────── */
 *:focus-visible {
-  outline: 2px solid var(--coral);
+  outline: 2px solid var(--gold);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -175,14 +172,14 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--coral);
+  color: var(--gold);
 }
 .eyebrow::before {
   content: '';
   display: block;
   width: 20px;
   height: 2px;
-  background: var(--coral);
+  background: var(--gold);
   flex-shrink: 0;
 }
 
@@ -197,13 +194,13 @@ h1, h2, h3, h4, h5, h6 {
 .prose-elevate p  { margin: 0 0 1rem; }
 .prose-elevate ul, .prose-elevate ol { padding-inline-start: 1.5rem; margin: 0 0 1rem; }
 .prose-elevate li { margin-bottom: 0.4rem; }
-.prose-elevate blockquote { border-inline-start: 4px solid var(--coral); padding-inline-start: 1.25rem; font-style: italic; margin: 1.5rem 0; }
-.prose-elevate a  { color: var(--coral); text-decoration: underline; }
+.prose-elevate blockquote { border-inline-start: 4px solid var(--gold); padding-inline-start: 1.25rem; font-style: italic; margin: 1.5rem 0; }
+.prose-elevate a  { color: var(--link-green); text-decoration: underline; }
 .prose-elevate strong { color: var(--text); font-weight: 700; }
 
 /* ── Section pattern ─────────────────────────────────────────────────────────── */
 .section-pattern {
-  background-image: radial-gradient(circle, rgba(26,58,42,0.05) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(21,71,52,0.05) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
@@ -219,7 +216,7 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-block;
   width: 4px;
   height: 1.1em;
-  background: var(--coral);
+  background: var(--gold);
   vertical-align: text-bottom;
   animation: blink 1s step-end infinite;
 }

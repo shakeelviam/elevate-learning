@@ -19,7 +19,7 @@ interface CourseCardProps {
   index?: number
 }
 
-const STRIPES = ['var(--coral)', 'var(--rose)', 'var(--forest)']
+const STRIPES = ['var(--gold)', 'var(--link-green)', 'var(--forest)']
 
 export function CourseCard({ course, locale, viewDetailsLabel, index = 0 }: CourseCardProps) {
   const title = getLocaleText(course.title, locale, 'Untitled Course')
