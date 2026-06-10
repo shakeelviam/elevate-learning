@@ -41,7 +41,7 @@ function FlyoutMenu({ items, locale, onClose, level = 0 }: FlyoutMenuProps) {
     setActiveHref(href)
   }
   const handleLeave = () => {
-    closeTimer.current = setTimeout(() => setActiveHref(null), 100)
+    closeTimer.current = setTimeout(() => setActiveHref(null), 200)
   }
   const handlePanelEnter = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current)
@@ -95,7 +95,7 @@ function FlyoutMenu({ items, locale, onClose, level = 0 }: FlyoutMenuProps) {
             <div
               className={cn(
                 'absolute top-0 z-50',
-                locale === 'ar' ? 'right-full mr-1' : 'left-full ml-1'
+                locale === 'ar' ? 'right-full -mr-px' : 'left-full -ml-px'
               )}
               onMouseEnter={handlePanelEnter}
               onMouseLeave={handleLeave}
@@ -144,7 +144,7 @@ export function Header({ locale, settings }: HeaderProps) {
   }
 
   const handleMenuLeave = () => {
-    closeTimer.current = setTimeout(() => setOpenMenu(null), 120)
+    closeTimer.current = setTimeout(() => setOpenMenu(null), 200)
   }
 
   return (
@@ -202,7 +202,7 @@ export function Header({ locale, settings }: HeaderProps) {
                   {item.children && openMenu === item.href && (
                     <div
                       className={cn(
-                        'absolute top-full mt-1 z-50',
+                        'absolute top-full z-50',
                         locale === 'ar' ? 'right-0' : 'left-0'
                       )}
                       onMouseEnter={() => handleMenuEnter(item.href)}
