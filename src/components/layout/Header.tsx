@@ -153,7 +153,7 @@ export function Header({ locale, settings }: HeaderProps) {
 
         {/* ── Row 1: Logo + Utility ── */}
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-14 items-center justify-between gap-4">
+          <div className="flex h-16 items-center justify-between gap-4">
 
             {/* Logo */}
             <Link href="/" locale={locale} className="flex flex-col items-start flex-shrink-0">
@@ -300,7 +300,7 @@ export function Header({ locale, settings }: HeaderProps) {
       {/* Mobile full-screen overlay */}
       {mobileOpen && (
         <div className="fixed inset-0 z-40 lg:hidden flex flex-col" style={{ background: 'var(--forest)' }}>
-          <div className="h-14 px-4 flex items-center justify-between">
+          <div className="h-16 px-4 flex items-center justify-between">
             <Image
               src="/elev8.svg"
               alt={siteName}
@@ -362,8 +362,8 @@ export function Header({ locale, settings }: HeaderProps) {
         </div>
       )}
 
-      {/* Spacer — h-14 (row1) + 1px (divider) + h-11 (row2) = 101px desktop, h-14 mobile */}
-      <div className="h-14 lg:h-[101px]" />
+      {/* Spacer — h-16 (row1) + 1px (divider) + h-11 (row2) = 109px desktop, h-16 mobile */}
+      <div className="h-16 lg:h-[109px]" />
     </>
   )
 }
