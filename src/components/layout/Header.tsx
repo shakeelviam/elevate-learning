@@ -149,44 +149,119 @@ export function Header({ locale, settings }: HeaderProps) {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 h-20" style={{ background: 'var(--forest)' }}>
+      <header className="fixed inset-x-0 top-0 z-50" style={{ background: 'var(--forest)' }}>
+
+        {/* ── Row 1: Logo + Utility ── */}
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-20 items-center justify-between gap-4">
+          <div className="flex h-14 items-center justify-between gap-4">
 
             {/* Logo */}
             <Link href="/" locale={locale} className="flex flex-col items-start flex-shrink-0">
               <Image
                 src="/elev8.svg"
                 alt={siteName}
-                width={120}
-                height={44}
+                width={110}
+                height={40}
                 className="object-contain brightness-0 invert"
                 priority
               />
               <span
-                className="text-[11px] font-medium tracking-[0.22em] leading-none mt-1"
+                className="text-[10px] font-medium tracking-[0.22em] leading-none mt-0.5"
                 style={{ color: 'var(--gold)' }}
               >
                 {locale === 'ar' ? 'مركز إيليفيت للتعليم' : 'LEARNING CENTER'}
               </span>
             </Link>
 
-            {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-1">
+            {/* Utility: language, enquire, auth — desktop */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={switchLocale}
+                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors"
+                style={{ color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.15)' }}
+                onMouseEnter={e => (e.currentTarget.style.color = 'var(--white)')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.7)')}
+              >
+                <Globe className="h-4 w-4" />
+                <span>{locale === 'en' ? 'العربية' : 'English'}</span>
+              </button>
+
+              <Link
+                href="/contact"
+                locale={locale}
+                className="hidden sm:inline-flex px-4 py-1.5 text-sm font-semibold rounded-md transition-opacity hover:opacity-90"
+                style={{ background: 'var(--gold)', color: 'var(--forest)' }}
+              >
+                {locale === 'ar' ? 'استفسر الآن' : 'Enquire Now'}
+              </Link>
+
+              <SignedOut>
+                <Link
+                  href="/sign-in"
+                  locale={locale}
+                  className="hidden sm:inline-flex px-4 py-1.5 text-sm font-medium transition-colors"
+                  style={{ color: 'rgba(255,255,255,0.7)' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = 'var(--white)')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.7)')}
+                >
+                  {t('signIn')}
+                </Link>
+              </SignedOut>
+              <SignedIn>
+                <Link
+                  href="/dashboard"
+                  locale={locale}
+                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium transition-colors"
+                  style={{ color: 'rgba(255,255,255,0.7)' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = 'var(--white)')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.7)')}
+                >
+                  <LayoutDashboard className="h-4 w-4" />
+                  {t('dashboard')}
+                </Link>
+                <UserButton afterSignOutUrl={`/${locale}`} />
+              </SignedIn>
+
+              {/* Mobile toggle */}
+              <button
+                className="lg:hidden p-2 rounded-md"
+                style={{ color: 'rgba(255,255,255,0.8)' }}
+                onClick={() => setMobileOpen(!mobileOpen)}
+                aria-label="Toggle menu"
+              >
+                {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Divider ── */}
+        <div style={{ borderTop: '1px solid rgba(255,184,28,0.2)' }} />
+
+        {/* ── Row 2: Desktop Nav — flush left ── */}
+        <div className="hidden lg:block" style={{ background: 'rgba(0,0,0,0.15)' }}>
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <nav className="flex items-center h-11">
               {navItems.map((item) => (
                 <div
                   key={item.href}
-                  className="relative"
+                  className="relative h-full flex items-center"
                   onMouseEnter={() => item.children && handleMenuEnter(item.href)}
                   onMouseLeave={handleMenuLeave}
                 >
                   <Link
                     href={item.href}
                     locale={locale}
-                    className="flex items-center gap-1 px-3.5 py-2 text-sm font-medium rounded-md transition-colors duration-150"
+                    className="flex items-center gap-1 px-4 h-full text-sm font-medium transition-colors duration-150"
                     style={{ color: 'rgba(255,255,255,0.75)' }}
-                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--white)')}
-                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.75)')}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.color = 'var(--gold)'
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.05)'
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.color = 'rgba(255,255,255,0.75)'
+                      e.currentTarget.style.background = 'transparent'
+                    }}
                   >
                     {item.label}
                     {item.children && (
@@ -218,67 +293,6 @@ export function Header({ locale, settings }: HeaderProps) {
                 </div>
               ))}
             </nav>
-
-            {/* Right actions */}
-            <div className="flex items-center gap-2">
-              {/* Language switcher */}
-              <button
-                onClick={switchLocale}
-                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors"
-                style={{ color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.15)' }}
-                onMouseEnter={e => (e.currentTarget.style.color = 'var(--white)')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.7)')}
-              >
-                <Globe className="h-4 w-4" />
-                <span>{locale === 'en' ? 'العربية' : 'English'}</span>
-              </button>
-
-              {/* Enquire Now */}
-              <Link
-                href="/contact"
-                locale={locale}
-                className="hidden sm:inline-flex px-4 py-1.5 text-sm font-semibold rounded-md transition-opacity hover:opacity-90"
-                style={{ background: 'var(--gold)', color: 'var(--forest)' }}
-              >
-                {locale === 'ar' ? 'استفسر الآن' : 'Enquire Now'}
-              </Link>
-
-              {/* Auth */}
-              <SignedOut>
-                <Link
-                  href="/sign-in"
-                  locale={locale}
-                  className="hidden sm:inline-flex px-4 py-1.5 text-sm font-medium transition-colors"
-                  style={{ color: 'rgba(255,255,255,0.7)' }}
-                  onMouseEnter={e => (e.currentTarget.style.color = 'var(--white)')}
-                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.7)')}
-                >
-                  {t('signIn')}
-                </Link>
-              </SignedOut>
-              <SignedIn>
-                <Link
-                  href="/dashboard"
-                  locale={locale}
-                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium transition-colors"
-                  style={{ color: 'rgba(255,255,255,0.7)' }}
-                >
-                  <LayoutDashboard className="h-4 w-4" />
-                  {t('dashboard')}
-                </Link>
-                <UserButton afterSignOutUrl={`/${locale}`} />
-              </SignedIn>
-
-              {/* Mobile toggle */}
-              <button
-                className="lg:hidden p-2 rounded-md transition-colors"
-                style={{ color: 'rgba(255,255,255,0.8)' }}
-                onClick={() => setMobileOpen(!mobileOpen)}
-                aria-label="Toggle menu"
-              >
-                {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-              </button>
-            </div>
           </div>
         </div>
       </header>
@@ -286,7 +300,7 @@ export function Header({ locale, settings }: HeaderProps) {
       {/* Mobile full-screen overlay */}
       {mobileOpen && (
         <div className="fixed inset-0 z-40 lg:hidden flex flex-col" style={{ background: 'var(--forest)' }}>
-          <div className="h-20 px-4 flex items-center justify-between">
+          <div className="h-14 px-4 flex items-center justify-between">
             <Image
               src="/elev8.svg"
               alt={siteName}
@@ -348,8 +362,8 @@ export function Header({ locale, settings }: HeaderProps) {
         </div>
       )}
 
-      {/* Spacer */}
-      <div className="h-20" />
+      {/* Spacer — h-14 (row1) + 1px (divider) + h-11 (row2) = 101px desktop, h-14 mobile */}
+      <div className="h-14 lg:h-[101px]" />
     </>
   )
 }
