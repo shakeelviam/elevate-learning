@@ -65,7 +65,7 @@ export function Footer({ locale, settings }: FooterProps) {
                   alt="Elev8 Learning Center"
                   width={943}
                   height={600}
-                  className="h-20 w-auto object-contain"
+                  className="h-24 w-auto object-contain"
                 />
               </Link>
             </div>

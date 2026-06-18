@@ -152,7 +152,7 @@ export function Header({ locale, settings }: HeaderProps) {
 
         {/* ── Row 1: Logo + Utility ── */}
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-20 items-center justify-between gap-4">
+          <div className="flex h-24 items-center justify-between gap-4">
 
             {/* Logo */}
             <Link href="/" locale={locale} className="flex items-center flex-shrink-0">
@@ -161,7 +161,7 @@ export function Header({ locale, settings }: HeaderProps) {
                 alt={siteName}
                 width={943}
                 height={600}
-                className="h-16 w-auto object-contain"
+                className="h-20 w-auto object-contain"
                 priority
               />
             </Link>
@@ -281,13 +281,13 @@ export function Header({ locale, settings }: HeaderProps) {
       {/* Mobile full-screen overlay */}
       {mobileOpen && (
         <div className="fixed inset-0 z-40 lg:hidden flex flex-col" style={{ background: 'var(--forest)' }}>
-          <div className="h-16 px-4 flex items-center justify-between">
+          <div className="h-20 px-4 flex items-center justify-between">
             <Image
               src="/elev8-logo.png"
               alt={siteName}
               width={943}
               height={600}
-              className="h-14 w-auto object-contain"
+              className="h-16 w-auto object-contain"
             />
             <button onClick={() => setMobileOpen(false)} style={{ color: 'rgba(255,255,255,0.8)' }}>
               <X className="h-5 w-5" />
@@ -332,8 +332,8 @@ export function Header({ locale, settings }: HeaderProps) {
         </div>
       )}
 
-      {/* Spacer — h-16 (row1) + 1px (divider) + h-11 (row2) = 109px desktop, h-16 mobile */}
-      <div className="h-16 lg:h-[109px]" />
+      {/* Spacer — h-24 (row1) + 1px (divider) + h-11 (row2) = 141px desktop, h-24 mobile */}
+      <div className="h-24 lg:h-[141px]" />
     </>
   )
 }
