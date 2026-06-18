@@ -152,7 +152,7 @@ export function Header({ locale, settings }: HeaderProps) {
 
         {/* ── Row 1: Logo + Utility ── */}
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between gap-4">
+          <div className="flex h-20 items-center justify-between gap-4">
 
             {/* Logo */}
             <Link href="/" locale={locale} className="flex items-center flex-shrink-0">
@@ -161,7 +161,7 @@ export function Header({ locale, settings }: HeaderProps) {
                 alt={siteName}
                 width={1284}
                 height={846}
-                className="h-14 w-auto object-contain"
+                className="h-16 w-auto object-contain"
                 priority
               />
             </Link>
@@ -287,7 +287,7 @@ export function Header({ locale, settings }: HeaderProps) {
               alt={siteName}
               width={1284}
               height={846}
-              className="h-12 w-auto object-contain"
+              className="h-14 w-auto object-contain"
             />
             <button onClick={() => setMobileOpen(false)} style={{ color: 'rgba(255,255,255,0.8)' }}>
               <X className="h-5 w-5" />
