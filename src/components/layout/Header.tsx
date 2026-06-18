@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { usePathname, useRouter } from '@/i18n/navigation'
 import { Link } from '@/i18n/navigation'
-import { UserButton, SignedIn, SignedOut } from '@clerk/nextjs'
+import { UserButton, SignedIn } from '@clerk/nextjs'
 import Image from 'next/image'
 import {
   Menu,
@@ -195,18 +195,6 @@ export function Header({ locale, settings }: HeaderProps) {
                 {locale === 'ar' ? 'استفسر الآن' : 'Enquire Now'}
               </Link>
 
-              <SignedOut>
-                <Link
-                  href="/sign-in"
-                  locale={locale}
-                  className="hidden sm:inline-flex px-4 py-1.5 text-sm font-medium transition-colors"
-                  style={{ color: 'rgba(255,255,255,0.7)' }}
-                  onMouseEnter={e => (e.currentTarget.style.color = 'var(--white)')}
-                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.7)')}
-                >
-                  {t('signIn')}
-                </Link>
-              </SignedOut>
               <SignedIn>
                 <Link
                   href="/dashboard"
@@ -334,17 +322,6 @@ export function Header({ locale, settings }: HeaderProps) {
                 <Globe className="h-4 w-4" />
                 {locale === 'en' ? 'العربية' : 'English'}
               </button>
-              <SignedOut>
-                <Link
-                  href="/sign-in"
-                  locale={locale}
-                  className="block text-center px-4 py-3 rounded-md text-sm font-medium"
-                  style={{ color: 'rgba(255,255,255,0.7)' }}
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {t('signIn')}
-                </Link>
-              </SignedOut>
               <SignedIn>
                 <Link
                   href="/dashboard"

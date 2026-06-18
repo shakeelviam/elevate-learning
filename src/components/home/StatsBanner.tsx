@@ -72,7 +72,7 @@ function AnimatedStat({
   const display = num > 0 ? `${prefix}${count.toLocaleString()}${suffix}` : value
 
   return (
-    <div className="relative flex flex-col items-center text-center py-6 px-4">
+    <div className="relative flex flex-col items-center text-center py-3 px-4">
       {showDivider && (
         <div
           className="absolute inset-y-6 start-0 w-px hidden lg:block"

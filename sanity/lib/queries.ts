@@ -36,6 +36,7 @@ export async function getSiteSettings(): Promise<SanitySiteSettings | null> {
         heroBadges,
         heroFloatingStats,
         stats,
+        welcomeBlock,
         pathSection,
         ctaBanner,
         aiSection,

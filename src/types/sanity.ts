@@ -192,6 +192,10 @@ export interface SanitySiteSettings {
     stat4En?: string; stat4Ar?: string; stat4LabelEn?: string; stat4LabelAr?: string
   }
   // Home sections
+  welcomeBlock?: {
+    titleEn?: string; titleAr?: string
+    bodyEn?: string; bodyAr?: string
+  }
   pathSection?: {
     labelEn?: string; labelAr?: string
     titleEn?: string; titleAr?: string

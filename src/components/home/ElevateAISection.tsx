@@ -124,12 +124,16 @@ export function ElevateAISection({ locale, settings }: ElevateAISectionProps) {
             </div>
 
             {/* Contact prompt */}
-            <div className="rounded-2xl border border-brand-200 bg-white px-6 py-5 shadow-sm">
-              <p className="mb-3 text-sm font-semibold text-brand-700">{contactTitle}</p>
-              <p className="mb-4 text-sm leading-relaxed text-gray-500">{contactDesc}</p>
+            <div
+              className="rounded-2xl px-6 py-6 shadow-lg"
+              style={{ background: 'var(--forest)', border: '2px solid var(--gold)' }}
+            >
+              <p className="mb-2 text-base font-bold" style={{ color: 'var(--gold)' }}>{contactTitle}</p>
+              <p className="mb-5 text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.85)' }}>{contactDesc}</p>
               <a
                 href="mailto:info@elev8-edu.com"
-                className="inline-flex items-center gap-2 rounded-md bg-gold-500 px-5 py-2.5 text-sm font-bold text-white shadow-[0_4px_16px_rgba(201,168,76,0.35)] hover:bg-gold-400 transition-colors"
+                className="inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-bold transition-opacity hover:opacity-90"
+                style={{ background: 'var(--gold)', color: 'var(--forest)' }}
               >
                 {contactBtn}
                 <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} />

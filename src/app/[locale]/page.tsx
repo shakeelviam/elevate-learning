@@ -40,6 +40,7 @@ export default async function HomePage({
   ])
 
   const stats = settings?.stats
+  const welcome = settings?.welcomeBlock
   const path = settings?.pathSection
   const cta = settings?.ctaBanner
 
@@ -68,6 +69,25 @@ export default async function HomePage({
           stat3Label={(loc === 'ar' ? stats.stat3LabelAr : stats.stat3LabelEn) as string}
           stat4Label={(loc === 'ar' ? stats.stat4LabelAr : stats.stat4LabelEn) as string}
         />
+      )}
+
+      {/* ── Welcome ──────────────────────────────────────────────────────── */}
+      {welcome && (loc === 'ar' ? welcome.bodyAr : welcome.bodyEn) && (
+        <section className="py-16" style={{ background: 'var(--white)' }}>
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+            {(loc === 'ar' ? welcome.titleAr : welcome.titleEn) && (
+              <h2
+                className="text-3xl sm:text-4xl font-bold mb-6"
+                style={{ color: 'var(--forest)', letterSpacing: '-0.02em' }}
+              >
+                {loc === 'ar' ? welcome.titleAr : welcome.titleEn}
+              </h2>
+            )}
+            <p className="text-lg leading-relaxed" style={{ color: 'var(--muted)' }}>
+              {loc === 'ar' ? welcome.bodyAr : welcome.bodyEn}
+            </p>
+          </div>
+        </section>
       )}
 
       {/* ── Elevate AI ───────────────────────────────────────────────────── */}

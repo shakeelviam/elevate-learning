@@ -22,7 +22,6 @@ export function Footer({ locale, settings }: FooterProps) {
         { label: 'الرئيسية', href: '/' },
         { label: 'الدورات', href: '/courses' },
         { label: 'من نحن', href: '/about' },
-        { label: 'الأسئلة الشائعة', href: '/faq' },
         { label: 'تواصل معنا', href: '/contact' },
         { label: 'الخصوصية', href: '/privacy' },
         { label: 'الشروط والأحكام', href: '/terms' },
@@ -31,27 +30,17 @@ export function Footer({ locale, settings }: FooterProps) {
         { label: 'Home', href: '/' },
         { label: 'Courses', href: '/courses' },
         { label: 'About', href: '/about' },
-        { label: 'FAQ', href: '/faq' },
         { label: 'Contact', href: '/contact' },
         { label: 'Privacy Policy', href: '/privacy' },
         { label: 'Terms of Service', href: '/terms' },
       ]
 
-  const programs = locale === 'ar'
-    ? [
-        { label: 'تحضير IELTS', href: '/courses?category=exam&examType=ielts' },
-        { label: 'تحضير TOEFL', href: '/courses?category=exam&examType=toefl' },
-        { label: 'اللغة الإنجليزية', href: '/courses?category=language&language=english' },
-        { label: 'اللغة الفرنسية', href: '/courses/french-beginners' },
-        { label: 'مختبر الاختبارات', href: '/courses' },
-      ]
-    : [
-        { label: 'IELTS Preparation', href: '/courses?category=exam&examType=ielts' },
-        { label: 'TOEFL Preparation', href: '/courses?category=exam&examType=toefl' },
-        { label: 'English Language', href: '/courses?category=language&language=english' },
-        { label: 'French Language', href: '/courses/french-beginners' },
-        { label: 'The Test Lab', href: '/courses' },
-      ]
+  // Canonical exam order: GMAT, GRE, SAT, ACT, UCAT, PSAT, MCAT, IELTS, TOEFL, OET, CELPIP, PTE, IGCSE
+  const EXAM_ORDER = ['gmat','gre','sat','act','ucat','psat','mcat','ielts','toefl','oet','celpip','pte','igcse']
+  const programs = EXAM_ORDER.map(code => ({
+    label: code.toUpperCase(),
+    href: `/courses?category=exam&examType=${code}`,
+  }))
 
   const socialIcons = [
     { icon: Instagram, href: social.instagram, label: 'Instagram' },
@@ -105,7 +94,7 @@ export function Footer({ locale, settings }: FooterProps) {
 
           {/* Quick Links */}
           <div>
-            <h3 className="mb-4 text-xs font-medium uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.4)' }}>
+            <h3 className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--gold)' }}>
               {locale === 'ar' ? 'روابط سريعة' : 'Quick Links'}
             </h3>
             <ul className="space-y-2.5">
@@ -128,7 +117,7 @@ export function Footer({ locale, settings }: FooterProps) {
 
           {/* Programs */}
           <div>
-            <h3 className="mb-4 text-xs font-medium uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.4)' }}>
+            <h3 className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--gold)' }}>
               {locale === 'ar' ? 'البرامج' : 'Programs'}
             </h3>
             <ul className="space-y-2.5">
@@ -151,7 +140,7 @@ export function Footer({ locale, settings }: FooterProps) {
 
           {/* Contact */}
           <div>
-            <h3 className="mb-4 text-xs font-medium uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.4)' }}>
+            <h3 className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--gold)' }}>
               {locale === 'ar' ? 'تواصل معنا' : 'Contact'}
             </h3>
             <ul className="space-y-3">

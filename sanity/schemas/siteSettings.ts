@@ -166,6 +166,20 @@ export const siteSettingsSchema = defineType({
 
     // ── Home Sections ─────────────────────────────────────────────────────
     defineField({
+      name: 'welcomeBlock',
+      title: 'Welcome Section',
+      type: 'object',
+      group: 'homeSections',
+      description: 'Bold "Welcome" heading + paragraph shown below the stats banner.',
+      fields: [
+        { name: 'titleEn', type: 'string', title: 'Title (EN)', initialValue: 'Welcome' },
+        { name: 'titleAr', type: 'string', title: 'Title (AR)', initialValue: 'مرحباً' },
+        { name: 'bodyEn', type: 'text', title: 'Body (EN)', rows: 5 },
+        { name: 'bodyAr', type: 'text', title: 'Body (AR)', rows: 5 },
+      ],
+    }),
+
+    defineField({
       name: 'pathSection',
       title: '"Choose Your Path" Section',
       type: 'object',
