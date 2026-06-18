@@ -31,13 +31,21 @@ const LANGUAGES = [
   { en: 'Spanish', ar: 'الإسبانية',  value: 'spanish' },
 ]
 
+// Canonical exam order per client (Excel): GMAT, GRE, SAT, ACT, UCAT, PSAT, MCAT, IELTS, TOEFL, OET, CELPIP, PTE, IGCSE
 const EXAM_TYPES = [
-  { label: 'IELTS', value: 'ielts' },
-  { label: 'TOEFL', value: 'toefl' },
-  { label: 'OET',   value: 'oet'   },
-  { label: 'GMAT',  value: 'gmat'  },
-  { label: 'SAT',   value: 'sat'   },
-  { label: 'PTE',   value: 'pte'   },
+  { label: 'GMAT',   value: 'gmat'   },
+  { label: 'GRE',    value: 'gre'    },
+  { label: 'SAT',    value: 'sat'    },
+  { label: 'ACT',    value: 'act'    },
+  { label: 'UCAT',   value: 'ucat'   },
+  { label: 'PSAT',   value: 'psat'   },
+  { label: 'MCAT',   value: 'mcat'   },
+  { label: 'IELTS',  value: 'ielts'  },
+  { label: 'TOEFL',  value: 'toefl'  },
+  { label: 'OET',    value: 'oet'    },
+  { label: 'CELPIP', value: 'celpip' },
+  { label: 'PTE',    value: 'pte'    },
+  { label: 'IGCSE',  value: 'igcse'  },
 ]
 
 export function CourseFilters({
