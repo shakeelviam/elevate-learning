@@ -66,8 +66,7 @@ function FlyoutMenu({ items, locale, onClose, level = 0 }: FlyoutMenuProps) {
             href={item.href}
             locale={locale}
             className={cn(
-              'flex items-center justify-between gap-4 px-4 py-2.5 text-sm transition-colors duration-100',
-              item.children && 'font-semibold'
+              'flex items-center justify-between gap-4 px-4 py-2.5 text-sm font-semibold transition-colors duration-100',
             )}
             style={{ color: 'var(--text)' }}
             onMouseEnter={e => {
