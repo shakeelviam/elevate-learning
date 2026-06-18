@@ -155,21 +155,15 @@ export function Header({ locale, settings }: HeaderProps) {
           <div className="flex h-16 items-center justify-between gap-4">
 
             {/* Logo */}
-            <Link href="/" locale={locale} className="flex flex-col items-start flex-shrink-0">
+            <Link href="/" locale={locale} className="flex items-center flex-shrink-0">
               <Image
-                src="/elev8.svg"
+                src="/elev8-logo.png"
                 alt={siteName}
-                width={110}
-                height={40}
-                className="object-contain brightness-0 invert"
+                width={1284}
+                height={846}
+                className="h-14 w-auto object-contain"
                 priority
               />
-              <span
-                className="text-[10px] font-medium tracking-[0.22em] leading-none mt-0.5"
-                style={{ color: 'var(--gold)' }}
-              >
-                {locale === 'ar' ? 'مركز إيليفيت للتعليم' : 'LEARNING CENTER'}
-              </span>
             </Link>
 
             {/* Utility: language, enquire, auth — desktop */}
@@ -289,11 +283,11 @@ export function Header({ locale, settings }: HeaderProps) {
         <div className="fixed inset-0 z-40 lg:hidden flex flex-col" style={{ background: 'var(--forest)' }}>
           <div className="h-16 px-4 flex items-center justify-between">
             <Image
-              src="/elev8.svg"
+              src="/elev8-logo.png"
               alt={siteName}
-              width={100}
-              height={36}
-              className="object-contain brightness-0 invert"
+              width={1284}
+              height={846}
+              className="h-12 w-auto object-contain"
             />
             <button onClick={() => setMobileOpen(false)} style={{ color: 'rgba(255,255,255,0.8)' }}>
               <X className="h-5 w-5" />

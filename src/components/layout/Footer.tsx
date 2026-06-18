@@ -1,6 +1,7 @@
 'use client'
 
 import { Link } from '@/i18n/navigation'
+import Image from 'next/image'
 import { Instagram, Twitter, Facebook, Linkedin, Youtube, Phone, Mail, MapPin } from 'lucide-react'
 import type { SanitySiteSettings } from '@/types/sanity'
 
@@ -58,12 +59,15 @@ export function Footer({ locale, settings }: FooterProps) {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="mb-5">
-              <span className="text-2xl font-bold" style={{ color: 'var(--white)' }}>
-                elev8<span style={{ color: 'var(--gold)' }}>.</span>
-              </span>
-              <p className="mt-1 text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                {locale === 'ar' ? 'مركز إيليفيت للتعليم' : "Kuwait's Premier Language Institute"}
-              </p>
+              <Link href="/" locale={locale} className="inline-block">
+                <Image
+                  src="/elev8-logo.png"
+                  alt="Elev8 Learning Center"
+                  width={1284}
+                  height={846}
+                  className="h-20 w-auto object-contain"
+                />
+              </Link>
             </div>
             {socialIcons.length > 0 && (
               <div className="flex gap-2 flex-wrap">
