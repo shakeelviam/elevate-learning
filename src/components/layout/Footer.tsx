@@ -63,8 +63,8 @@ export function Footer({ locale, settings }: FooterProps) {
                 <Image
                   src="/elev8-logo.png"
                   alt="Elev8 Learning Center"
-                  width={1284}
-                  height={846}
+                  width={943}
+                  height={600}
                   className="h-20 w-auto object-contain"
                 />
               </Link>

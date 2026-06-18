@@ -159,8 +159,8 @@ export function Header({ locale, settings }: HeaderProps) {
               <Image
                 src="/elev8-logo.png"
                 alt={siteName}
-                width={1284}
-                height={846}
+                width={943}
+                height={600}
                 className="h-16 w-auto object-contain"
                 priority
               />
@@ -285,8 +285,8 @@ export function Header({ locale, settings }: HeaderProps) {
             <Image
               src="/elev8-logo.png"
               alt={siteName}
-              width={1284}
-              height={846}
+              width={943}
+              height={600}
               className="h-14 w-auto object-contain"
             />
             <button onClick={() => setMobileOpen(false)} style={{ color: 'rgba(255,255,255,0.8)' }}>
