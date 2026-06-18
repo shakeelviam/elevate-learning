@@ -4,8 +4,6 @@ import {
   ArrowRight,
   BrainCircuit,
   ChartBar,
-  CheckCircle2,
-  Clock,
   RefreshCw,
   Sparkles,
   Zap,
@@ -80,11 +78,9 @@ export function ElevateAISection({ locale, settings }: ElevateAISectionProps) {
       <div className="pointer-events-none absolute -top-32 -start-32 h-[480px] w-[480px] rounded-full bg-brand-500/20 blur-[120px]" />
       <div className="pointer-events-none absolute -bottom-32 -end-32 h-[400px] w-[400px] rounded-full bg-gold-500/15 blur-[100px]" />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-16 lg:grid-cols-2">
-
-          {/* ── Left: copy ──────────────────────────────────────────────────── */}
-          <div className={isRtl ? 'lg:order-2' : ''}>
+      <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <div>
+          <div>
             {/* Pill badge */}
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold-400/50 bg-gold-100 px-4 py-1.5 text-sm font-semibold text-gold-600">
               <Sparkles className="h-3.5 w-3.5 text-gold-400" />
@@ -140,84 +136,6 @@ export function ElevateAISection({ locale, settings }: ElevateAISectionProps) {
               </a>
             </div>
           </div>
-
-          {/* ── Right: mock question card ────────────────────────────────────── */}
-          <div className={`flex justify-center ${isRtl ? 'lg:order-1' : ''}`}>
-            <div className="relative w-full max-w-md">
-              {/* Glow ring */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-brand-500/30 to-gold-500/20 blur-2xl" />
-
-              {/* Card */}
-              <div className="relative rounded-3xl border border-brand-100 bg-white p-6 shadow-xl">
-                {/* Card header */}
-                <div className="mb-5 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="rounded-lg bg-brand-100 px-2.5 py-1 text-xs font-bold text-brand-600">
-                      IELTS Reading
-                    </span>
-                    <span className="text-xs text-gray-400">
-                      {isRtl ? 'السؤال 3 من 20' : 'Question 3 of 20'}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-1.5 rounded-lg border border-brand-200 px-2.5 py-1 text-xs font-semibold text-gold-500">
-                    <Clock className="h-3 w-3" />
-                    14:23
-                  </div>
-                </div>
-
-                {/* Question text */}
-                <p className="mb-5 text-sm leading-relaxed text-gray-700">
-                  {isRtl
-                    ? 'يشير النص إلى أن اعتماد الطاقة المتجددة يعتمد بشكل أساسي على...'
-                    : 'The passage implies that the adoption of renewable energy depends primarily on which of the following factors?'}
-                </p>
-
-                {/* Options */}
-                <div className="mb-5 space-y-2.5">
-                  {[
-                    { label: 'A', text: isRtl ? 'مدى توفر الموارد الطبيعية' : 'Availability of natural resources', selected: false },
-                    { label: 'B', text: isRtl ? 'الإطار التشريعي والحوافز الحكومية' : 'Legislative frameworks and government incentives', selected: true },
-                    { label: 'C', text: isRtl ? 'تقدم التكنولوجيا وحدها' : 'Technological advancement alone', selected: false },
-                    { label: 'D', text: isRtl ? 'تفضيلات المستهلكين الأفراد' : 'Individual consumer preferences', selected: false },
-                  ].map((opt) => (
-                    <div
-                      key={opt.label}
-                      className={`flex items-center gap-3 rounded-xl border px-3.5 py-2.5 text-xs transition-all ${
-                        opt.selected
-                          ? 'border-brand-400 bg-brand-50 text-brand-700'
-                          : 'border-gray-200 bg-gray-50 text-gray-500'
-                      }`}
-                    >
-                      <span
-                        className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border text-[10px] font-bold ${
-                          opt.selected
-                            ? 'border-brand-400 bg-brand-500 text-white'
-                            : 'border-gray-300 text-gray-400'
-                        }`}
-                      >
-                        {opt.label}
-                      </span>
-                      {opt.text}
-                    </div>
-                  ))}
-                </div>
-
-                {/* Card footer */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 text-xs text-brand-500">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-green-400" />
-                    {isRtl ? 'أسئلة جديدة · لا تكرار أبداً' : 'Fresh questions · Never repeated'}
-                  </div>
-                  <button className="flex items-center gap-1 rounded-lg bg-gradient-to-r from-gold-400 to-gold-500 px-3 py-1.5 text-xs font-semibold text-brand-900 hover:opacity-90 transition-colors">
-                    {isRtl ? 'التالي' : 'Next'}
-                    <ArrowRight className={`h-3.5 w-3.5 ${isRtl ? 'rotate-180' : ''}`} />
-                  </button>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
         </div>
       </div>
     </section>

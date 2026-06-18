@@ -137,7 +137,11 @@ export default async function AboutPage({
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div
+              className={`grid grid-cols-1 sm:grid-cols-2 gap-8 mx-auto ${
+                team.length <= 2 ? 'max-w-3xl' : 'lg:grid-cols-3'
+              }`}
+            >
               {team.map((member) => {
                 const role = loc === 'ar' ? member.role?.ar : member.role?.en
                 const bio = loc === 'ar' ? member.bio?.ar : member.bio?.en
